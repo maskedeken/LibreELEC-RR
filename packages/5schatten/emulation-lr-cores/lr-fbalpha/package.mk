@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-fbalpha"
-PKG_VERSION="2afb904faedc96235894825f49cf6b4223c8e0a9"
-PKG_SHA256="740c95587e33b0f0513aba6ef8589fac56c05c9720115f5853b1436aa8674243"
+PKG_VERSION="957c02174dd6a5f7b62dda4016f5cac8b74e0072"
+PKG_SHA256="1d8f80a9e1ca61b4d1d91a805f51aa8e38a01333228f42e79c990b598b9ebdb5"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/libretro/fbalpha"
 PKG_URL="https://github.com/libretro/fbalpha/archive/$PKG_VERSION.tar.gz"
