@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="retroarch-joypad-autoconfig"
-PKG_VERSION="08750416fda51f42744d3197a26dd792926d2810"
-PKG_SHA256="b97e0870fb0af8a2472100eadc098c79a7edf4cbc6c195393b1aff7bd765d4d4"
+PKG_VERSION="cea8dc549e122287c1c5c76f15feaf10d8e94d3f"
+PKG_SHA256="4630e5f7fd890a5bf6b84130f62b0f0b864555cec3efe86b42e14ca5706d1177"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/libretro/retroarch-joypad-autoconfig.git"
 PKG_URL="https://github.com/libretro/retroarch-joypad-autoconfig/archive/$PKG_VERSION.tar.gz"
