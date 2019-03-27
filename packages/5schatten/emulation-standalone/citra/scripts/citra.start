@@ -1,5 +1,5 @@
 #!/bin/sh
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 . /etc/profile
@@ -33,11 +33,13 @@ set_CITRA_videosettings
 # Set Qt5 screen scale environment vars
 set_QT_screen_scale_environment_vars
 
-# create link for citra log file
-ln -s $CITRA_HOME_CONFIG/log/citra_log.txt /var/log/citra.log
+# Create symlink to logfile
+if [ ! -L /var/log/citra.log ]; then
+  ln -sf $CITRA_HOME_CONFIG/log/citra_log.txt /var/log/citra.log
+fi
 
 # run citra
-citra-qt "$@" > /var/log/citra-qt.log 2>&1
+citra-qt "$@"
 
 # Switch back to Frontends or unfreeze Kodi & start audio
 pidof emulationstation > /dev/null 2>&1 || pidof pegasus-fe > /dev/null 2>&1 || kodifreeze.sh unfreeze
