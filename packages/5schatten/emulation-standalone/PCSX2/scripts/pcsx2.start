@@ -1,5 +1,5 @@
 #!/bin/sh
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 . /etc/profile
@@ -105,6 +105,9 @@ run_docker_image() {
 if [ -x ${DOCKER_PATH} ]; then
   # Freeze Kodi / stop audio
   kodifreeze.sh freeze > ${PCSX2_LOG} 2>&1
+
+  # Change refresh rate to 50Hz(PAL) or 60Hz(NTSC/PAL60)
+  set_refresh_rate_PCSX2
 
   # Get Docker version
   ${DOCKER_PATH} -v >> ${PCSX2_LOG} 2>&1
