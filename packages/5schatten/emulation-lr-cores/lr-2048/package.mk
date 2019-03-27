@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-2048"
-PKG_VERSION="82843002384e8d9b495f80acdee8bdf0e2bde74c"
-PKG_SHA256="1676cdf0479b31b0827ce9eac54630493b7dc76b007716f24b4fb5bde12ec858"
+PKG_VERSION="b8d222ace1bf1962423111e395e01d4674776270"
+PKG_SHA256="7591faae469c571c1ec36bffddabccd0efc7304e31936c8d56b487a6a4947fd1"
 PKG_LICENSE="Public domain"
 PKG_SITE="https://github.com/libretro/libretro-2048"
 PKG_URL="https://github.com/libretro/libretro-2048/archive/$PKG_VERSION.tar.gz"
