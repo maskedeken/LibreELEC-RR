@@ -1,6 +1,5 @@
 #!/bin/sh
-# SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 . /etc/profile
@@ -23,8 +22,13 @@ else
   # Set SDL audio driver to Pulseaudio or ALSA
   set_SDL_audiodriver
 
+  # Create symlink to logfile
+  if [ ! -L /var/log/emulationstation.log ]; then
+    ln -sf /storage/.config/emulationstation/es_log.txt /var/log/emulationstation.log
+  fi
+
   # Run Emulationstation
-  emulationstation "$@" > /var/log/emulationstation.log 2>&1
+  emulationstation "$@"
 
   # Unfreeze Kodi / start audio
   kodifreeze.sh unfreeze
