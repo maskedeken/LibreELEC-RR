@@ -23,6 +23,7 @@
     <setting id="RR_REFRESH_RATE_ATARI"   type="select" label="30105" values="50Hz|60Hz" default="50Hz"/>
     <setting id="RR_REFRESH_RATE_C64"     type="select" label="30106" values="50Hz|60Hz" default="50Hz"/>
     <setting id="RR_REFRESH_RATE_DOLPHIN" type="select" label="30107" values="60Hz|50Hz" default="60Hz"/>
+    <setting id="RR_REFRESH_RATE_PCSX2"   type="select" label="30108" values="60Hz|50Hz" default="60Hz"/>
   </category>
   <category  label="30200">
     <setting label="30201" type="lsep"/>

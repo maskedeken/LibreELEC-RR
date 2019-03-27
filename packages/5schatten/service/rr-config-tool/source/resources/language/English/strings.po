@@ -79,6 +79,10 @@ msgctxt "#30107"
 msgid "GC/Wii emulator (Dolphin)"
 msgstr ""
 
+msgctxt "#30108"
+msgid "PlayStation 2 (PCSX2)"
+msgstr ""
+
 msgctxt "#30200"
 msgid "Qt 5 Framework"
 msgstr ""

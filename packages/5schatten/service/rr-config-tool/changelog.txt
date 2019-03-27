@@ -1,3 +1,6 @@
+102
+- Added refresh rate settings for PCSX2
+
 101
 - Added volume control for PulseAudio
 

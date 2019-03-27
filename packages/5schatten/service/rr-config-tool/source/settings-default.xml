@@ -13,6 +13,7 @@
     <setting id="RR_REFRESH_RATE_ATARI"           default="true">50Hz</setting>
     <setting id="RR_REFRESH_RATE_C64"             default="true">50Hz</setting>
     <setting id="RR_REFRESH_RATE_DOLPHIN"         default="true">60Hz</setting>
+    <setting id="RR_REFRESH_RATE_PCSX2"           default="true">60Hz</setting>
     <setting id="RR_SPOTIFY_BRANCH"               default="true">stable</setting>
 </settings>
 
