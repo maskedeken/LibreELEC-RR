@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-reicast"
-PKG_VERSION="83424b18b156fdbff7a5c26edb4001222cfe7295"
-PKG_SHA256="d6f2e39a709f3a6fb4facd83372ef7dc89669e7f80504ef3cea20577a344a81f"
+PKG_VERSION="50e733b52e7c36bf981be286eb1c9c65660f673a"
+PKG_SHA256="5ade666eaa37ab5ddbc5d8ef6e2dfd0846fa9292f0342935d84f1266c1141e39"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/reicast-emulator"
 PKG_URL="https://github.com/libretro/reicast-emulator/archive/$PKG_VERSION.tar.gz"
