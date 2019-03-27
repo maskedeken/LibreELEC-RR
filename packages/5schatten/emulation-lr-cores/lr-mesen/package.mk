@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-mesen"
-PKG_VERSION="f2af2ba9865013d7f2e0e3bfb9eba8b3418b44d9" # 0.9.7
-PKG_SHA256="cdd3968a94538816af785159d8ddaa30323ec5b337ec4f1ff88a318a2c3955ed"
+PKG_VERSION="cf40b967f438684cc5784d0cf41df11580df201b" # 0.9.7+
+PKG_SHA256="1583c31808f0dea4b431a0209a451d736046ec6c8c60f2dfd2f519aa75eeb17f"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/SourMesen/Mesen"
