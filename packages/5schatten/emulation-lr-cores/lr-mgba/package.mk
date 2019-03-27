@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-mgba"
-PKG_VERSION="16688a59717d43518dfa7f9c2c10fdde148e1a70" # v0.7.1+
-PKG_SHA256="d80018ac58c1c0fc3f36bbf4cf2ebb8786553d95f2c3f63835613e4d714e4a70"
+PKG_VERSION="45ec6e50e23532b02c492657f781c26221698464" # v0.7.1+
+PKG_SHA256="c60de9feae38a7f81e25a0b8463556b6c6868b6a5654b125493aa78e83e540f2"
 PKG_LICENSE="MPL 2.0"
 PKG_SITE="https://github.com/mgba-emu/mgba"
 PKG_URL="https://github.com/mgba-emu/mgba/archive/$PKG_VERSION.tar.gz"
