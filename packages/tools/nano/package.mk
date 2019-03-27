@@ -1,9 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2009-2016 Stephan Raue (stephan@openelec.tv)
+# Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="nano"
-PKG_VERSION="3.2"
-PKG_SHA256="d12773af3589994b2e4982c5792b07c6240da5b86c5aef2103ab13b401fe6349"
+PKG_VERSION="4.0"
+PKG_SHA256="1e2fcfea35784624a7d86785768b772d58bb3995d1aec9176a27a113b1e9bac3"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.nano-editor.org/"
 PKG_URL="http://ftpmirror.gnu.org/nano/$PKG_NAME-$PKG_VERSION.tar.xz"
