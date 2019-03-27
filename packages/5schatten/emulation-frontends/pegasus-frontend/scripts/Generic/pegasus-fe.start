@@ -1,6 +1,5 @@
 #!/bin/sh
-# SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 . /etc/profile
@@ -21,8 +20,13 @@ else
   # Set Qt5 screen scale environment vars
   set_QT_screen_scale_environment_vars
 
+  # Create symlink to logfile
+  if [ ! -L /var/log/pegasus-frontend.log ]; then
+    ln -sf /storage/.config/pegasus-frontend/lastrun.log /var/log/pegasus-frontend.log
+  fi
+
   # Run Pegasus
-  pegasus-fe "$@" > /var/log/pegasus-frontend.log 2>&1
+  pegasus-fe "$@"
 
   # Unfreeze Kodi / start audio
   kodifreeze.sh unfreeze
