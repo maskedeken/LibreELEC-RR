@@ -1,13 +1,12 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-mame2003-plus"
-PKG_VERSION="b529f5d3b0c4f3574cba3e4e8eb3b38820f8c63a"
-PKG_SHA256="747399e82583e7869c1b4528dd61a874e9eb7fb4597a6163b4bb32797793f5a3"
+PKG_VERSION="1.7"
+PKG_SHA256="50956b826fbd3a4ed80da833f9d5838119ea49c132b6260ac59420122849f52e"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mame2003-plus-libretro"
-PKG_URL="https://github.com/libretro/mame2003-plus-libretro/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/libretro/mame2003-plus-libretro/archive/v$PKG_VERSION.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Updated 2018 version of MAME (0.78) for libretro. with added game support plus many fixes and improvements"
 PKG_TOOLCHAIN="make"
