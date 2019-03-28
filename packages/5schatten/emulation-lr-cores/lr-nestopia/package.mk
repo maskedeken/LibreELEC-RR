@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-nestopia"
-PKG_VERSION="a12b967fef4c9948f4d30f6bb640d47a04824482"
-PKG_SHA256="876491f1b3301a11dc235163408ca908a8cc8811ce7d1eccf855054c2969f174"
+PKG_VERSION="44800c5f6336894a8307cc03a38403dbfda83d29"
+PKG_SHA256="ae51ae7731aa1fdcd684b2497148d18250c6b0b043bc36319d9d540db8c24cb7"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/nestopia"
 PKG_URL="https://github.com/libretro/nestopia/archive/$PKG_VERSION.tar.gz"
