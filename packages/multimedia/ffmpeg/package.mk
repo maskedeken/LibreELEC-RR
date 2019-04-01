@@ -69,6 +69,11 @@ if target_has_feature "(neon|sse)"; then
   PKG_FFMPEG_AV1="--enable-libdav1d"
 fi
 
+if [ "${NON_FREE_PKG_SUPPORT}" = "yes" ]; then
+  PKG_DEPENDS_TARGET+=" fdk-aac"
+  PKG_FFMPEG_AAC_FDK="--enable-libfdk-aac"
+fi
+
 pre_configure_target() {
   cd $PKG_BUILD
   rm -rf .$TARGET_NAME
@@ -143,6 +148,7 @@ configure_target() {
               --disable-encoders \
               --enable-encoder=ac3 \
               --enable-encoder=aac \
+              ${PKG_FFMPEG_AAC_FDK} \
               --enable-encoder=wmav2 \
               --enable-encoder=mjpeg \
               --enable-encoder=png \
