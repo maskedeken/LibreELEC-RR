@@ -185,8 +185,11 @@
 # OEM Apps eg. additional tools like mc or htop (yes / no)
   OEM_APPS="yes"
 
-# OEM Emulators for Generic & RPi builds (yes / no)
+# OEM Emulators for Generic & ARM builds (yes / no)
   OEM_EMU="yes"
+
+# Add non-free packages i.e. fdk-aac (yes / no)
+  NON_FREE_PKG_SUPPORT="no"
 
 # build and install nano text editor (yes / no)
   NANO_EDITOR="yes"
