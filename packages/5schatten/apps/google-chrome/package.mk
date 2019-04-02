@@ -6,7 +6,7 @@ PKG_VERSION="latest"
 PKG_ARCH="x86_64"
 PKG_LICENSE="Freeware"
 PKG_SITE="http://www.google.com/chrome"
-PKG_DEPENDS_TARGET="toolchain gtk3 libXcomposite libXcursor libxss nss scrnsaverproto atk cups unclutter"
+PKG_DEPENDS_TARGET="toolchain gtk3 libXcomposite libXcursor libxss nss scrnsaverproto atk cups unclutter-xfixes"
 PKG_LONGDESC="Google Chrome browser"
 PKG_TOOLCHAIN="manual"
 
