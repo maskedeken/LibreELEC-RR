@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="pegasus-frontend"
-PKG_VERSION="d40b0b61b462f1dbe611baf9803593cf296519dc" # Alpha 11
+PKG_VERSION="ec81bba721cd21f2aaa74afba51c945a1048165e" # Continuous build
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/mmatyas/pegasus-frontend"
 PKG_URL="https://github.com/mmatyas/pegasus-frontend.git"
@@ -34,25 +34,25 @@ configure_package() {
 
 configure_target() {
   # Create working dir
-  mkdir -p $PKG_BUILD/.${TARGET_NAME}
+  mkdir -p ${PKG_BUILD}/.${TARGET_NAME}
   cd .${TARGET_NAME}
 
   # Generate qmake config
-  qmake $PKG_BUILD/pegasus.pro INSTALLDIR=${INSTALL}/usr/bin \
-                               INSTALL_BINDIR=${INSTALL}/usr/bin \
-                               INSTALL_DATADIR=${INSTALL}/usr/bin \
-                               INSTALL_ICONDIR=${INSTALL}/usr/bin \
-                               INSTALL_DESKTOPDIR=${INSTALL}/usr/bin
+  qmake ${PKG_BUILD}/pegasus.pro INSTALLDIR=${INSTALL}/usr/bin \
+                                 INSTALL_BINDIR=${INSTALL}/usr/bin \
+                                 INSTALL_DATADIR=${INSTALL}/usr/bin \
+                                 INSTALL_ICONDIR=${INSTALL}/usr/bin \
+                                 INSTALL_DESKTOPDIR=${INSTALL}/usr/bin
 }
 
 post_makeinstall_target() {
   # Install start scripts
-  mkdir -p $INSTALL/usr/bin
-  mkdir -p $INSTALL/usr/config/pegasus-frontend/themes
-  echo "Place your Pegasus-Frontend Themes here!" >> $INSTALL/usr/config/pegasus-frontend/themes/readme.txt
-  cp $PKG_DIR/scripts/${PROJECT}/pegasus-fe.start    $INSTALL/usr/bin/
+  mkdir -p ${INSTALL}/usr/bin
+  mkdir -p ${INSTALL}/usr/config/pegasus-frontend/themes
+  echo "Place your Pegasus-Frontend Themes here!" > ${INSTALL}/usr/config/pegasus-frontend/themes/readme.txt
+  cp ${PKG_DIR}/scripts/${PROJECT}/pegasus-fe.start ${INSTALL}/usr/bin/
 
   # Clean up
-  rm -rf $INSTALL/usr/bin/pegasus-fe.desktop
-  rm -rf $INSTALL/usr/bin/pegasus-fe.png
+  rm -rf ${INSTALL}/usr/bin/pegasus-fe.desktop
+  rm -rf ${INSTALL}/usr/bin/pegasus-fe.png
 }
