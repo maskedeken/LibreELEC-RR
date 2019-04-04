@@ -17,17 +17,21 @@ makeinstall_target() {
 }
 
 post_makeinstall_target() {
-  #remove oldest & unneeded MAME 2000 database use mame2003-plus instead
-  rm "${INSTALL}/usr/share/retroarch/database/rdb/MAME 2000.rdb"
+  # Remove common unnecessary databases
+  rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME.rdb
+  rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2000.rdb
+  rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2003.rdb
+  rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2015.rdb
+  rm ${INSTALL}/usr/share/retroarch/database/rdb/Microsoft*Xbox*.rdb
+  rm ${INSTALL}/usr/share/retroarch/database/rdb/Sony*PlayStation*3*.rdb
 
-  #remove unneeded MAME databases for SBC based systems
-  if [ "${PROJECT}" = "Amlogic_Legacy" ] || [ "${PROJECT}" = "RPi" ]; then
-    rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME.rdb
-    rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME\ 2015.rdb
-  fi
-
-  #workaround until a MAME 2016 database for romset 0.174 is included
-  if [ ! -f "${INSTALL}/usr/share/retroarch/database/rdb/MAME 2016.rdb" ] && [ "${PROJECT}" = "Generic" ]; then
-    ln -sf /usr/share/retroarch/database/rdb/MAME.rdb "${INSTALL}/usr/share/retroarch/database/rdb/MAME 2016.rdb"
+  # Remove additional unnecessary databases
+  if [ ! "${PROJECT}" = "Generic" ]; then
+    rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2016.rdb
+    rm ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*GameCube*.rdb
+    rm ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*Nintendo*3DS*.rdb
+    rm ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*Wii*.rdb
+  elif [ "${PROJECT}" = "Generic" ]; then
+    rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2010.rdb
   fi
 }
