@@ -17,5 +17,23 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-utf8 \
                            --disable-wrapping"
 
 post_makeinstall_target() {
-  rm -rf $INSTALL/usr/share/nano
+  rm -rf ${INSTALL}/usr/share/nano
+
+  mkdir -p ${INSTALL}/etc
+  cp -ar ${PKG_DIR}/config/* ${INSTALL}/etc/
+
+  mkdir -p ${INSTALL}/usr/share/nano 
+  for FILE_TYPES in \
+    css \
+    html \
+    java \
+    javascript \
+    json \
+    php \
+    python \
+    sh \
+    xml
+  do
+    cp -a $PKG_BUILD/syntax/${FILE_TYPES}.nanorc ${INSTALL}/usr/share/nano/
+  done
 }
