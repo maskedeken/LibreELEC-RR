@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="vulkan-tools"
-PKG_VERSION="576b063af0a297fc24440460b961f0a5c7714165" # 1.1.102+
-PKG_SHA256="d910c825a2a1be78818331624579bc753dd9150cca3852bf0e1becc861fbcda5"
+PKG_VERSION="97e866a6d3cd3e9851d13df1ec524c14aca77436" # 1.1.102+
+PKG_SHA256="049800f302d0110dfe9d3ad295d78c0e44417fa3d41473614da0788f3f6639ba"
 PKG_ARCH="x86_64"
 PKG_LICENSE="Apache 2.0"
 PKG_SITE="https://github.com/KhronosGroup/Vulkan-Tools"
