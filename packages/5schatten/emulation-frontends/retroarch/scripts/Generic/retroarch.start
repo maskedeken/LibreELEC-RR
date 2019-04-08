@@ -6,9 +6,13 @@
 . /etc/profile
 
 # Check if Retroarch is already running
-if pidof "retroarch" >/dev/null; then
+if pidof "retroarch" > /dev/null; then
     echo "Retroarch is already running!"
 else
+  # Announce frontend loading in Kodi
+  kodi-send --action="Notification(Retroarch,now loading frontend...,250,DefaultAddonGameRA.png)" > /dev/null
+  usleep 250000
+
   # Create basic links & files
   set_RR_environment
 
