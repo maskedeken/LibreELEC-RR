@@ -9,7 +9,7 @@ if pidof "pegasus-fe" > /dev/null; then
     echo "Pegasus is already running!"
 else
   # Announce frontend loading in Kodi
-  kodi-send --action="Notification(Pegasus,now loading frontend...,250,DefaultAddonGamePF.png)" > /dev/null
+  kodi-send --action="Notification(Pegasus,Now loading the frontend...,250,DefaultAddonGamePF.png)" > /dev/null
   usleep 250000
 
   # Create basic links & files
