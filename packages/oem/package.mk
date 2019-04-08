@@ -94,6 +94,7 @@ OEM_EMU_GENERIC=" \
   lr-kronos \
   lr-mame2016 \
   lr-mesen \
+  lr-nSide \
   lr-parallel-n64 \
   lr-ppsspp"
 
