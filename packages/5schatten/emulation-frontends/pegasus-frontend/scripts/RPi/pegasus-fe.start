@@ -5,9 +5,13 @@
 . /etc/profile
 
 # Check if Pegasus is already running
-if pidof "pegasus-fe" >/dev/null; then
+if pidof "pegasus-fe" > /dev/null; then
     echo "Pegasus is already running!"
 else
+  # Announce frontend loading in Kodi
+  kodi-send --action="Notification(Pegasus,now loading frontend...,250,DefaultAddonGamePF.png)" > /dev/null
+  usleep 250000
+
   # Create basic links & files
   set_RR_environment
 
