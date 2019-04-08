@@ -5,9 +5,13 @@
 . /etc/profile
 
 # Check if Emulationstation is already running
-if pidof "emulationstation" >/dev/null; then
+if pidof "emulationstation" > /dev/null; then
     echo "Emulationstation is already running!"
 else
+  # Announce frontend loading in Kodi
+  kodi-send --action="Notification(Emulationstation,now loading frontend...,250,DefaultAddonGameES.png)" > /dev/null
+  usleep 250000
+
   # Create symlink to config dir
   if [ ! -L /storage/.emulationstation ]; then
     ln -s /storage/.config/emulationstation /storage/.emulationstation
