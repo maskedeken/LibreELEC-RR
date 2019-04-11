@@ -1,32 +1,7 @@
-From 7d8e2712a5ef5310a1e827c39084aacfa04f5d20 Mon Sep 17 00:00:00 2001
-From: Markus Pointner <markus.pointner@mooware.at>
-Date: Tue, 5 Mar 2019 19:09:35 +0100
-Subject: [PATCH 1/2] fix printf format string warning
-
----
- es-app/src/views/ViewController.cpp | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/es-app/src/views/ViewController.cpp b/es-app/src/views/ViewController.cpp
-index 8e543802f..f2ae22515 100644
---- a/es-app/src/views/ViewController.cpp
-+++ b/es-app/src/views/ViewController.cpp
-@@ -437,8 +437,8 @@ void ViewController::preload()
- 		{
- 			i++;
- 			char buffer[100];
--			sprintf (buffer, "Loading '%s' (%d/%d)",
--				(*it)->getFullName().c_str(), i, SystemData::sSystemVector.size());
-+			snprintf(buffer, sizeof(buffer), "Loading '%s' (%u/%u)",
-+				(*it)->getFullName().c_str(), i, (uint32_t)SystemData::sSystemVector.size());
- 			mWindow->renderLoadingScreen(std::string(buffer));
- 		}
- 
-
-From 4f3227b6d8f544d4987b809172966221d268d1a4 Mon Sep 17 00:00:00 2001
+From 007ac890854d1eea82c62c31e35a5c631ef9ba87 Mon Sep 17 00:00:00 2001
 From: Markus Pointner <markus.pointner@mooware.at>
 Date: Tue, 5 Mar 2019 19:10:09 +0100
-Subject: [PATCH 2/2] fix warning from deprecated libvlc function
+Subject: [PATCH] fix warning from deprecated libvlc function
 
 ---
  es-core/src/components/VideoVlcComponent.cpp | 29 +++++++++++++-------
