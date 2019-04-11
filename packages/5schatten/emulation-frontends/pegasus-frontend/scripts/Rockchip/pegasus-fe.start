@@ -1,0 +1,40 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0
+# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+
+. /etc/profile
+
+# Check if Pegasus is already running
+if pidof "pegasus-fe" > /dev/null; then
+    echo "Pegasus is already running!"
+else
+  # Announce frontend loading in Kodi
+  kodi-send --action="Notification(Pegasus,Now loading the frontend...,250,DefaultAddonGamePF.png)" > /dev/null
+  usleep 250000
+
+  # Create basic links & files
+  set_RR_environment
+
+  # Freeze Kodi / stop audio
+  kodifreeze.sh freeze
+
+  # Set fbdev geometry
+  set_fbdev_mode
+
+  # Set SDL audio driver to Pulseaudio or ALSA
+  set_SDL_audiodriver
+
+  # Set Qt5 EGLFS environment variables
+  set_QT_qpa_eglfs_environment_vars
+
+  # Create symlink to logfile
+  if [ ! -L /var/log/pegasus-frontend.log ]; then
+    ln -sf /storage/.config/pegasus-frontend/lastrun.log /var/log/pegasus-frontend.log
+  fi
+
+  # Run Pegasus
+  pegasus-fe "$@"
+
+  # Unfreeze Kodi / start audio
+  kodifreeze.sh unfreeze
+fi
