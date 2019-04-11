@@ -91,19 +91,20 @@ pre_configure_target() {
 
   # OpenGLES Support
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
-    PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles \
-                                 --disable-kms"
+    PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles"
 
     # RPi OpenGLES Features Support
     if [ "${OPENGLES}" = "bcm2835-driver" ]; then
-      PKG_CONFIGURE_OPTS_TARGET+=" --enable-dispmanx"
+      PKG_CONFIGURE_OPTS_TARGET+=" --enable-dispmanx \
+                                   --disable-kms"
 
       CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads \
                       -I$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux"
 
     # Amlogic OpenGLES Features Support
     elif [ "${OPENGLES}" = "opengl-meson" ]; then
-      PKG_CONFIGURE_OPTS_TARGET+=" --enable-mali_fbdev"
+      PKG_CONFIGURE_OPTS_TARGET+=" --enable-mali_fbdev \
+                                   --disable-kms"
     fi
   fi
 
