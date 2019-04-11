@@ -122,12 +122,15 @@ configure_target() {
   echo "QMAKE_CFLAGS = $CFLAGS"                   >> $QMAKE_CONF
   echo "QMAKE_CXXFLAGS = $CXXFLAGS"               >> $QMAKE_CONF
   echo "QMAKE_LFLAGS = $LDFLAGS"                  >> $QMAKE_CONF
-  if [ "${OPENGLES}" = "opengl-meson" ]; then
-    echo "QMAKE_LIBS_EGL += -lMali"               >> $QMAKE_CONF
-    echo "EGLFS_DEVICE_INTEGRATION = eglfs_mali"  >> $QMAKE_CONF
-  elif [ "${OPENGLES}" = "bcm2835-driver" ]; then
+  if [ "${OPENGLES}" = "bcm2835-driver" ]; then
     echo "QMAKE_LIBS_EGL += -lEGL -lGLESv2"       >> $QMAKE_CONF
     echo "EGLFS_DEVICE_INTEGRATION = eglfs_brcm"  >> $QMAKE_CONF
+  elif [ "${OPENGLES}" = "libmali" ]; then
+    echo "QMAKE_LIBS_EGL += -lMali"               >> $QMAKE_CONF
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms"   >> $QMAKE_CONF
+  elif [ "${OPENGLES}" = "opengl-meson" ]; then
+    echo "QMAKE_LIBS_EGL += -lMali"               >> $QMAKE_CONF
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_mali"  >> $QMAKE_CONF
   fi
   echo "load(qt_config)"                          >> $QMAKE_CONF
   echo '#include "../../linux-g++/qplatformdefs.h"' >> $QMAKE_CONF_DIR/qplatformdefs.h
