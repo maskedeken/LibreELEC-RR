@@ -37,3 +37,9 @@
 
   # kernel serial console
     EXTRA_CMDLINE="console=uart8250,mmio32,0xff1a0000 console=tty0"
+
+  # Vulkan API support (yes / no)
+    VULKANAPI="yes"
+
+  # Project CFLAGS
+    PROJECT_CFLAGS="-D__GBM__"
