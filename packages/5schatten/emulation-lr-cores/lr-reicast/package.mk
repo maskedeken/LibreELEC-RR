@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-reicast"
-PKG_VERSION="2f8be6d8b68ad739e6cecd02fc7ab58781a10112"
-PKG_SHA256="4efd8b99971798f219ed343a61c40bbd2962638abce38f6e66fe4a0b37f6b7ec"
+PKG_VERSION="79e62369fe81ef8b432dae7c49bc29ffd2932150"
+PKG_SHA256="f300763db916f3f70ae984b9ae84accf3cee20d6eb465400647ccb3affa924fa"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/reicast-emulator"
 PKG_URL="https://github.com/libretro/reicast-emulator/archive/$PKG_VERSION.tar.gz"
@@ -37,22 +37,31 @@ configure_package() {
 pre_configure_target() {
   export BUILD_SYSROOT=$SYSROOT_PREFIX
 
-  if [ "$OPENGLES_SUPPORT" = "yes" ]; then
+  if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
     PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
   fi
 
-  case $PROJECT in
+  case ${PROJECT} in
     Amlogic_Legacy)
       PKG_MAKE_OPTS_TARGET+=" platform=rpi"
       ;;
-    RPi)
-      PKG_MAKE_OPTS_TARGET+=" platform=rpi"
-      ;;
-    RPi2)
-      PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
-      ;;
     Generic)
       PKG_MAKE_OPTS_TARGET+=" AS=${AS} CC_AS=${AS} HAVE_OIT=1"
+      ;;
+    RPi)
+      if [ "${DEVICE}" = "RPi2" ]; then
+        PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
+      else
+        PKG_MAKE_OPTS_TARGET+=" platform=rpi"
+      fi
+      ;;
+   Rockchip)
+      if [ "${DEVICE}" = "RK3399" ]; then
+        PKG_MAKE_OPTS_TARGET+=" platform=rockpro64"
+      fi
+      ;;
+    *)
+      PKG_MAKE_OPTS_TARGET+=" AS=${AS} CC_AS=${AS}"
       ;;
   esac
 }
