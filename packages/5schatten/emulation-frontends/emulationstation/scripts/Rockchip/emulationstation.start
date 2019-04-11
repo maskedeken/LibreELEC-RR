@@ -1,0 +1,42 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0
+# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+
+. /etc/profile
+
+# Check if Emulationstation is already running
+if pidof "emulationstation" > /dev/null; then
+    echo "Emulationstation is already running!"
+else
+  # Announce frontend loading in Kodi
+  kodi-send --action="Notification(Emulationstation,Now loading the frontend...,250,DefaultAddonGameES.png)" > /dev/null
+  usleep 250000
+
+  # Create symlink to config dir
+  if [ ! -L /storage/.emulationstation ]; then
+    ln -s /storage/.config/emulationstation /storage/.emulationstation
+  fi
+
+  # Create basic links & files
+  set_RR_environment
+
+  # Freeze Kodi / stop audio
+  kodifreeze.sh freeze
+
+  # Set fbdev geometry
+  set_fbdev_mode
+
+  # Set SDL audio driver to Pulseaudio or ALSA
+  set_SDL_audiodriver
+
+  # Create symlink to logfile
+  if [ ! -L /var/log/emulationstation.log ]; then
+    ln -sf /storage/.config/emulationstation/es_log.txt /var/log/emulationstation.log
+  fi
+
+  # Run Emulationstation
+  emulationstation "$@"
+
+  # Unfreeze Kodi / start audio
+  kodifreeze.sh unfreeze
+fi
