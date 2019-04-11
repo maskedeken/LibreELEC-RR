@@ -2,11 +2,11 @@
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-reicast"
-PKG_VERSION="79e62369fe81ef8b432dae7c49bc29ffd2932150"
-PKG_SHA256="f300763db916f3f70ae984b9ae84accf3cee20d6eb465400647ccb3affa924fa"
+PKG_VERSION="f59c772f00e5e706a06eb5ec9d041c97aa221f15"
+PKG_SHA256="ddec0f81847156ac662f71d4b9643aafd213961244a5687b84611064f3e49b46"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/reicast-emulator"
-PKG_URL="https://github.com/libretro/reicast-emulator/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/libretro/reicast-emulator/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Reicast is a multiplatform Sega Dreamcast emulator"
 PKG_TOOLCHAIN="make"
@@ -15,7 +15,7 @@ PKG_BUILD_FLAGS="-gold"
 PKG_LIBNAME="reicast_libretro.so"
 PKG_LIBPATH="$PKG_LIBNAME"
 
-PKG_MAKE_OPTS_TARGET="HAVE_OPENMP=0 GIT_VERSION=${PKG_VERSION:0:7} WITH_DYNAREC=$ARCH"
+PKG_MAKE_OPTS_TARGET="HAVE_OPENMP=0 GIT_VERSION=${PKG_VERSION:0:7} WITH_DYNAREC=${ARCH}"
 
 configure_package() {
   # Displayserver Support
@@ -67,6 +67,6 @@ pre_configure_target() {
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/lib/libretro
-  cp $PKG_LIBPATH $INSTALL/usr/lib/libretro/
+  mkdir -p ${INSTALL}/usr/lib/libretro
+  cp ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
