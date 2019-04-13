@@ -67,6 +67,7 @@ pre_configure_target() {
                              --disable-schroedinger \
                              --disable-png \
                              --disable-x264 \
+                             --disable-x26410b \
                              --disable-fluidsynth \
                              --disable-zvbi \
                              --disable-telx \
@@ -109,6 +110,8 @@ pre_configure_target() {
                              --disable-crystalhd \
                              --disable-dxva2 \
                              --disable-aom \
+                             --disable-dav1d \
+                             --disable-vpx \
                              --disable-vlc"
 
   # X11 Support
