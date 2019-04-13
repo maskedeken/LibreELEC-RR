@@ -153,6 +153,8 @@ makeinstall_target() {
   # General configuration
   sed -i -e "s/# savefile_directory =/savefile_directory = \/storage\/.config\/retroarch\/saves/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# screenshot_directory =/screenshot_directory = \"\/storage\/screenshots\"/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# recording_output_directory =/recording_output_directory = \/storage\/recordings/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# recording_config_directory =/recording_config_directory = \/storage\/.config\/retroarch\/records_config/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# libretro_directory =/libretro_directory = \"\/tmp\/cores\"/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# libretro_info_path =/libretro_info_path = \"\/tmp\/cores\"/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# content_database_path =/content_database_path =\/tmp\/database\/rdb/" $INSTALL/etc/retroarch.cfg
@@ -166,7 +168,6 @@ makeinstall_target() {
   sed -i -e "s/# video_shared_context = false/video_shared_context = true/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# menu_show_core_updater = true/# menu_show_core_updater = false/" $INSTALL/etc/retroarch.cfg
   echo 'cursor_directory = "/tmp/database/cursors"' >> $INSTALL/etc/retroarch.cfg
-  echo 'recording_output_directory = "/storage/videos"' >> $INSTALL/etc/retroarch.cfg
   echo 'system_directory = "/storage/roms/bios"' >> $INSTALL/etc/retroarch.cfg
   
   # Video
