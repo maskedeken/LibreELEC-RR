@@ -9,7 +9,7 @@ PKG_SHA256="9a971662e44353c120f2ccf87655571998956e699a2dd800ec708b8b928a53c8"
 PKG_LICENSE="LGPLv2.1+"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="https://github.com/xbmc/FFmpeg/archive/${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain zlib bzip2 openssl speex"
+PKG_DEPENDS_TARGET="toolchain zlib bzip2 openssl speex x264 libvpx flac lame opus"
 PKG_LONGDESC="FFmpeg is a complete, cross-platform solution to record, convert and stream audio and video."
 PKG_BUILD_FLAGS="-gold"
 
@@ -152,6 +152,13 @@ configure_target() {
               --enable-encoder=wmav2 \
               --enable-encoder=mjpeg \
               --enable-encoder=png \
+              --enable-encoder=gif \
+              --enable-encoder=libx264 \
+              --enable-encoder=libx264rgb \
+              --enable-encoder=libvpx_vp8 \
+              --enable-encoder=flac \
+              --enable-encoder=libmp3lame \
+              --enable-encoder=libopus \
               --enable-hwaccels \
               --disable-muxers \
               --enable-muxer=spdif \
@@ -159,6 +166,11 @@ configure_target() {
               --enable-muxer=asf \
               --enable-muxer=ipod \
               --enable-muxer=mpegts \
+              --enable-muxer=flv \
+              --enable-muxer=gif \
+              --enable-muxer=matroska \
+              --enable-muxer=mp4 \
+              --enable-muxer=webm \
               --enable-demuxers \
               --enable-parsers \
               --enable-bsfs \
@@ -177,7 +189,8 @@ configure_target() {
               --disable-libdc1394 \
               --disable-libfreetype \
               --disable-libgsm \
-              --disable-libmp3lame \
+              --enable-libmp3lame \
+              --enable-libopus \
               --disable-libopenjpeg \
               --disable-librtmp \
               $PKG_FFMPEG_AV1 \
@@ -185,8 +198,8 @@ configure_target() {
               --disable-libtheora \
               --disable-libvo-amrwbenc \
               --disable-libvorbis \
-              --disable-libvpx \
-              --disable-libx264 \
+              --enable-libvpx \
+              --enable-libx264 \
               --disable-libxavs \
               --disable-libxvid \
               --enable-zlib \
