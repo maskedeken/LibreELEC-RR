@@ -11,6 +11,10 @@ PKG_DEPENDS_TARGET="toolchain gstreamer gst-plugins-base"
 PKG_LONGDESC="Good GStreamer plugins and helper libraries"
 PKG_TOOLCHAIN="configure"
 
+pre_configure_target() {
+  PKG_CONFIGURE_OPTS_TARGET="--disable-vpx"
+}
+
 post_makeinstall_target(){
   # Clean up
   rm -rf $INSTALL/usr/share
