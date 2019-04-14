@@ -164,6 +164,7 @@ configure_target() {
               --enable-encoder=libx264 \
               --enable-encoder=libx264rgb \
               --enable-encoder=libvpx_vp8 \
+              --enable-encoder=libvpx_vp9 \
               --enable-encoder=flac \
               --enable-encoder=libmp3lame \
               --enable-encoder=libopus \
