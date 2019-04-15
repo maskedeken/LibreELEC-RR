@@ -2,11 +2,10 @@
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="gst-libav"
-PKG_VERSION="1.14.4"
-PKG_SHA256="dfd78591901df7853eab7e56a86c34a1b03635da0d3d56b89aa577f1897865da"
+PKG_VERSION="1.15.90"
+PKG_SHA256="c4fc89f3e4e2f7155e9a7dea1cd1f1525ba162a3095e9f1e5f7800d976d0a90f"
 PKG_LICENSE="GPL"
 PKG_SITE="https://gstreamer.freedesktop.org/modules/gst-libav.html"
-PKG_URL="https://gstreamer.freedesktop.org/src/gst-libav/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_URL="https://gstreamer.freedesktop.org/src/gst-libav/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain gstreamer gst-plugins-base ffmpeg"
-PKG_LONGDESC="GStreamer plugin for the libav* library (former FFmpeg)"
-
+PKG_LONGDESC="GStreamer plugin for the FFmpeg libav library"
