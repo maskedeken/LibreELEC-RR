@@ -7,7 +7,7 @@ PKG_VERSION="3.0.6"
 PKG_SHA256="18c16d4be0f34861d0aa51fbd274fb87f0cab3b7119757ead93f3db3a1f27ed3"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.videolan.org"
-PKG_URL="http://get.videolan.org/vlc/$PKG_VERSION/vlc-$PKG_VERSION.tar.xz"
+PKG_URL="http://get.videolan.org/vlc/${PKG_VERSION}/vlc-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain dbus gnutls ffmpeg libmpeg2 zlib flac libvorbis"
 PKG_LONGDESC="VideoLAN multimedia player and streamer"
 
@@ -15,6 +15,12 @@ PKG_LONGDESC="VideoLAN multimedia player and streamer"
 if [ "${OPENGLES}" = "bcm2835-driver" ]; then
   PKG_PATCH_DIRS="MMAL"
 fi
+
+configure_package() {
+  if target_has_feature "(neon|sse)"; then
+    PKG_DEPENDS_TARGET+=" dav1d libvpx"
+  fi
+}
 
 pre_configure_target() {
   PKG_CONFIGURE_OPTS_TARGET="--enable-silent-rules \
@@ -131,13 +137,22 @@ pre_configure_target() {
     PKG_CONFIGURE_OPTS_TARGET+=" --enable-neon"
   fi
 
+  # libdav1d & libvpx Support
+  if target_has_feature "(neon|sse)"; then
+    PKG_CONFIGURE_OPTS_TARGET+=" --enable-dav1d \
+                                 --enable-vpx"
+  else
+    PKG_CONFIGURE_OPTS_TARGET+=" --disable-dav1d \
+                                 --disable-vpx"
+  fi
+
   # Fix outdated automake for Linux Mint 18.04
   sed -e "s/am__api_version='1.16'/am__api_version='1.15'/" -i ${PKG_BUILD}/configure
-  export LDFLAGS="$LDFLAGS -lresolv"
+  LDFLAGS+=" -lresolv"
 }
 
 post_makeinstall_target() {
   # Clean up
-  rm -rf $INSTALL/usr/bin
-  rm -rf $INSTALL/usr/share
+  rm -rf ${INSTALL}/usr/bin
+  rm -rf ${INSTALL}/usr/share
 }
