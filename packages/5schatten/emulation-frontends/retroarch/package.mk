@@ -98,9 +98,6 @@ pre_configure_target() {
       PKG_CONFIGURE_OPTS_TARGET+=" --enable-dispmanx \
                                    --disable-kms"
 
-      CFLAGS="${CFLAGS} -I${SYSROOT_PREFIX}/usr/include/interface/vcos/pthreads \
-                        -I${SYSROOT_PREFIX}/usr/include/interface/vmcs_host/linux"
-
     # Amlogic OpenGLES Features Support
     elif [ "${OPENGLES}" = "opengl-meson" ]; then
       PKG_CONFIGURE_OPTS_TARGET+=" --enable-mali_fbdev \
