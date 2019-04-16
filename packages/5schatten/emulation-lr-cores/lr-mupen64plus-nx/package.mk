@@ -43,15 +43,9 @@ pre_configure_target() {
     case $DEVICE in
       RPi)
         PKG_MAKE_OPTS_TARGET+=" platform=rpi"
-        CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads \
-                        -I$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux"
-
         ;;
       RPi2)
         PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
-        CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads \
-                        -I$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux"
-
         ;;
     esac
   else
