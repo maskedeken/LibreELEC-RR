@@ -5,11 +5,11 @@
  
  #check if we're running on Raspberry Pi
 -if(EXISTS "/opt/vc/include/bcm_host.h" AND NOT MESA)
-+if(EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/include/bcm_host.h" AND NOT MESA)
++if(EXISTS "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/bcm_host.h" AND NOT MESA)
    message("bcm_host.h found")
    set(BCMHOST ON)
    set(EGL ON)
-@@ -119,18 +119,17 @@
+@@ -119,18 +119,18 @@
      -DVC
    )
    include_directories(
@@ -17,22 +17,23 @@
 -    "/opt/vc/include/interface/vcos"
 -    "/opt/vc/include/interface/vmcs_host/linux"
 -    "/opt/vc/include/interface/vcos/pthreads"
-+    "${CMAKE_FIND_ROOT_PATH}/include"
-+    "${CMAKE_FIND_ROOT_PATH}/include/interface/vcos"
-+    "${CMAKE_FIND_ROOT_PATH}/include/interface/vmcs_host/linux"
-+    "${CMAKE_FIND_ROOT_PATH}/include/interface/vcos/pthreads"
++    "${CMAKE_FIND_ROOT_PATH}/opt/vc/include"
++    "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/interface/vcos"
++    "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/interface/vmcs_host/linux"
++    "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/interface/vcos/pthreads"
    )
    link_directories(
 -    "/opt/vc/lib"
 -    "/opt/vc/lib/GL"
 -  )
 -else(EXISTS "/opt/vc/include/bcm_host.h" AND NOT MESA)
-+    "${CMAKE_FIND_ROOT_PATH}/lib"
++    "${CMAKE_FIND_ROOT_PATH}/opt/vc/lib"
++    "${CMAKE_FIND_ROOT_PATH}/opt/vc/lib/GL"
 +  )
-+else(EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/include/bcm_host.h" AND NOT MESA)
++else(EXISTS "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/bcm_host.h" AND NOT MESA)
    set(EGL_LIB -lEGL)
 -endif(EXISTS "/opt/vc/include/bcm_host.h" AND NOT MESA)
-+endif(EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/include/bcm_host.h" AND NOT MESA)
++endif(EXISTS "${CMAKE_FIND_ROOT_PATH}/opt/vc/include/bcm_host.h" AND NOT MESA)
  
  if(MUPENPLUSAPI)
    add_definitions(
