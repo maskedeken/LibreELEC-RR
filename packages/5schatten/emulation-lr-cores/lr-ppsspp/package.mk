@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-ppsspp"
-PKG_VERSION="d6d6dbb772ad71ced8ffb2f69f9e6e2af1b10414" #v1.8.0
+PKG_VERSION="8d4ab57b46263f838394f06409dc19e0aaf0b018" #v1.8.0+
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/hrydgard/ppsspp"
 PKG_URL="https://github.com/hrydgard/ppsspp.git"
@@ -11,7 +11,7 @@ PKG_LONGDESC="A PSP emulator for Android, Windows, Mac, Linux and Blackberry 10,
 GET_HANDLER_SUPPORT="git"
 
 PKG_LIBNAME="ppsspp_libretro.so"
-PKG_LIBPATH="lib/$PKG_LIBNAME"
+PKG_LIBPATH="lib/${PKG_LIBNAME}"
 
 configure_package() {
   # Displayserver Support
@@ -51,11 +51,11 @@ pre_configure_target() {
 
 pre_make_target() {
   # fix cross compiling
-  find $PKG_BUILD -name flags.make -exec sed -i "s:isystem :I:g" \{} \;
-  find $PKG_BUILD -name build.ninja -exec sed -i "s:isystem :I:g" \{} \;
+  find ${PKG_BUILD} -name flags.make -exec sed -i "s:isystem :I:g" \{} \;
+  find ${PKG_BUILD} -name build.ninja -exec sed -i "s:isystem :I:g" \{} \;
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/lib/libretro
-  cp $PKG_LIBPATH $INSTALL/usr/lib/libretro/
+  mkdir -p ${INSTALL}/usr/lib/libretro
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
