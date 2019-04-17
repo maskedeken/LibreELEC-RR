@@ -12,7 +12,7 @@ GET_HANDLER_SUPPORT="git"
 if [ "${PROJECT}" = "Amlogic_Legacy" ]; then
   PKG_VERSION="74d87fa2b4a3c943c1df09cc26a8c70b1335fd30" #v1.7.5
 else
-  PKG_VERSION="d6d6dbb772ad71ced8ffb2f69f9e6e2af1b10414" #v1.8.0
+  PKG_VERSION="8d4ab57b46263f838394f06409dc19e0aaf0b018" #v1.8.0+
 fi
 
 configure_package() {
@@ -56,25 +56,25 @@ pre_configure_target() {
 
 pre_make_target() {
   # fix cross compiling
-  find $PKG_BUILD -name flags.make -exec sed -i "s:isystem :I:g" \{} \;
-  find $PKG_BUILD -name build.ninja -exec sed -i "s:isystem :I:g" \{} \;
+  find ${PKG_BUILD} -name flags.make -exec sed -i "s:isystem :I:g" \{} \;
+  find ${PKG_BUILD} -name build.ninja -exec sed -i "s:isystem :I:g" \{} \;
 }
 
 makeinstall_target() {
   # Create directories
-  mkdir -p $INSTALL/usr/bin
-  mkdir -p $INSTALL/usr/share/PPSSPP
-  mkdir -p $INSTALL/usr/config/ppsspp/PSP/SYSTEM
+  mkdir -p ${INSTALL}/usr/bin
+  mkdir -p ${INSTALL}/usr/share/PPSSPP
+  mkdir -p ${INSTALL}/usr/config/ppsspp/PSP/SYSTEM
 
   # Install assets & binary
-  cp -r assets $INSTALL/usr/share/PPSSPP
-  cp PPSSPPSDL $INSTALL/usr/share/PPSSPP
+  cp -r assets ${INSTALL}/usr/share/PPSSPP
+  cp PPSSPPSDL ${INSTALL}/usr/share/PPSSPP
 
   # Install scripts
-  cp $PKG_DIR/scripts/* $INSTALL/usr/bin
+  cp ${PKG_DIR}/scripts/* ${INSTALL}/usr/bin
 
   # Install config
-  cp $PKG_DIR/config/* $INSTALL/usr/config/ppsspp/PSP/SYSTEM
+  cp ${PKG_DIR}/config/* ${INSTALL}/usr/config/ppsspp/PSP/SYSTEM
   if [ "${PROJECT}" = "Generic" ]; then
     sed -e "s/FullScreen = True/FullScreen = False/" -i ${INSTALL}/usr/config/ppsspp/PSP/SYSTEM/ppsspp.ini
   fi
