@@ -9,8 +9,7 @@ if pidof "retroarch" > /dev/null; then
     echo "Retroarch is already running!"
 else
   # Announce frontend loading in Kodi
-  kodi-send --action="Notification(Retroarch,Now loading the frontend...,250,DefaultAddonGameRA.png)" > /dev/null
-  usleep 250000
+  show_RR_announcement Retroarch
 
   # Create basic links & files
   set_RR_environment
