@@ -110,16 +110,17 @@ pre_configure_target() {
     PKG_CONFIGURE_OPTS_TARGET+=" --enable-neon"
   fi
 
-  # Clean up & export env/version
+  # Export pkg-config path
+  export PKG_CONF_PATH=${TOOLCHAIN}/bin/pkg-config
+
+  # Clean up
   cd ..
   rm -rf .${TARGET_NAME}
-  export PKG_CONF_PATH=${TOOLCHAIN}/bin/pkg-config
-  echo ${PKG_VERSION:0:7} > .gitversion
 }
 
 make_target() {
   # Build Retroarch & exit if build fails
-  make
+  make GIT_VERSION=${PKG_VERSION:0:7}
   if [ ! -f ${PKG_BUILD}/retroarch ] ; then
     exit 0
   fi
