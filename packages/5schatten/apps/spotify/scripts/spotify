@@ -1,6 +1,6 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 . /etc/profile
 oe_setup_addon service.rr-config-tool

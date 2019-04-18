@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="mupen64plus-rsp-cxd4"
 PKG_VERSION="87c1c9a89730c0522cb66380adcb8b39075dda4d"

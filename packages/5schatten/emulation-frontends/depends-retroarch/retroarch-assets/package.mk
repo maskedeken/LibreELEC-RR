@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="retroarch-assets"
 PKG_VERSION="21e3e50a8c04d2d3a7c8fe0d50b71d7c8fc67724"

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="lr-nSide"
 PKG_VERSION="5e965d0db4c0d05e7e8fb6449035538781c73473"

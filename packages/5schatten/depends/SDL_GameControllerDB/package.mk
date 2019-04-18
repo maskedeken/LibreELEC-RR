@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="SDL_GameControllerDB"
 PKG_VERSION="cbebd79740bc1360978bdf6d9d4d13d189e420a3"

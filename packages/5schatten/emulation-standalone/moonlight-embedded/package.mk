@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="moonlight-embedded"
 PKG_VERSION="212eac6359a5bfae262ea2d6ccecd477bec38275" #v2.4.7+

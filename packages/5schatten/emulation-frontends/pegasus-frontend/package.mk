@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="pegasus-frontend"
 PKG_VERSION="c071e7a5d9abb96a99cfe7122d80ca53cd885bfb" # Continuous build

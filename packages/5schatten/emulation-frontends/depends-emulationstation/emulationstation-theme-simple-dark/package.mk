@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="emulationstation-theme-simple-dark"
 PKG_VERSION="4c33193cb3efd55b2631d856b9799e4841c3da8f"

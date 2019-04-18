@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="hatari"
 PKG_VERSION="7aca27d0bb3c228b2cdbb92e0403df2c08ac9398" #v2.2.1+

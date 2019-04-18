@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="lr-mgba"
 PKG_VERSION="bf8c1d1b4b52d45cd84590dc7bd7d40b0dffc7bd" # v0.7.1+
