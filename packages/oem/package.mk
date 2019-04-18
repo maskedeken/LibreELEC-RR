@@ -9,9 +9,9 @@ PKG_SITE="http://www.libreelec.tv"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_SECTION="oem"
 PKG_LONGDESC="OEM: Metapackage for various OEM packages"
-
 PKG_TOOLCHAIN="manual"
 
+# Common tools included in all images
 OEM_APPS_COMMON=" \
   rr-config-tool \
   ds4drv \
@@ -22,8 +22,10 @@ OEM_APPS_COMMON=" \
   Skyscraper \
   spectre-meltdown-checker"
 
-OEM_APPS_AMLOGIC=""
+# Specific tools included in Amlogic_Legacy images
+OEM_APPS_AMLOGIC_LEGACY=""
 
+# Specific tools included in Generic images
 OEM_APPS_GENERIC=" \
   dmidecode \
   google-chrome \
@@ -33,8 +35,13 @@ OEM_APPS_GENERIC=" \
   tigervnc-system \
   vulkan-tools"
 
+# Specific tools included in Rockchip images
+OEM_APPS_ROCKCHIP=""
+
+# Specific tools included in RPi images
 OEM_APPS_RPI=""
 
+# Common emulators included in all images
 OEM_EMU_COMMON=" \
   emulationstation \
   pegasus-frontend \
@@ -70,13 +77,15 @@ OEM_EMU_COMMON=" \
   lr-stella \
   lr-tyrquake"
 
-OEM_EMU_AMLOGIC=" \
+# Specific emulators included in Amlogic_Legacy images
+OEM_EMU_AMLOGIC_LEGACY=" \
   amiberry \
   lr-mame2010 \
   lr-snes9x2010 \
   lr-vice \
   lr-yabause"
 
+# Specific emulators included in Generic images
 OEM_EMU_GENERIC=" \
   citra \
   dolphin \
@@ -98,6 +107,15 @@ OEM_EMU_GENERIC=" \
   lr-parallel-n64 \
   lr-ppsspp"
 
+# Specific emulators included in Rockchip images
+OEM_EMU_ROCKCHIP=" \
+  amiberry \
+  lr-mame2016 \
+  lr-snes9x2010 \
+  lr-vice \
+  lr-yabause"
+
+# Specific emulators included in RPi images
 OEM_EMU_RPI=" \
   amiberry \
   lr-mame2010 \
@@ -105,41 +123,49 @@ OEM_EMU_RPI=" \
   lr-vice \
   lr-yabause"
 
-if [ "$OEM_APPS" = "yes" ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OEM_APPS_COMMON"
-  case $PROJECT in
+# Install common & specific tools
+if [ "${OEM_APPS}" = "yes" ]; then
+      PKG_DEPENDS_TARGET+=" ${OEM_APPS_COMMON}"
+  case ${PROJECT} in
     Amlogic_Legacy)
-      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OEM_APPS_AMLOGIC"
+      PKG_DEPENDS_TARGET+=" ${OEM_APPS_AMLOGIC_LEGACY}"
       ;;
     Generic)
-      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OEM_APPS_GENERIC"
+      PKG_DEPENDS_TARGET+=" ${OEM_APPS_GENERIC}"
+      ;;
+    Rockchip)
+      PKG_DEPENDS_TARGET+=" ${OEM_APPS_ROCKCHIP}"
       ;;
     RPi*)
-      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OEM_APPS_RPI"
+      PKG_DEPENDS_TARGET+=" ${OEM_APPS_RPI}"
       ;;
   esac
 fi
 
-if [ "$OEM_EMU" = "yes" ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OEM_EMU_COMMON"
-  case $PROJECT in
+# Install common & specific emulators
+if [ "${OEM_EMU}" = "yes" ]; then
+      PKG_DEPENDS_TARGET+=" ${OEM_EMU_COMMON}"
+  case ${PROJECT} in
     Amlogic_Legacy)
-      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OEM_EMU_AMLOGIC"
+      PKG_DEPENDS_TARGET+=" ${OEM_EMU_AMLOGIC_LEGACY}"
       ;;
     Generic)
-      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OEM_EMU_GENERIC"
+      PKG_DEPENDS_TARGET+=" ${OEM_EMU_GENERIC}"
+      ;;
+   Rockchip)
+      PKG_DEPENDS_TARGET+=" ${OEM_EMU_ROCKCHIP}"
       ;;
     RPi*)
-      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OEM_EMU_RPI"
+      PKG_DEPENDS_TARGET+=" ${OEM_EMU_RPI}"
       ;;
   esac
 fi
 
 makeinstall_target() {
   # Create dirs
-  mkdir -p $INSTALL
+  mkdir -p ${INSTALL}
 
   # Copy oem config files & scripts
-  cp -PR $PKG_DIR/files/common/*   $INSTALL
-  cp -PR $PKG_DIR/files/$PROJECT/* $INSTALL
+  cp -PRv ${PKG_DIR}/files/common/*     ${INSTALL}
+  cp -PRv ${PKG_DIR}/files/${PROJECT}/* ${INSTALL}
 }
