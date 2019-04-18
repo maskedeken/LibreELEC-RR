@@ -2,17 +2,17 @@
 # Copyright (C) 2018-present 5schatten (https://github.com/5schatten)
 
 PKG_NAME="lr-mupen64plus-nx"
-PKG_VERSION="07f09151a439be1a60db8cdd61249b8403d86df2"
-PKG_SHA256="d38661001a9419bfd4aad8863bac38dbca780d6a716edd80b38ff487c405c23a"
+PKG_VERSION="9f92565f791a5a2d979d86dddd174af94abc24b7"
+PKG_SHA256="2f33106b0963786e20d01fad4b8f4844636dace13da928d704b9d2f51e902ebb"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mupen64plus-libretro-nx"
-PKG_URL="https://github.com/libretro/mupen64plus-libretro-nx/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/libretro/mupen64plus-libretro-nx/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc zlib libpng"
 PKG_LONGDESC="Mupen64Plus is mupen64plus + GLideN64 + libretro"
 PKG_TOOLCHAIN="make"
 
 PKG_LIBNAME="mupen64plus_next_libretro.so"
-PKG_LIBPATH="$PKG_LIBNAME"
+PKG_LIBPATH="${PKG_LIBNAME}"
 
 PKG_MAKE_OPTS_TARGET="GIT_VERSION=${PKG_VERSION:0:7}"
 
@@ -63,6 +63,6 @@ pre_configure_target() {
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/lib/libretro
-  cp $PKG_LIBPATH $INSTALL/usr/lib/libretro/
+  mkdir -p ${INSTALL}/usr/lib/libretro
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
