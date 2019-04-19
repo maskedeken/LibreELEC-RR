@@ -3,7 +3,7 @@
 
 PKG_NAME="lr-glsl-shaders"
 PKG_VERSION="e2ca10034c743bf3d056fb1167a25680bbea6de1"
-PKG_SHA256="76df78d31b8d60d98e11f97e336146b3cfb7e630a83a26aa20a65c1fafebd689"
+PKG_SHA256="4e2fa94209d527f3670294071351b14634a4879f83b8c0965161c26a61e924b8"
 PKG_LICENSE="MIT"
 PKG_SITE="https://github.com/libretro/glsl-shaders"
 PKG_URL="https://github.com/libretro/glsl-shaders/archive/${PKG_VERSION}.tar.gz"
