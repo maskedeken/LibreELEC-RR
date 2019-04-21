@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="lr-pcsx-rearmed"
-PKG_VERSION="e1d8eb0f131f9e7e838ec5658345e51ebcc3179c"
-PKG_SHA256="6968c96eae505c92aae47110a1f1fd4f82876706e23985cd0922fd64b385ddf1"
+PKG_VERSION="360664e28b0a695710b4191b2963d4f41f066519"
+PKG_SHA256="efec5372ac9ee069f2bba8a96d009e8b1ed8ad375b07206db00bbf0d5c5bb856"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/pcsx_rearmed"
 PKG_URL="https://github.com/libretro/pcsx_rearmed/archive/${PKG_VERSION}.tar.gz"
@@ -32,5 +32,5 @@ pre_configure_target() {
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/lib/libretro
-  cp ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
