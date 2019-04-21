@@ -3,9 +3,9 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="dolphin"
-PKG_VERSION="6ea43235d54a18b70529cb6d0d740e0f8f9c34ea"
-PKG_SHA256="1f3f12dcc8ded676d37193897c206755895a24ff0991e451bd0f7b3939653f0b"
-PKG_DOLPHIN_RELEASE="5.0-10007"
+PKG_VERSION="fb841c75cbde93c6d615fcc91d8142ba2493e1fd"
+PKG_SHA256="495fb4de2fdd9bb3acc5d9f2d5e117d6ed20abdfcb9674af67466012a04375ee"
+PKG_DOLPHIN_RELEASE="5.0-10017"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/dolphin-emu/dolphin"
