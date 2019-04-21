@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="lr-fbalpha"
-PKG_VERSION="94609a70f4b07d3429c5b5d821e0127cd93135b8"
-PKG_SHA256="b08c58024f3b6a9ff23ff398b5ac62f2c8289b786498f8a3e0e6cf0f62aa4eca"
+PKG_VERSION="ab3162fb1560d0d02c3db436b898d2d964721bec"
+PKG_SHA256="590f381140267ff042432597ff804500b893b237d5780aff6a4bc032eb3f3a61"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/libretro/fbalpha"
 PKG_URL="https://github.com/libretro/fbalpha/archive/${PKG_VERSION}.tar.gz"
@@ -36,5 +36,5 @@ pre_configure_target() {
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/lib/libretro
-  cp ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
