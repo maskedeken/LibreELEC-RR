@@ -2,23 +2,23 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="lr-mame2003-plus"
-PKG_VERSION="c59c1f7d0f2281f9ed429b3cd0803799ccf3ba61"
-PKG_SHA256="2efa408d7caad706d856a0265bd6e39f7ef7f795dd9bae3e872708fada80957e"
+PKG_VERSION="7af415d54fac80a51ad1fdf579ebb8371c8ff9a7"
+PKG_SHA256="f3b41473d4b40a1d4cc2a7591594d47e1d701efbacb8d49f069cfd7cb5f1267c"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mame2003-plus-libretro"
-PKG_URL="https://github.com/libretro/mame2003-plus-libretro/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/libretro/mame2003-plus-libretro/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Updated 2018 version of MAME (0.78) for libretro. with added game support plus many fixes and improvements"
 PKG_TOOLCHAIN="make"
 
 PKG_LIBNAME="mame2003_plus_libretro.so"
-PKG_LIBPATH="$PKG_LIBNAME"
+PKG_LIBPATH="${PKG_LIBNAME}"
 
 PKG_MAKE_OPTS_TARGET="GIT_VERSION=${PKG_VERSION:0:7}"
 
 pre_configure_target() {
-  if [ "$ARCH" = "arm" ]; then
-    case $DEVICE in
+  if [ "${ARCH}" = "arm" ]; then
+    case ${DEVICE} in
       RPi2)
         PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
         ;;
@@ -27,7 +27,7 @@ pre_configure_target() {
         ;;
     esac
   fi
-  export LD="$CC"
+  export LD="${CC}"
 }
 
 pre_make_target() {
@@ -36,6 +36,6 @@ pre_make_target() {
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/lib/libretro
-  cp $PKG_LIBPATH $INSTALL/usr/lib/libretro/
+  mkdir -p ${INSTALL}/usr/lib/libretro
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
