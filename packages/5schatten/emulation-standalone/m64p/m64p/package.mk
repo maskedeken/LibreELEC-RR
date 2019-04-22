@@ -25,12 +25,11 @@ makeinstall_target() {
   if [ "${PROJECT}" = "Generic" ]; then
     cp $(get_build_dir angrylion-rdp-plus)/.${TARGET_NAME}/*.so         ${INSTALL}/usr/lib/mupen64plus
     cp $(get_build_dir mupen64plus-gui)/.${TARGET_NAME}/mupen64plus-gui ${INSTALL}/usr/bin
-    cp ${PKG_DIR}/scripts/gui/*                                         ${INSTALL}/usr/bin
   fi
 
   # Install binaries & scripts
-  cp $(get_build_dir mupen64plus-ui-console)/mupen64plus ${INSTALL}/usr/bin/mupen64plus-cli
-  cp ${PKG_DIR}/scripts/cli/*                            ${INSTALL}/usr/bin
+  cp $(get_build_dir mupen64plus-ui-console)/mupen64plus ${INSTALL}/usr/bin/mupen64plus
+  cp ${PKG_DIR}/scripts/${PROJECT}/*                     ${INSTALL}/usr/bin
 
   # Install config files
   cp ${PKG_DIR}/config/*                             ${INSTALL}/usr/config/mupen64plus

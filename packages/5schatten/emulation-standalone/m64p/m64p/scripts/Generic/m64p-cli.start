@@ -44,7 +44,7 @@ if [ `echo ${M64P_GAME_NAME} | grep -i  '.n64\|.v64\|.z64\|.bin\|.u1\|.ndd\|.7z\
     unzip -qq -o "$1" *.n64 *.v64 *.z64 *.bin *.u1 *.ndd -d "${M64P_TMP_DIR}" 2>/dev/null
 
     # start m64p
-    mupen64plus-cli "${M64P_TMP_DIR}"/* >> ${M64P_LOG} 2>&1
+    mupen64plus "${M64P_TMP_DIR}"/* >> ${M64P_LOG} 2>&1
     rm -rf "${M64P_TMP_DIR}"
 
   # Check if we are loading a 7z file
@@ -57,13 +57,12 @@ if [ `echo ${M64P_GAME_NAME} | grep -i  '.n64\|.v64\|.z64\|.bin\|.u1\|.ndd\|.7z\
 	7za x "$1" -o"${M64P_TMP_DIR}" *.n64 *.v64 *.z64 *.bin *.u1 *.ndd -r > /dev/null
 
     # start m64p
-    mupen64plus-cli "${M64P_TMP_DIR}"/* >> ${M64P_LOG} 2>&1
+    mupen64plus "${M64P_TMP_DIR}"/* >> ${M64P_LOG} 2>&1
     rm -rf "${M64P_TMP_DIR}"
   else
     # non-compressed file detcted
     echo "Loading a regular file..." >> ${M64P_LOG}
-
-    mupen64plus-cli "$@" >> ${M64P_LOG} 2>&1  
+    mupen64plus "$@" >> ${M64P_LOG} 2>&1  
   fi
 
   # Switch back to Frontends or unfreeze Kodi & start audio
