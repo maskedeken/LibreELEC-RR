@@ -6,17 +6,15 @@ PKG_VERSION="4cd4ad8df6db00989dad155d43a3f13f9ba22f10" # 2.0.9+
 PKG_SHA256="b91987e4bd2a3797a842c8a1ee00bd7a7040f419f6e8c0f888689102e8c44930"
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.libsdl.org/"
-PKG_URL="https://github.com/spurious/SDL-mirror/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/spurious/SDL-mirror/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain alsa-lib systemd dbus"
 PKG_LONGDESC="Simple DirectMedia Layer is a cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware."
 
-# Set up egl-interface
-if [ ${PROJECT} = "Amlogic_Legacy" ]; then
-  PKG_PATCH_DIRS="Amlogic_Legacy"
-fi
-
 configure_package() {
-    # Use ppc assembly only for x86_64
+  # Apply project specific patches
+  PKG_PATCH_DIRS="${PROJECT}"
+
+  # Use ppc assembly only for x86_64
   if [ "$TARGET_ARCH" = "x86_64" ]; then
     PKG_DEPENDS_TARGET+=" nasm:host"
   fi
@@ -85,7 +83,7 @@ pre_configure_target(){
                          -DRENDER_D3D=OFF"
 
   # Use ppc assembly only for x86_64
-  if [ "$TARGET_ARCH" = "x86_64" ]; then
+  if [ "${TARGET_ARCH}" = "x86_64" ]; then
     PKG_CMAKE_OPTS_TARGET+=" -DASSEMBLY=ON"
   else
     PKG_CMAKE_OPTS_TARGET+=" -DASSEMBLY=OFF"
@@ -134,8 +132,6 @@ pre_configure_target(){
     PKG_CMAKE_OPTS_TARGET+=" -DVIDEO_MALI=ON \
                              -DVIDEO_VULKAN=OFF \
                              -DVIDEO_KMSDRM=OFF"
-  else
-    PKG_CMAKE_OPTS_TARGET+=" -DVIDEO_MALI=OFF"
   fi
 
   # Pulseaudio Support
@@ -149,6 +145,6 @@ pre_configure_target(){
 }
 
 post_makeinstall_target() {
-  sed -e "s:\(['=\" ]\)/usr:\\1$SYSROOT_PREFIX/usr:g" -i $SYSROOT_PREFIX/usr/bin/sdl2-config
-  rm -rf $INSTALL/usr/bin
+  sed -e "s:\(['=\" ]\)/usr:\\1${SYSROOT_PREFIX}/usr:g" -i ${SYSROOT_PREFIX}/usr/bin/sdl2-config
+  rm -rf ${INSTALL}/usr/bin
 }
