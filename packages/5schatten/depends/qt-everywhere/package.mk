@@ -10,6 +10,12 @@ PKG_URL="http://download.qt.io/archive/qt/${PKG_VERSION%.*}/$PKG_VERSION/single/
 PKG_DEPENDS_TARGET="toolchain libjpeg-turbo libpng pcre2 sqlite zlib freetype gstreamer gst-plugins-base gst-plugins-good gst-libav"
 PKG_LONGDESC="A cross-platform application and UI framework"
 
+configure_package() {
+  if [ "${OPENGLES}" = "bcm2835-driver" ]; then
+    PKG_DEPENDS_TARGET+=" gst-omx"
+  fi
+}
+
 pre_configure_target() {
   # Fix cross compiling
   sed -e "s/QMAKE_CFLAGS_ISYSTEM        = -isystem/QMAKE_CFLAGS_ISYSTEM        = -I/" -i ${PKG_BUILD}/qtbase/mkspecs/common/gcc-base.conf
