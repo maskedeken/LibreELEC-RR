@@ -12,12 +12,10 @@ PKG_LONGDESC="A new generation, open-source graphics plugin for N64 emulators."
 PKG_TOOLCHAIN="cmake"
 PKG_BUILD_FLAGS="-gold"
 
-# workaround for shader cache crash issue github.com/gonetz/GLideN64/issues/1665
-if [ "${PROJECT}" = "RPi" ]; then
-  PKG_PATCH_DIRS="${PROJECT}"
-fi
-
 configure_package() {
+  # Apply project specific patches
+  PKG_PATCH_DIRS="${PROJECT}"
+
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
     PKG_DEPENDS_TARGET+=" xorg-server"
@@ -36,22 +34,24 @@ configure_package() {
 
 pre_configure_target() {
   PKG_CMAKE_SCRIPT="${PKG_BUILD}/src/CMakeLists.txt"
-  PKG_CMAKE_OPTS_TARGET="-DUSE_SYSTEM_LIBS=On \
-                         -DVEC4_OPT=On \
+
+  PKG_CMAKE_OPTS_TARGET="-DVEC4_OPT=On \
                          -DCRC_OPT=On \
+                         -DUSE_SYSTEM_LIBS=On \
                          -DMUPENPLUSAPI=On"
+
+  # NEON Support
+  if target_has_feature neon; then
+    PKG_CMAKE_OPTS_TARGET+=" -DNEON_OPT=On"
+  fi
 
   # Fix revision header
   PKG_REV_H=${PKG_BUILD}/src/Revision.h
   echo "#define PLUGIN_REVISION" ""\"${PKG_VERSION:0:10}""\"     > ${PKG_REV_H}
   echo "#define PLUGIN_REVISION_W" "L"\"${PKG_VERSION:0:10}""\" >> ${PKG_REV_H}
 
+  # Remove outdated libpng & zlib headers
   rm -rf ${PKG_BUILD}/src/GLideNHQ/inc
-
-  # NEON Support
-  if target_has_feature neon; then
-    PKG_CMAKE_OPTS_TARGET+=" -DNEON_OPT=On"
-  fi
 }
 
 makeinstall_target() {
