@@ -10,6 +10,7 @@ PKG_URL="https://github.com/gonetz/GLideN64/archive/Public_Release_${PKG_VERSION
 PKG_DEPENDS_TARGET="toolchain linux glibc freetype:host zlib bzip2 libpng"
 PKG_LONGDESC="A new generation, open-source graphics plugin for N64 emulators."
 PKG_TOOLCHAIN="cmake"
+PKG_BUILD_FLAGS="-gold"
 
 # workaround for shader cache crash issue github.com/gonetz/GLideN64/issues/1665
 if [ "${PROJECT}" = "RPi" ]; then

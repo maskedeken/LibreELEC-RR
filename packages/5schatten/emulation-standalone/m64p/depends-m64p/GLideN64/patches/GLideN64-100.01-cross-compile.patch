@@ -1,6 +1,6 @@
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -110,7 +110,7 @@
+@@ -110,27 +110,27 @@
  )
  
  #check if we're running on Raspberry Pi
@@ -9,7 +9,9 @@
    message("bcm_host.h found")
    set(BCMHOST ON)
    set(EGL ON)
-@@ -119,18 +119,18 @@
+-  set(EGL_LIB -lbrcmEGL)
++  set(EGL_LIB -lbrcmEGL -lbrcmGLESv2)
+   add_definitions(
      -DVC
    )
    include_directories(
