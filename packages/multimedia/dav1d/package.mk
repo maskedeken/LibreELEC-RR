@@ -2,17 +2,21 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="dav1d"
-PKG_VERSION="0.2.1"
-PKG_SHA256="887f672f0afad9ff66735997e4d55d03b72a098238e291ecb17ae529adc7dd23"
+PKG_VERSION="0.2.2"
+PKG_SHA256="7695e7920de982c1f25f234b965c99cf6057540a4a3544dd5f40f6e5335c965d"
 PKG_LICENSE="BSD"
 PKG_SITE="http://www.jbkempf.com/blog/post/2018/Introducing-dav1d"
-PKG_URL="https://code.videolan.org/videolan/dav1d/-/archive/${PKG_VERSION}/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
+PKG_URL="https://code.videolan.org/videolan/dav1d/-/archive/${PKG_VERSION}/dav1d-${PKG_VERSION}.tar.bz2"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="dav1d is an AV1 decoder :)"
 
-if [ "${TARGET_ARCH}" = "x86_64" ]; then
-  PKG_DEPENDS_TARGET+=" nasm:host"
-fi
+configure_package() {
+  if [ "${TARGET_ARCH}" = "x86_64" ]; then
+    PKG_DEPENDS_TARGET+=" nasm:host"
+  fi
+}
 
-PKG_MESON_OPTS_TARGET="-Dbuild_tools=false \
-                       -Dbuild_tests=false"
+pre_configure_target(){
+  PKG_MESON_OPTS_TARGET="-Dbuild_tools=false \
+                         -Dbuild_tests=false"
+}
