@@ -22,6 +22,9 @@ else
   # Freeze Kodi / stop audio
   kodifreeze.sh freeze
 
+  # Change refresh rate to 50Hz
+  set_refresh_rate_50
+
   # Set SDL audio driver to Pulseaudio or ALSA
   set_SDL_audiodriver
 
