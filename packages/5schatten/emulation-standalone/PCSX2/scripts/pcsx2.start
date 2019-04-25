@@ -62,14 +62,9 @@ run_docker_image() {
   echo "# Starting PCSX2 #" >> ${PCSX2_LOG} 2>&1
   echo "##################" >> ${PCSX2_LOG} 2>&1
 
-  # Stop FluidSynth / set audio driver to ALSA
-  if [ ${RR_AUDIO_BACKEND} = "PulseAudio" ] && [ -f /var/run/fluidsynth.run ]; then
-    stop_FluidSynth_backend
-    usleep 500000
-    unload_pulseaudio_sink
-    usleep 500000
-    export SDL_AUDIODRIVER=alsa
-  fi
+  # Set audio driver to Pulseaudio or ALSA
+  set_SDL_audiodriver
+  set_PCSX2_audiodriver
 
   # Get tag of installed Docker image
   DOCKER_IMAGE_INSTALLED_VERSION=$(docker images -a | grep ${PCSX2_DOCKER_REPO} | awk '{print $2}' | awk 'FNR == 1')
@@ -80,9 +75,12 @@ run_docker_image() {
                --privileged \
                -i \
                -e DISPLAY=:0.0 \
+               -e SDL_AUDIODRIVER=${SDL_AUDIODRIVER} \
+               -e PULSE_RUNTIME_PATH=${PULSE_RUNTIME_PATH} \
                -v /dev/shm:/dev/shm \
                -v /var/media:/media \
                -v /var/run/localtime:/etc/localtime
+               -v /run:/run \
                -v /storage:/storage \
                -v /storage/.config/asound.conf:/etc/asound.conf \
                -v /storage/.config/PCSX2:/root/.config/PCSX2 \
@@ -91,15 +89,6 @@ run_docker_image() {
 
   # Start the Docker image / apply args / run PCSX2
   ${DOCKER_PATH} run ${DOCKER_ARGS} ${PCSX2_DOCKER_REPO}:${DOCKER_IMAGE_INSTALLED_VERSION} /usr/bin/PCSX2 "$@" >> ${PCSX2_LOG} 2>&1
-
-  # Set audio driver to PulseAudio / start FluidSynth
-  if [ ${RR_AUDIO_BACKEND} = "PulseAudio" ] && [ ! -f /var/run/fluidsynth.run ]; then
-    export SDL_AUDIODRIVER=pulseaudio
-    load_pulseaudio_sink
-    usleep 500000
-    start_FluidSynth_backend
-    usleep 500000
-  fi
 }
 
 if [ -x ${DOCKER_PATH} ]; then
