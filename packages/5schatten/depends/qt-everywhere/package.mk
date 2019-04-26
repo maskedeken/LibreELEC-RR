@@ -148,58 +148,47 @@ configure_target() {
 
 post_makeinstall_target() {
   # Create directories
-  mkdir -p $INSTALL/usr/lib
-  mkdir -p $INSTALL/usr/plugins
-  mkdir -p $INSTALL/usr/qml
+  mkdir -p ${INSTALL}/usr/lib
+  mkdir -p ${INSTALL}/usr/plugins
+  mkdir -p ${INSTALL}/usr/qml
 
   # Install Qt5 libs
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Concurrent.so*         $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Core.so*               $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Gamepad.so*            $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Gui.so*                $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Multimedia.so*         $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5MultimediaGstTools.so* $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5MultimediaQuick.so*    $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5MultimediaWidgets.so*  $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Network.so*            $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5OpenGL.so*             $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Qml.so*                $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Quick.so*              $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5QuickControls2.so*     $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5QuickParticles.so*     $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5QuickTemplates2.so*    $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5QuickTest.so*          $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Sql.so*                $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Svg.so*                $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Test.so*               $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Widgets.so*            $INSTALL/usr/lib
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5Xml.so*                $INSTALL/usr/lib
+  for PKG_QT5_LIBS in \
+    libQt5Concurrent libQt5Core libQt5Gamepad libQt5Gui libQt5Multimedia libQt5MultimediaGstTools libQt5MultimediaQuick \
+    libQt5MultimediaWidgets libQt5Network libQt5OpenGL libQt5Qml libQt5Quick libQt5QuickControls2 libQt5QuickParticles \
+    libQt5QuickTemplates2 libQt5QuickTest libQt5Sql libQt5Svg libQt5Test libQt5Widgets libQt5Xml
+  do
+    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/${PKG_QT5_LIBS}.so* ${INSTALL}/usr/lib
+  done
 
   # Install Qt5 plugins
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/audio             $INSTALL/usr/plugins
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/gamepads          $INSTALL/usr/plugins
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/imageformats      $INSTALL/usr/plugins
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/iconengines       $INSTALL/usr/plugins
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/mediaservice      $INSTALL/usr/plugins
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/platforms         $INSTALL/usr/plugins
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/playlistformats   $INSTALL/usr/plugins
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/sqldrivers        $INSTALL/usr/plugins
+  for PKG_QT5_PLUGINS in \
+    audio gamepads imageformats iconengines mediaservice platforms playlistformats sqldrivers
+  do
+    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/${PKG_QT5_PLUGINS} ${INSTALL}/usr/plugins
+  done
 
   # Install Qt5 QML
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/qml/QtCanvas3D         $INSTALL/usr/qml
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/qml/QtGamepad          $INSTALL/usr/qml
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/qml/QtGraphicalEffects $INSTALL/usr/qml
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/qml/QtMultimedia       $INSTALL/usr/qml
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/qml/QtQuick            $INSTALL/usr/qml
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/qml/QtQuick.2          $INSTALL/usr/qml
-  cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/qml/QtTest             $INSTALL/usr/qml
+  for PKG_QT5_QML in \
+    QtCanvas3D QtGamepad QtGraphicalEffects QtMultimedia QtQuick QtQuick.2 QtTest
+  do
+    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/qml/${PKG_QT5_QML} $INSTALL/usr/qml
+  done
 
-  # Install XCB libs & plugins if X11 is present
+  # Install XCB libs & plugins if Displayserver is X11 
   if [ ${DISPLAYSERVER} = "x11" ]; then
-    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5XcbQpa.so*      $INSTALL/usr/lib
-    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/xcbglintegrations $INSTALL/usr/plugins
-  elif [ "${OPENGLES_SUPPORT}" = "yes" ]; then
-    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5EglFSDeviceIntegration.so* $INSTALL/usr/lib
-    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/egldeviceintegrations        $INSTALL/usr/plugins
+    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5XcbQpa.so*      ${INSTALL}/usr/lib
+    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/xcbglintegrations ${INSTALL}/usr/plugins
+  fi
+
+  # Install EGLFS libs & plugins if OpenGLES is supported
+  if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
+    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5EglFSDeviceIntegration.so* ${INSTALL}/usr/lib
+    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/plugins/egldeviceintegrations        ${INSTALL}/usr/plugins
+  fi
+
+  # Install EGLFS_KMS lib
+  if [ "${OPENGLES}" = "libmali" ]; then
+    cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5EglFsKmsSupport.so* ${INSTALL}/usr/lib
   fi
 }
