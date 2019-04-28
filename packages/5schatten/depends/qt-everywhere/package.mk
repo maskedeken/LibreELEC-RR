@@ -6,13 +6,19 @@ PKG_VERSION="5.12.0"
 PKG_SHA256="356f42d9087718f22f03d13d0c2cdfb308f91dc3cf0c6318bed33f2094cd9d6c"
 PKG_LICENSE="GPL"
 PKG_SITE="http://qt-project.org"
-PKG_URL="http://download.qt.io/archive/qt/${PKG_VERSION%.*}/$PKG_VERSION/single/$PKG_NAME-src-$PKG_VERSION.tar.xz"
+PKG_URL="http://download.qt.io/archive/qt/${PKG_VERSION%.*}/${PKG_VERSION}/single/${PKG_NAME}-src-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain libjpeg-turbo libpng pcre2 sqlite zlib freetype gstreamer gst-plugins-base gst-plugins-good gst-libav"
 PKG_LONGDESC="A cross-platform application and UI framework"
 
 configure_package() {
+  # Build OpenMAX plugins
   if [ "${OPENGLES}" = "bcm2835-driver" ]; then
     PKG_DEPENDS_TARGET+=" gst-omx"
+  fi
+
+  # Build Rockchip hardware encoder/decoder plugins
+  if [ "${PROJECT}" = "Rockchip" ]; then
+    PKG_DEPENDS_TARGET+=" gstreamer-rockchip"
   fi
 }
 
