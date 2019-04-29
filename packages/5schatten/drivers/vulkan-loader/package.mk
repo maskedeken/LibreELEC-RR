@@ -2,11 +2,11 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="vulkan-loader"
-PKG_VERSION="1.1.106"
-PKG_SHA256="d48632a5459d21ee5d421cb6ef1611cc263d33cca3ef90d0f598f73d24dfc206"
+PKG_VERSION="1.1.107"
+PKG_SHA256="4a20b7887612999d0190c7c405cde84d1e5367984755b6605359addc38c28f1f"
 PKG_LICENSE="Apache 2.0"
 PKG_SITE="https://github.com/KhronosGroup/Vulkan-Loader"
-PKG_URL="https://github.com/KhronosGroup/Vulkan-Loader/archive/v$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/KhronosGroup/Vulkan-Loader/archive/v${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain cmake:host vulkan-headers"
 PKG_LONGDESC="Vulkan Installable Client Driver (ICD) Loader."
 
