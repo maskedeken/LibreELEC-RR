@@ -7,7 +7,7 @@ PKG_SHA256="356f42d9087718f22f03d13d0c2cdfb308f91dc3cf0c6318bed33f2094cd9d6c"
 PKG_LICENSE="GPL"
 PKG_SITE="http://qt-project.org"
 PKG_URL="http://download.qt.io/archive/qt/${PKG_VERSION%.*}/${PKG_VERSION}/single/${PKG_NAME}-src-${PKG_VERSION}.tar.xz"
-PKG_DEPENDS_TARGET="toolchain libjpeg-turbo libpng pcre2 sqlite zlib freetype gstreamer gst-plugins-base gst-plugins-good gst-libav"
+PKG_DEPENDS_TARGET="toolchain libjpeg-turbo libpng pcre2 sqlite zlib freetype libxkbcommon gstreamer gst-plugins-base gst-plugins-good gst-libav"
 PKG_LONGDESC="A cross-platform application and UI framework"
 
 configure_package() {
@@ -20,11 +20,16 @@ configure_package() {
   if [ "${PROJECT}" = "Rockchip" ]; then
     PKG_DEPENDS_TARGET+=" gstreamer-rockchip"
   fi
+
+  # Build with XCB support for X11
+  if [ ${DISPLAYSERVER} = "x11" ]; then
+    PKG_DEPENDS_TARGET+=" xcb-util xcb-util-image xcb-util-keysyms xcb-util-renderutil xcb-util-wm"
+  fi
 }
 
 pre_configure_target() {
   # Fix cross compiling
-  sed -e "s/QMAKE_CFLAGS_ISYSTEM        = -isystem/QMAKE_CFLAGS_ISYSTEM        = -I/" -i ${PKG_BUILD}/qtbase/mkspecs/common/gcc-base.conf
+  sed -e "s#QMAKE_CFLAGS_ISYSTEM        = -isystem#QMAKE_CFLAGS_ISYSTEM        = -I#" -i ${PKG_BUILD}/qtbase/mkspecs/common/gcc-base.conf
 
   PKG_CONFIGURE_OPTS_TARGET="-prefix /usr
                              -sysroot ${SYSROOT_PREFIX}
@@ -104,7 +109,7 @@ pre_configure_target() {
 
   # Build with XCB support for X11
   if [ ${DISPLAYSERVER} = "x11" ]; then
-    PKG_CONFIGURE_OPTS_TARGET+=" -qt-xcb"
+    PKG_CONFIGURE_OPTS_TARGET+=" -system-xcb"
   fi
 }
 
@@ -113,43 +118,43 @@ configure_target() {
   QMAKE_CONF="${QMAKE_CONF_DIR}/qmake.conf"
 
   cd ..
-  mkdir -p $QMAKE_CONF_DIR
+  mkdir -p ${QMAKE_CONF_DIR}
 
   # Set QMake Platform Flags
-  echo "MAKEFILE_GENERATOR       = UNIX"           > $QMAKE_CONF
-  echo "CONFIG                  += incremental"   >> $QMAKE_CONF
-  echo "QMAKE_INCREMENTAL_STYLE  = sublib"        >> $QMAKE_CONF
-  echo "include(../../common/linux.conf)"         >> $QMAKE_CONF
-  echo "include(../../common/gcc-base-unix.conf)" >> $QMAKE_CONF
-  echo "include(../../common/g++-unix.conf)"      >> $QMAKE_CONF
-  echo "load(device_config)"                      >> $QMAKE_CONF
-  echo "QMAKE_CC                = $CC"            >> $QMAKE_CONF
-  echo "QMAKE_CXX               = $CXX"           >> $QMAKE_CONF
-  echo "QMAKE_LINK              = $CXX"           >> $QMAKE_CONF
-  echo "QMAKE_LINK_SHLIB        = $CXX"           >> $QMAKE_CONF
-  echo "QMAKE_AR                = $AR cqs"        >> $QMAKE_CONF
-  echo "QMAKE_OBJCOPY           = $OBJCOPY"       >> $QMAKE_CONF
-  echo "QMAKE_NM                = $NM -P"         >> $QMAKE_CONF
-  echo "QMAKE_STRIP             = $STRIP"         >> $QMAKE_CONF
-  echo "QMAKE_CFLAGS = $CFLAGS"                   >> $QMAKE_CONF
-  echo "QMAKE_CXXFLAGS = $CXXFLAGS"               >> $QMAKE_CONF
-  echo "QMAKE_LFLAGS = $LDFLAGS"                  >> $QMAKE_CONF
+  echo "MAKEFILE_GENERATOR       = UNIX"           > ${QMAKE_CONF}
+  echo "CONFIG                  += incremental"   >> ${QMAKE_CONF}
+  echo "QMAKE_INCREMENTAL_STYLE  = sublib"        >> ${QMAKE_CONF}
+  echo "include(../../common/linux.conf)"         >> ${QMAKE_CONF}
+  echo "include(../../common/gcc-base-unix.conf)" >> ${QMAKE_CONF}
+  echo "include(../../common/g++-unix.conf)"      >> ${QMAKE_CONF}
+  echo "load(device_config)"                      >> ${QMAKE_CONF}
+  echo "QMAKE_CC                = ${CC}"          >> ${QMAKE_CONF}
+  echo "QMAKE_CXX               = ${CXX}"         >> ${QMAKE_CONF}
+  echo "QMAKE_LINK              = ${CXX}"         >> ${QMAKE_CONF}
+  echo "QMAKE_LINK_SHLIB        = ${CXX}"         >> ${QMAKE_CONF}
+  echo "QMAKE_AR                = ${AR} cqs"      >> ${QMAKE_CONF}
+  echo "QMAKE_OBJCOPY           = ${OBJCOPY}"     >> ${QMAKE_CONF}
+  echo "QMAKE_NM                = ${NM} -P"       >> ${QMAKE_CONF}
+  echo "QMAKE_STRIP             = ${STRIP}"       >> ${QMAKE_CONF}
+  echo "QMAKE_CFLAGS            = ${CFLAGS}"      >> ${QMAKE_CONF}
+  echo "QMAKE_CXXFLAGS          = ${CXXFLAGS}"    >> ${QMAKE_CONF}
+  echo "QMAKE_LFLAGS            = ${LDFLAGS}"     >> ${QMAKE_CONF}
   if [ "${OPENGLES}" = "bcm2835-driver" ]; then
-    echo "QMAKE_LIBS_EGL += -lEGL -lGLESv2"       >> $QMAKE_CONF
-    echo "EGLFS_DEVICE_INTEGRATION = eglfs_brcm"  >> $QMAKE_CONF
+    echo "QMAKE_LIBS_EGL += -lEGL -lGLESv2"       >> ${QMAKE_CONF}
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_brcm"  >> ${QMAKE_CONF}
   elif [ "${OPENGLES}" = "libmali" ]; then
-    echo "QMAKE_LIBS_EGL += -lMali"               >> $QMAKE_CONF
-    echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms"   >> $QMAKE_CONF
+    echo "QMAKE_LIBS_EGL += -lMali"               >> ${QMAKE_CONF}
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms"   >> ${QMAKE_CONF}
   elif [ "${OPENGLES}" = "opengl-meson" ]; then
-    echo "QMAKE_LIBS_EGL += -lMali"               >> $QMAKE_CONF
-    echo "EGLFS_DEVICE_INTEGRATION = eglfs_mali"  >> $QMAKE_CONF
+    echo "QMAKE_LIBS_EGL += -lMali"               >> ${QMAKE_CONF}
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_mali"  >> ${QMAKE_CONF}
   fi
-  echo "load(qt_config)"                          >> $QMAKE_CONF
-  echo '#include "../../linux-g++/qplatformdefs.h"' >> $QMAKE_CONF_DIR/qplatformdefs.h
+  echo "load(qt_config)"                            >> ${QMAKE_CONF}
+  echo '#include "../../linux-g++/qplatformdefs.h"' >> ${QMAKE_CONF_DIR}/qplatformdefs.h
 
   unset CC CXX LD RANLIB AR AS CPPFLAGS CFLAGS LDFLAGS CXXFLAGS
   export QT_FORCE_PKGCONFIG=yes
-  ./configure $PKG_CONFIGURE_OPTS_TARGET
+  ./configure ${PKG_CONFIGURE_OPTS_TARGET}
 }
 
 post_makeinstall_target() {
