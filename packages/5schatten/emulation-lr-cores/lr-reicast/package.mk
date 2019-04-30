@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="lr-reicast"
-PKG_VERSION="b3e5f0c0c7b5220684c4c7e8c33c197332a88989"
-PKG_SHA256="cd72c1f36ebd4b662fa112442f53c2e5503c33e6848cb1cf46611cc4cc65b90e"
+PKG_VERSION="0271184656936712ce3fdd412ca4a5f807f208b7"
+PKG_SHA256="08cfdc3c6d825e39e72eae35de73ea933f8c1420997fd4ffa4d719f45fd1b56a"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/reicast-emulator"
 PKG_URL="https://github.com/libretro/reicast-emulator/archive/${PKG_VERSION}.tar.gz"
@@ -13,11 +13,14 @@ PKG_TOOLCHAIN="make"
 PKG_BUILD_FLAGS="-gold"
 
 PKG_LIBNAME="reicast_libretro.so"
-PKG_LIBPATH="$PKG_LIBNAME"
+PKG_LIBPATH="${PKG_LIBNAME}"
 
 PKG_MAKE_OPTS_TARGET="HAVE_OPENMP=0 GIT_VERSION=${PKG_VERSION:0:7} WITH_DYNAREC=${ARCH}"
 
 configure_package() {
+  # Apply project specific patches
+  PKG_PATCH_DIRS="${PROJECT}"
+
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
     PKG_DEPENDS_TARGET+=" xorg-server"
@@ -35,7 +38,7 @@ configure_package() {
 }
 
 pre_configure_target() {
-  export BUILD_SYSROOT=$SYSROOT_PREFIX
+  export BUILD_SYSROOT=${SYSROOT_PREFIX}
 
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
     PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
@@ -68,5 +71,5 @@ pre_configure_target() {
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/lib/libretro
-  cp ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
