@@ -10,7 +10,7 @@ PKG_LONGDESC="A PSP emulator for Android, Windows, Mac, Linux and Blackberry 10,
 GET_HANDLER_SUPPORT="git"
 
 if [ "${PROJECT}" = "Generic" ]; then
-  PKG_VERSION="8d4ab57b46263f838394f06409dc19e0aaf0b018" #v1.8.0+
+  PKG_VERSION="122f871c746b57734d20585db4c1d3b99969ba29" #v1.8.0+
 else
   PKG_VERSION="74d87fa2b4a3c943c1df09cc26a8c70b1335fd30" #v1.7.5
 fi
@@ -35,6 +35,10 @@ configure_package() {
 pre_configure_target() {
   PKG_CMAKE_OPTS_TARGET="-DUSE_SYSTEM_FFMPEG=ON"
 
+  if [ "${PROJECT}" = "Generic" ]; then
+    PKG_CMAKE_OPTS_TARGET+=" -DUSE_DISCORD=OFF"
+  fi
+
   if [ "${ARCH}" = "arm" ] && [ ! "${TARGET_CPU}" = "arm1176jzf-s" ]; then
     PKG_CMAKE_OPTS_TARGET+=" -DARMV7=ON"
   elif [ "${TARGET_CPU}" = "arm1176jzf-s" ]; then
@@ -42,9 +46,13 @@ pre_configure_target() {
   fi
 
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
-    PKG_CMAKE_OPTS_TARGET+=" -DUSING_FBDEV=ON \
-                             -DUSING_EGL=ON \
-                             -DUSING_GLES2=ON"
+    PKG_CMAKE_OPTS_TARGET+=" -DUSING_GLES2=ON"
+    if [ "${OPENGLES}" = "libmali" ]; then
+      PKG_CMAKE_OPTS_TARGET+=" -DUSING_EGL=OFF"
+    else
+      PKG_CMAKE_OPTS_TARGET+=" -DUSING_FBDEV=ON \
+                               -DUSING_EGL=ON"
+    fi
   fi
 
   if [ "${DISPLAYSERVER}" = "x11" ] && [ "${VULKAN_SUPPORT}" = "yes" ]; then
