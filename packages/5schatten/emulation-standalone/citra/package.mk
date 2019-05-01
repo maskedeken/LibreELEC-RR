@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="citra"
-PKG_VERSION="7ea82e7941af3f7ee6fc12b38685091a0a3d5052"
+PKG_VERSION="623b0621ab52df03ebb993979c220550135a0213"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv2+"
 PKG_SITE="https://github.com/citra-emu/citra"
@@ -31,7 +31,7 @@ pre_make_target() {
 post_makeinstall_target() {
   # Copy scripts & config files
   mkdir -p ${INSTALL}/usr/config/citra-emu
-  cp     ${PKG_DIR}/scripts/* ${INSTALL}/usr/bin/
+  cp -a  ${PKG_DIR}/scripts/* ${INSTALL}/usr/bin/
   cp -PR ${PKG_DIR}/config/*  ${INSTALL}/usr/config/citra-emu/
   cp -PR ${PKG_DIR}/files/*   ${INSTALL}/usr/config/citra-emu/
   
