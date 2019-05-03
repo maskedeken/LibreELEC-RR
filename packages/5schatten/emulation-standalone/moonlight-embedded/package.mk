@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="moonlight-embedded"
-PKG_VERSION="115966ce0f4e1ed4e60a524d4c7adfdef833d7b9" #v2.4.8
+PKG_VERSION="6a7ac5c7cb393e7edde67359bb3d1dcc8ecafd26" #v2.4.9
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/irtimmer/moonlight-embedded"
 PKG_URL="https://github.com/irtimmer/moonlight-embedded.git"
