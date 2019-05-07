@@ -116,8 +116,6 @@ pre_configure_target() {
                              --disable-crystalhd \
                              --disable-dxva2 \
                              --disable-aom \
-                             --disable-dav1d \
-                             --disable-vpx \
                              --disable-vlc"
 
   # X11 Support
