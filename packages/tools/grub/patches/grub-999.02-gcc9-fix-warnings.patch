@@ -1,0 +1,472 @@
+From 7ea474c68847757d4c67ffc67f7d714b77c41578 Mon Sep 17 00:00:00 2001
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 11 Apr 2019 17:14:02 +0800
+Subject: cpio: Disable gcc9 -Waddress-of-packed-member
+
+Disable the -Wadress-of-packaed-member diagnostic for the
+grub_cpio_find_file function since the result is found to be false
+postive. Any pointers to member of the 'struct head hd' is aligned even
+if the structure is packed without paddings.
+
+Signed-off-by: Michael Chang <mchang@suse.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/fs/cpio_common.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/grub-core/fs/cpio_common.c b/grub-core/fs/cpio_common.c
+index ed134d9..4e885d6 100644
+--- a/grub-core/fs/cpio_common.c
++++ b/grub-core/fs/cpio_common.c
+@@ -36,6 +36,11 @@ struct grub_archelp_data
+   grub_off_t size;
+ };
+ 
++#if __GNUC__ >= 9
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Waddress-of-packed-member"
++#endif
++
+ static grub_err_t
+ grub_cpio_find_file (struct grub_archelp_data *data, char **name,
+ 		     grub_int32_t *mtime, grub_uint32_t *mode)
+@@ -96,6 +101,10 @@ grub_cpio_find_file (struct grub_archelp_data *data, char **name,
+   return GRUB_ERR_NONE;
+ }
+ 
++#if __GNUC__ >= 9
++#pragma GCC diagnostic pop
++#endif
++
+ static char *
+ grub_cpio_get_link_target (struct grub_archelp_data *data)
+ {
+-- 
+cgit v1.0-41-gc330
+
+From 0e49748fad8e036d9875785e57c577214e699941 Mon Sep 17 00:00:00 2001
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 11 Apr 2019 17:14:04 +0800
+Subject: hfs: Fix gcc9 error -Waddress-of-packed-member
+
+Simply adds the missing packed attribute to 'struct grub_hfs_extent'.
+
+[   83s] ../grub-core/fs/hfs.c: In function 'grub_hfs_iterate_records':
+[   83s] ../grub-core/fs/hfs.c:699:9: error: taking address of packed member of 'struct grub_hfs_sblock' may result in an unaligned pointer value [-Werror=address-of-packed-member]
+[   83s]   699 |      ? (&data->sblock.catalog_recs)
+[   83s]       |        ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+[   83s] ../grub-core/fs/hfs.c:700:9: error: taking address of packed member of 'struct grub_hfs_sblock' may result in an unaligned pointer value [-Werror=address-of-packed-member]
+[   83s]   700 |      : (&data->sblock.extent_recs));
+[   83s]       |        ~^~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Signed-off-by: Michael Chang <mchang@suse.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ include/grub/hfs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/grub/hfs.h b/include/grub/hfs.h
+index d935f50..e27993c 100644
+--- a/include/grub/hfs.h
++++ b/include/grub/hfs.h
+@@ -29,7 +29,7 @@ struct grub_hfs_extent
+   /* The first physical block.  */
+   grub_uint16_t first_block;
+   grub_uint16_t count;
+-};
++} GRUB_PACKED;
+ 
+ /* HFS stores extents in groups of 3.  */
+ typedef struct grub_hfs_extent grub_hfs_datarecord_t[3];
+-- 
+cgit v1.0-41-gc330
+
+From 4f4128defdec0958f7a38736e2c9be2368a5a6da Mon Sep 17 00:00:00 2001
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 11 Apr 2019 17:14:03 +0800
+Subject: jfs: Disable gcc9 -Waddress-of-packed-member
+
+Disable the -Wadress-of-packaed-member diagnostic for the
+grub_jfs_getent function since the result is found to be false postive.
+
+The leaf is read into memory as continous chunks in size of 32 bytes and
+the pointer to its base is aligned, which also guarentee its member
+leaf->namepart is aligned.
+
+Signed-off-by: Michael Chang <mchang@suse.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/fs/jfs.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/grub-core/fs/jfs.c b/grub-core/fs/jfs.c
+index 09bc560..d5a6d65 100644
+--- a/grub-core/fs/jfs.c
++++ b/grub-core/fs/jfs.c
+@@ -505,6 +505,10 @@ le_to_cpu16_copy (grub_uint16_t *out, grub_uint16_t *in, grub_size_t len)
+     *out++ = grub_le_to_cpu16 (*in++);
+ }
+ 
++#if __GNUC__ >= 9
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Waddress-of-packed-member"
++#endif
+ 
+ /* Read in the next dirent from the directory described by DIRO.  */
+ static grub_err_t
+@@ -582,6 +586,9 @@ grub_jfs_getent (struct grub_jfs_diropen *diro)
+   return 0;
+ }
+ 
++#if __GNUC__ >= 9
++#pragma GCC diagnostic pop
++#endif
+ 
+ /* Read LEN bytes from the file described by DATA starting with byte
+    POS.  Return the amount of read bytes in READ.  */
+-- 
+cgit v1.0-41-gc330
+
+From 621024090b7729c8c698c8ab916d792846d20818 Mon Sep 17 00:00:00 2001
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 11 Apr 2019 17:14:05 +0800
+Subject: hfsplus: Fix gcc9 error with -Waddress-of-packed-member
+
+The catkey->name could be unaligned since the address of 'void* record'
+is calculated as offset in bytes to a malloc buffer.
+
+The fix is using aligned buffer allocated by grub_malloc for holding
+the UTF16 string copied from catkey->name. And use that buffer as
+argument for grub_utf16_to_utf8 to convert to UTF8 strings.
+
+In addition, using a new copy of buffer rather than catkey->name itself
+for processing the endianess conversion, we can also get rid of the hunk
+restoring byte order of catkey->name to what it was previously.
+
+Signed-off-by: Michael Chang <mchang@suse.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/fs/hfsplus.c | 57 +++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 40 insertions(+), 17 deletions(-)
+
+diff --git a/grub-core/fs/hfsplus.c b/grub-core/fs/hfsplus.c
+index 73ae95f..54786bb 100644
+--- a/grub-core/fs/hfsplus.c
++++ b/grub-core/fs/hfsplus.c
+@@ -661,6 +661,7 @@ list_nodes (void *record, void *hook_arg)
+   char *filename;
+   int i;
+   struct grub_fshelp_node *node;
++  grub_uint16_t *keyname;
+   struct grub_hfsplus_catfile *fileinfo;
+   enum grub_fshelp_filetype type = GRUB_FSHELP_UNKNOWN;
+   struct list_nodes_ctx *ctx = hook_arg;
+@@ -719,32 +720,34 @@ list_nodes (void *record, void *hook_arg)
+   if (! filename)
+     return 0;
+ 
++  keyname = grub_malloc (grub_be_to_cpu16 (catkey->namelen) * sizeof (*keyname));
++  if (!keyname)
++    {
++      grub_free (filename);
++      return 0;
++    }
++
+   /* Make sure the byte order of the UTF16 string is correct.  */
+   for (i = 0; i < grub_be_to_cpu16 (catkey->namelen); i++)
+     {
+-      catkey->name[i] = grub_be_to_cpu16 (catkey->name[i]);
++      keyname[i] = grub_be_to_cpu16 (catkey->name[i]);
+ 
+-      if (catkey->name[i] == '/')
+-	catkey->name[i] = ':';
++      if (keyname[i] == '/')
++	keyname[i] = ':';
+ 
+       /* If the name is obviously invalid, skip this node.  */
+-      if (catkey->name[i] == 0)
++      if (keyname[i] == 0)
+ 	{
++	  grub_free (keyname);
+ 	  grub_free (filename);
+ 	  return 0;
+ 	}
+     }
+ 
+-  *grub_utf16_to_utf8 ((grub_uint8_t *) filename, catkey->name,
++  *grub_utf16_to_utf8 ((grub_uint8_t *) filename, keyname,
+ 		       grub_be_to_cpu16 (catkey->namelen)) = '\0';
+ 
+-  /* Restore the byte order to what it was previously.  */
+-  for (i = 0; i < grub_be_to_cpu16 (catkey->namelen); i++)
+-    {
+-      if (catkey->name[i] == ':')
+-	catkey->name[i] = '/';
+-      catkey->name[i] = grub_be_to_cpu16 (catkey->name[i]);
+-    }
++  grub_free (keyname);
+ 
+   /* hfs+ is case insensitive.  */
+   if (! ctx->dir->data->case_sensitive)
+@@ -975,6 +978,7 @@ grub_hfsplus_label (grub_device_t device, char **label)
+   grub_disk_t disk = device->disk;
+   struct grub_hfsplus_catkey *catkey;
+   int i, label_len;
++  grub_uint16_t *label_name;
+   struct grub_hfsplus_key_internal intern;
+   struct grub_hfsplus_btnode *node = NULL;
+   grub_disk_addr_t ptr = 0;
+@@ -1003,22 +1007,41 @@ grub_hfsplus_label (grub_device_t device, char **label)
+     grub_hfsplus_btree_recptr (&data->catalog_tree, node, ptr);
+ 
+   label_len = grub_be_to_cpu16 (catkey->namelen);
++  label_name = grub_malloc (label_len * sizeof (*label_name));
++  if (!label_name)
++    {
++      grub_free (node);
++      grub_free (data);
++      return grub_errno;
++    }
++
+   for (i = 0; i < label_len; i++)
+     {
+-      catkey->name[i] = grub_be_to_cpu16 (catkey->name[i]);
++      label_name[i] = grub_be_to_cpu16 (catkey->name[i]);
+ 
+       /* If the name is obviously invalid, skip this node.  */
+-      if (catkey->name[i] == 0)
+-	return 0;
++      if (label_name[i] == 0)
++	{
++	  grub_free (label_name);
++	  grub_free (node);
++	  grub_free (data);
++	  return 0;
++	}
+     }
+ 
+   *label = grub_malloc (label_len * GRUB_MAX_UTF8_PER_UTF16 + 1);
+   if (! *label)
+-    return grub_errno;
++    {
++      grub_free (label_name);
++      grub_free (node);
++      grub_free (data);
++      return grub_errno;
++    }
+ 
+-  *grub_utf16_to_utf8 ((grub_uint8_t *) (*label), catkey->name,
++  *grub_utf16_to_utf8 ((grub_uint8_t *) (*label), label_name,
+ 		       label_len) = '\0';
+ 
++  grub_free (label_name);
+   grub_free (node);
+   grub_free (data);
+ 
+-- 
+cgit v1.0-41-gc330
+
+From 0b1bf3932f1b1700d3c8a997e4850fb9a013569d Mon Sep 17 00:00:00 2001
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 11 Apr 2019 17:14:06 +0800
+Subject: acpi: Fix gcc9 error -Waddress-of-packed-member
+
+Simply adds the missing packed attribute to 'struct grub_acpi_madt'.
+
+Signed-off-by: Michael Chang <mchang@suse.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ include/grub/acpi.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/grub/acpi.h b/include/grub/acpi.h
+index 66148f6..84f4948 100644
+--- a/include/grub/acpi.h
++++ b/include/grub/acpi.h
+@@ -93,7 +93,7 @@ struct grub_acpi_madt
+   grub_uint32_t lapic_addr;
+   grub_uint32_t flags;
+   struct grub_acpi_madt_entry_header entries[0];
+-};
++} GRUB_PACKED;
+ 
+ enum
+   {
+-- 
+cgit v1.0-41-gc330
+
+From 85e08e174e15c497c4387c16e92243e6ed05feb6 Mon Sep 17 00:00:00 2001
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 11 Apr 2019 17:14:07 +0800
+Subject: usbtest: Disable gcc9 -Waddress-of-packed-member
+
+Disable the -Wadress-of-packaed-member diagnostic for the
+grub_usb_get_string function since the result is false postive. The
+descstrp->str is found to be aligned in the buffer allocated for 'struct
+grub_usb_desc_str'.
+
+Signed-off-by: Michael Chang <mchang@suse.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/commands/usbtest.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/grub-core/commands/usbtest.c b/grub-core/commands/usbtest.c
+index 01cdca9..2c6d93f 100644
+--- a/grub-core/commands/usbtest.c
++++ b/grub-core/commands/usbtest.c
+@@ -63,6 +63,11 @@ static const char *usb_devspeed[] =
+     "High"
+   };
+ 
++#if __GNUC__ >= 9
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Waddress-of-packed-member"
++#endif
++
+ static grub_usb_err_t
+ grub_usb_get_string (grub_usb_device_t dev, grub_uint8_t index, int langid,
+ 		     char **string)
+@@ -108,6 +113,10 @@ grub_usb_get_string (grub_usb_device_t dev, grub_uint8_t index, int langid,
+   return GRUB_USB_ERR_NONE;
+ }
+ 
++#if __GNUC__ >= 9
++#pragma GCC diagnostic pop
++#endif
++
+ static void
+ usb_print_str (const char *description, grub_usb_device_t dev, int idx)
+ {
+-- 
+cgit v1.0-41-gc330
+
+From 4868e17507dfebf2894079ad6b4876e612706f30 Mon Sep 17 00:00:00 2001
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 11 Apr 2019 17:14:08 +0800
+Subject: chainloader: Fix gcc9 error -Waddress-of-packed-member
+
+The address of fp->path_name could be unaligned since seeking into the
+device path buffer for a given node could end in byte boundary.
+
+The fix is using aligned buffer allocated by grub_malloc for receiving
+the converted UTF16 string by grub_utf8_to_utf16 and also the processing
+after. The resulting string then gets copied to fp->path_name.
+
+Signed-off-by: Michael Chang <mchang@suse.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/loader/efi/chainloader.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/grub-core/loader/efi/chainloader.c b/grub-core/loader/efi/chainloader.c
+index f706b1a..cd92ea3 100644
+--- a/grub-core/loader/efi/chainloader.c
++++ b/grub-core/loader/efi/chainloader.c
+@@ -110,21 +110,27 @@ static void
+ copy_file_path (grub_efi_file_path_device_path_t *fp,
+ 		const char *str, grub_efi_uint16_t len)
+ {
+-  grub_efi_char16_t *p;
++  grub_efi_char16_t *p, *path_name;
+   grub_efi_uint16_t size;
+ 
+   fp->header.type = GRUB_EFI_MEDIA_DEVICE_PATH_TYPE;
+   fp->header.subtype = GRUB_EFI_FILE_PATH_DEVICE_PATH_SUBTYPE;
+ 
+-  size = grub_utf8_to_utf16 (fp->path_name, len * GRUB_MAX_UTF16_PER_UTF8,
++  path_name = grub_malloc (len * GRUB_MAX_UTF16_PER_UTF8 * sizeof (*path_name));
++  if (!path_name)
++    return;
++
++  size = grub_utf8_to_utf16 (path_name, len * GRUB_MAX_UTF16_PER_UTF8,
+ 			     (const grub_uint8_t *) str, len, 0);
+-  for (p = fp->path_name; p < fp->path_name + size; p++)
++  for (p = path_name; p < path_name + size; p++)
+     if (*p == '/')
+       *p = '\\';
+ 
++  grub_memcpy (fp->path_name, path_name, size * sizeof (*fp->path_name));
+   /* File Path is NULL terminated */
+   fp->path_name[size++] = '\0';
+   fp->header.length = size * sizeof (grub_efi_char16_t) + sizeof (*fp);
++  grub_free (path_name);
+ }
+ 
+ static grub_efi_device_path_t *
+-- 
+cgit v1.0-41-gc330
+
+From 4dd4ceec023111a4ccf69f8de6fa0885c6847a35 Mon Sep 17 00:00:00 2001
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 11 Apr 2019 17:14:09 +0800
+Subject: efi: Fix gcc9 error -Waddress-of-packed-member
+
+The address of fp->path_name could be unaligned since seeking into the
+device path buffer for a given node could end in byte boundary.
+
+The fix is allocating aligned buffer by grub_malloc for holding the
+UTF16 string copied from fp->path_name, and after using that buffer as
+argument for grub_utf16_to_utf8 to convert it to UTF8 string.
+
+Signed-off-by: Michael Chang <mchang@suse.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/kern/efi/efi.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/grub-core/kern/efi/efi.c b/grub-core/kern/efi/efi.c
+index 84e68cf..6e1ceb9 100644
+--- a/grub-core/kern/efi/efi.c
++++ b/grub-core/kern/efi/efi.c
+@@ -372,6 +372,7 @@ grub_efi_get_filename (grub_efi_device_path_t *dp0)
+ 	{
+ 	  grub_efi_file_path_device_path_t *fp;
+ 	  grub_efi_uint16_t len;
++	  grub_efi_char16_t *dup_name;
+ 
+ 	  *p++ = '/';
+ 
+@@ -382,7 +383,16 @@ grub_efi_get_filename (grub_efi_device_path_t *dp0)
+ 	  while (len > 0 && fp->path_name[len - 1] == 0)
+ 	    len--;
+ 
+-	  p = (char *) grub_utf16_to_utf8 ((unsigned char *) p, fp->path_name, len);
++	  dup_name = grub_malloc (len * sizeof (*dup_name));
++	  if (!dup_name)
++	    {
++	      grub_free (name);
++	      return NULL;
++	    }
++	  p = (char *) grub_utf16_to_utf8 ((unsigned char *) p,
++					    grub_memcpy (dup_name, fp->path_name, len * sizeof (*dup_name)),
++					    len);
++	  grub_free (dup_name);
+ 	}
+ 
+       dp = GRUB_EFI_NEXT_DEVICE_PATH (dp);
+@@ -812,9 +822,20 @@ grub_efi_print_device_path (grub_efi_device_path_t *dp)
+ 		fp = (grub_efi_file_path_device_path_t *) dp;
+ 		buf = grub_malloc ((len - 4) * 2 + 1);
+ 		if (buf)
+-		  *grub_utf16_to_utf8 (buf, fp->path_name,
++		  {
++		    grub_efi_char16_t *dup_name = grub_malloc (len - 4);
++		    if (!dup_name)
++		      {
++			grub_errno = GRUB_ERR_NONE;
++			grub_printf ("/File((null))");
++			grub_free (buf);
++			break;
++		      }
++		    *grub_utf16_to_utf8 (buf, grub_memcpy (dup_name, fp->path_name, len - 4),
+ 				       (len - 4) / sizeof (grub_efi_char16_t))
+-		    = '\0';
++		      = '\0';
++		    grub_free (dup_name);
++		  }
+ 		else
+ 		  grub_errno = GRUB_ERR_NONE;
+ 		grub_printf ("/File(%s)", buf);
+-- 
+cgit v1.0-41-gc330
