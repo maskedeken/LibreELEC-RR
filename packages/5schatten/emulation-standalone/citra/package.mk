@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="citra"
-PKG_VERSION="2c5816978ecd20e343c194e77434ccf6fe7f63f5"
+PKG_VERSION="46b015befd45bc74dd5ac316ed508bb832fb5d9d"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv2+"
 PKG_SITE="https://github.com/citra-emu/citra"
@@ -20,6 +20,9 @@ pre_configure_target() {
                          -DENABLE_WEB_SERVICE=0 \
                          -DCMAKE_NO_SYSTEM_FROM_IMPORTED=1 \
                          -DCMAKE_VERBOSE_MAKEFILE=1"
+
+  # Workaround for GCC 9.1.0 https://github.com/citra-emu/citra/issues/4766
+  CXXFLAGS+=" -DFMT_USE_USER_DEFINED_LITERALS=0"
 }
 
 pre_make_target() {
