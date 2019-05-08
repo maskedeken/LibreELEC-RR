@@ -82,6 +82,8 @@ pre_configure_target() {
   if [ "${OPENGL_SUPPORT}" = "yes" ]; then
     PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengl \
                                  --enable-kms"
+  else
+    PKG_CONFIGURE_OPTS_TARGET+=" --disable-opengl1"
   fi
 
   # Vulkan Support
@@ -95,7 +97,8 @@ pre_configure_target() {
 
     # RPi OpenGLES Features Support
     if [ "${OPENGLES}" = "bcm2835-driver" ]; then
-      PKG_CONFIGURE_OPTS_TARGET+=" --enable-dispmanx \
+      PKG_CONFIGURE_OPTS_TARGET+=" --disable-opengl_core \
+                                   --enable-dispmanx \
                                    --disable-kms"
 
     # Amlogic OpenGLES Features Support
@@ -171,17 +174,17 @@ makeinstall_target() {
   sed -e "s/# menu_show_core_updater = true/# menu_show_core_updater = false/"        -i ${INSTALL}/etc/retroarch.cfg
 
   # Video
-  sed -e "s/# framecount_show =/framecount_show = false/"                                        -i ${INSTALL}/etc/retroarch.cfg
-  sed -e "s/# video_fullscreen = false/video_fullscreen = true/"                                 -i ${INSTALL}/etc/retroarch.cfg
-  sed -e "s/# video_windowed_fullscreen = true/video_windowed_fullscreen = false/"               -i ${INSTALL}/etc/retroarch.cfg
-  sed -e "s/# video_smooth = true/video_smooth = false/"                                         -i ${INSTALL}/etc/retroarch.cfg
-  sed -e "s/# video_aspect_ratio_auto = false/video_aspect_ratio_auto = true/"                   -i ${INSTALL}/etc/retroarch.cfg
-  sed -e "s/# video_font_size = 48/video_font_size = 32/"                                        -i ${INSTALL}/etc/retroarch.cfg
+  sed -e "s/# framecount_show =/framecount_show = false/"                                         -i ${INSTALL}/etc/retroarch.cfg
+  sed -e "s/# video_fullscreen = false/video_fullscreen = true/"                                  -i ${INSTALL}/etc/retroarch.cfg
+  sed -e "s/# video_windowed_fullscreen = true/video_windowed_fullscreen = false/"                -i ${INSTALL}/etc/retroarch.cfg
+  sed -e "s/# video_smooth = true/video_smooth = false/"                                          -i ${INSTALL}/etc/retroarch.cfg
+  sed -e "s/# video_aspect_ratio_auto = false/video_aspect_ratio_auto = true/"                    -i ${INSTALL}/etc/retroarch.cfg
+  sed -e "s/# video_font_size = 48/video_font_size = 32/"                                         -i ${INSTALL}/etc/retroarch.cfg
   sed -e "s/# video_filter_dir =/video_filter_dir = \"\/usr\/share\/retroarch\/filters\/video\"/" -i ${INSTALL}/etc/retroarch.cfg
-  sed -e "s/# video_gpu_screenshot = true/video_gpu_screenshot = false/"                         -i ${INSTALL}/etc/retroarch.cfg
+  sed -e "s/# video_gpu_screenshot = true/video_gpu_screenshot = false/"                          -i ${INSTALL}/etc/retroarch.cfg
 
   # Audio
-  sed -e "s/# audio_driver =/audio_driver = \"alsathread\"/"                                     -i ${INSTALL}/etc/retroarch.cfg
+  sed -e "s/# audio_driver =/audio_driver = \"alsathread\"/"                                      -i ${INSTALL}/etc/retroarch.cfg
   sed -e "s/# audio_filter_dir =/audio_filter_dir = \"\/usr\/share\/retroarch\/filters\/audio\"/" -i ${INSTALL}/etc/retroarch.cfg
 
   # Input
