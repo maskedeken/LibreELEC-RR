@@ -1,21 +1,22 @@
-From ed00ed03fec9b29d27f0bf07a44ab07484ed2bda Mon Sep 17 00:00:00 2001
-From: 5schatten <supervisedthinking@gmail.com>
-Date: Tue, 7 May 2019 22:04:06 +0200
-Subject: [PATCH] fix GCC 9.1.0 warnings
+From 8e9cf447a0a428abbbef86d05b7844f2fc6aa8a4 Mon Sep 17 00:00:00 2001
+From: MilhouseVH <milhouseVH.github@nmacleod.com>
+Date: Mon, 6 May 2019 03:46:57 +0100
+Subject: [PATCH] gcc-9.1 compatability
 
+See: https://github.com/vmware/open-vm-tools/issues/330
 ---
- hgfsmounter/hgfsmounter.c   |  14 +-
- lib/hgfsServer/hgfsServer.c |  24 ++-
- lib/misc/util_misc.c        |   4 +-
- vmhgfs-fuse/dir.c           | 175 ++++++++---------
- vmhgfs-fuse/file.c          | 217 +++++++++++++---------
- vmhgfs-fuse/filesystem.c    |  46 ++---
- vmhgfs-fuse/fsutil.c        |  63 ++++---
- vmhgfs-fuse/link.c          | 125 +++++++------
- 8 files changed, 369 insertions(+), 299 deletions(-)
+ hgfsmounter/hgfsmounter.c   |  14 +--
+ lib/hgfsServer/hgfsServer.c |  10 ++-
+ lib/misc/util_misc.c        |   6 +-
+ vmhgfs-fuse/dir.c           | 175 +++++++++++++++++++-----------------
+ vmhgfs-fuse/file.c          | 213 +++++++++++++++++++++++++-------------------
+ vmhgfs-fuse/filesystem.c    |  46 +++++-----
+ vmhgfs-fuse/fsutil.c        |  63 ++++++++-----
+ vmhgfs-fuse/link.c          | 125 +++++++++++++-------------
+ 8 files changed, 361 insertions(+), 291 deletions(-)
 
 diff --git a/hgfsmounter/hgfsmounter.c b/hgfsmounter/hgfsmounter.c
-index 0921b700b..3f6798dc4 100644
+index 0921b70..3f6798d 100644
 --- a/hgfsmounter/hgfsmounter.c
 +++ b/hgfsmounter/hgfsmounter.c
 @@ -1,5 +1,5 @@
@@ -58,7 +59,7 @@ index 0921b700b..3f6798dc4 100644
     }
  
 diff --git a/lib/hgfsServer/hgfsServer.c b/lib/hgfsServer/hgfsServer.c
-index 7ea3b7f48..295ab3c3f 100644
+index 7ea3b7f..461e30f 100644
 --- a/lib/hgfsServer/hgfsServer.c
 +++ b/lib/hgfsServer/hgfsServer.c
 @@ -1,5 +1,5 @@
@@ -68,62 +69,6 @@ index 7ea3b7f48..295ab3c3f 100644
   *
   * This program is free software; you can redistribute it and/or modify it
   * under the terms of the GNU Lesser General Public License as published
-@@ -159,7 +159,7 @@ struct HgfsTransportSessionInfo {
-    HgfsServerChannelData channelCapabilities;
- };
- 
--/* The input request paramaters object. */
-+/* The input request parameters object. */
- typedef struct HgfsInputParam {
-    const void *request;          /* Hgfs header followed by operation request */
-    size_t requestSize;           /* Size of Hgfs header and operation request */
-@@ -2682,8 +2682,8 @@ HgfsSearchHandle2Search(HgfsHandle handle,         // IN: handle
-  *    None
-  *
-  * Side effects:
-- *    If there isnt enough memory to accomodate the new names, those file nodes
-- *    that couldnt be updated are deleted.
-+ *    If there isn't enough memory to accommodate the new names, those file nodes
-+ *    that couldn't be updated are deleted.
-  *
-  *-----------------------------------------------------------------------------
-  */
-@@ -3399,7 +3399,7 @@ HgfsServerSessionReceive(HgfsPacket *packet,      // IN: Hgfs Packet
- 
-    /* Send error if we fail to process the op. */
-    if (HGFS_ERROR_SUCCESS != status) {
--      LOG(4, ("Error %d occured parsing the packet\n", (uint32)status));
-+      LOG(4, ("Error %d occurred parsing the packet\n", (uint32)status));
-       HgfsServerCompleteRequest(status, 0, input);
-    }
- }
-@@ -4131,7 +4131,7 @@ HgfsServerSetSessionCapability(HgfsOp op,                  // IN: operation code
-          result = TRUE;
-       }
-    }
--   LOG(4, ("%s: Setting capabilitiy flags %x for op code %d %s\n",
-+   LOG(4, ("%s: Setting capability flags %x for op code %d %s\n",
-            __FUNCTION__, flags, op, result ? "succeeded" : "failed"));
- 
-    return result;
-@@ -4143,7 +4143,7 @@ HgfsServerSetSessionCapability(HgfsOp op,                  // IN: operation code
-  *
-  * HgfsServerResEnumInit --
-  *
-- *    Initialize an enumeration of all exisitng resources.
-+ *    Initialize an enumeration of all existing resources.
-  *
-  * Results:
-  *    The enumeration state object.
-@@ -4239,7 +4239,7 @@ HgfsServerResEnumExit(void *enumState)           // IN/OUT: enumeration state
-  *
-  * HgfsServerEnumerateSharedFolders --
-  *
-- *    Enumerates all exisitng shared folders and registers shared folders with
-+ *    Enumerates all existing shared folders and registers shared folders with
-  *    directory notification package.
-  *
-  * Results:
 @@ -6536,11 +6536,13 @@ HgfsServerRead(HgfsInputParam *input)  // IN: Input params
              payload = &reply->payload[0];
           }
@@ -155,9 +100,16 @@ index 7ea3b7f48..295ab3c3f 100644
           } else {
              LOG(4, ("%s: V1 Failed to read-> %d.\n", __FUNCTION__, status));
 diff --git a/lib/misc/util_misc.c b/lib/misc/util_misc.c
-index 198c23d2c..88bf25694 100644
+index 198c23d..de671a0 100644
 --- a/lib/misc/util_misc.c
 +++ b/lib/misc/util_misc.c
+@@ -1,5 +1,5 @@
+ /*********************************************************
+- * Copyright (C) 1998-2018 VMware, Inc. All rights reserved.
++ * Copyright (C) 1998-2019 VMware, Inc. All rights reserved.
+  *
+  * This program is free software; you can redistribute it and/or modify it
+  * under the terms of the GNU Lesser General Public License as published
 @@ -719,8 +719,8 @@ Util_ExpandString(const char *fileName) // IN  file path to expand
        ASSERT(!freeChunk[i]);
        chunks[i] = expand;
@@ -170,7 +122,7 @@ index 198c23d2c..88bf25694 100644
        }
        chunkSize[i] = strlen(expand);
 diff --git a/vmhgfs-fuse/dir.c b/vmhgfs-fuse/dir.c
-index 6298a4ea3..e71b7afd8 100644
+index 6298a4e..e71b7af 100644
 --- a/vmhgfs-fuse/dir.c
 +++ b/vmhgfs-fuse/dir.c
 @@ -1,5 +1,5 @@
@@ -291,7 +243,7 @@ index 6298a4ea3..e71b7afd8 100644
  
     result = HgfsPackDirOpenRequest(path, opUsed, req);
     if (result != 0) {
-@@ -187,8 +177,14 @@ HgfsDirOpen(const char* path,       // IN: Path of dir to open
+@@ -187,8 +177,14 @@ retry:
  
        switch (result) {
        case 0:
@@ -487,16 +439,9 @@ index 6298a4ea3..e71b7afd8 100644
     /* Fill in header here as payloadSize needs to be there. */
     HgfsPackHeader(req, opUsed);
 diff --git a/vmhgfs-fuse/file.c b/vmhgfs-fuse/file.c
-index 389ebba88..0b6c48bce 100644
+index 389ebba..0b87cf8 100644
 --- a/vmhgfs-fuse/file.c
 +++ b/vmhgfs-fuse/file.c
-@@ -1,5 +1,5 @@
- /*********************************************************
-- * Copyright (C) 2013,2017 VMware, Inc. All rights reserved.
-+ * Copyright (C) 2013,2018-2019 VMware, Inc. All rights reserved.
-  *
-  * This program is free software; you can redistribute it and/or modify it
-  * under the terms of the GNU Lesser General Public License as published
 @@ -66,10 +66,7 @@ HgfsPackOpenRequest(const char *path,          // IN: Path to file
                      HgfsOp opUsed,             // IN: Op to use
                      HgfsReq *req)              // IN/OUT: Packet to write into
@@ -620,7 +565,7 @@ index 389ebba88..0b6c48bce 100644
     int result = 0;
     uint32 reqSize;
     HgfsOp opUsed;
-@@ -942,33 +950,41 @@ HgfsRename(const char* from, const char* to)
+@@ -942,33 +950,41 @@ retry:
     if (opUsed == HGFS_OP_RENAME_V3) {
        HgfsRequestRenameV3 *requestV3 = HgfsGetRequestPayload(req);
  
@@ -678,7 +623,7 @@ index 389ebba88..0b6c48bce 100644
  
     /*
      * Build full new name to send to server.
-@@ -983,8 +999,20 @@ HgfsRename(const char* from, const char* to)
+@@ -983,8 +999,20 @@ retry:
  
        newNameP = (HgfsFileNameV3 *)((char *)&requestV3->oldName +
                                      sizeof requestV3->oldName + result);
@@ -701,7 +646,7 @@ index 389ebba88..0b6c48bce 100644
        newNameP->flags = 0;
        newNameP->fid = HGFS_INVALID_HANDLE;
        newNameP->caseType = HGFS_FILE_NAME_CASE_SENSITIVE;
-@@ -993,24 +1021,22 @@ HgfsRename(const char* from, const char* to)
+@@ -993,24 +1021,22 @@ retry:
        HgfsFileName *newNameP;
        newNameP = (HgfsFileName *)((char *)&request->oldName +
                                    sizeof request->oldName + result);
@@ -738,15 +683,6 @@ index 389ebba88..0b6c48bce 100644
     req->payloadSize = reqSize;
  
     /* Fill in header here as payloadSize needs to be there. */
-@@ -1068,7 +1094,7 @@ HgfsRename(const char* from, const char* to)
-          }
-          break;
-       default:
--         LOG(4, ("failed with result %d\n", result));
-+         LOG(4, ("Server protocol result %d\n", result));
-       }
-       break;
-    default:
 @@ -1109,21 +1135,17 @@ HgfsPackSetattrRequest(const char *path,   // IN:  path to file
  {
     HgfsAttrV2 *attrV2;
@@ -913,7 +849,7 @@ index 389ebba88..0b6c48bce 100644
     /* Fill in header here as payloadSize needs to be there. */
     HgfsPackHeader(req, opUsed);
 diff --git a/vmhgfs-fuse/filesystem.c b/vmhgfs-fuse/filesystem.c
-index fb9d547d0..1931a5d2e 100644
+index fb9d547..1931a5d 100644
 --- a/vmhgfs-fuse/filesystem.c
 +++ b/vmhgfs-fuse/filesystem.c
 @@ -1,5 +1,5 @@
@@ -1003,7 +939,7 @@ index fb9d547d0..1931a5d2e 100644
     /* Fill in header here as payloadSize needs to be there. */
     HgfsPackHeader(req, opUsed);
 diff --git a/vmhgfs-fuse/fsutil.c b/vmhgfs-fuse/fsutil.c
-index 042c223ca..af85c4051 100644
+index 042c223..af85c40 100644
 --- a/vmhgfs-fuse/fsutil.c
 +++ b/vmhgfs-fuse/fsutil.c
 @@ -1,5 +1,5 @@
@@ -1120,7 +1056,7 @@ index 042c223ca..af85c4051 100644
  
     /* Fill in header here as payloadSize needs to be there. */
 diff --git a/vmhgfs-fuse/link.c b/vmhgfs-fuse/link.c
-index a00e84469..777eb76ea 100644
+index a00e844..777eb76 100644
 --- a/vmhgfs-fuse/link.c
 +++ b/vmhgfs-fuse/link.c
 @@ -1,5 +1,5 @@
@@ -1288,3 +1224,6 @@ index a00e84469..777eb76ea 100644
     req->payloadSize += targetNameBytes - 1;
  
     /* Fill in header here as payloadSize needs to be there. */
+-- 
+2.7.4
+
