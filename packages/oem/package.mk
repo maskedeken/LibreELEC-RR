@@ -105,7 +105,8 @@ OEM_EMU_GENERIC=" \
   lr-mesen \
   lr-nSide \
   lr-parallel-n64 \
-  lr-ppsspp"
+  lr-ppsspp \
+  lr-yabasanshiro"
 
 # Specific emulators included in Rockchip images
 OEM_EMU_ROCKCHIP=" \
@@ -113,7 +114,8 @@ OEM_EMU_ROCKCHIP=" \
   lr-mame2016 \
   lr-snes9x2010 \
   lr-vice \
-  lr-yabause"
+  lr-yabause \
+  lr-yabasanshiro"
 
 # Specific emulators included in RPi images
 OEM_EMU_RPI=" \
