@@ -357,11 +357,9 @@ setup_toolchain() {
 create_meson_conf() {
   local endian root properties
   case "$1" in
-    target|init)    endian="little"
-                    root="$SYSROOT_PREFIX/usr"
+    target|init)    root="$SYSROOT_PREFIX/usr"
                     ;;
-    host|bootstrap) endian="big"
-                    root="$TOOLCHAIN"
+    host|bootstrap) root="$TOOLCHAIN"
                     ;;
   esac
 
@@ -381,7 +379,7 @@ libgcrypt-config = '$SYSROOT_PREFIX/usr/bin/libgcrypt-config'
 system = 'linux'
 cpu_family = '$TARGET_ARCH'
 cpu = '$TARGET_SUBARCH'
-endian = '$endian'
+endian = 'little'
 
 [properties]
 root = '$root'
