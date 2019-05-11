@@ -1,12 +1,13 @@
 [Unit]
 Description=Emulation RAM disk
-Requires=network-online.service
-After=network-online.service
-Before=kodi.service
+After=systemd-tmpfiles-setup.service
+DefaultDependencies=no
+
 [Mount]
 What=tmpfs
 Where=/tmp/emulation
 Options=size=256m
 Type=tmpfs
+
 [Install]
 WantedBy=multi-user.target
