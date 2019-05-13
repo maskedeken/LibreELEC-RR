@@ -9,17 +9,31 @@ PKG_SITE="https://github.com/libretro/yabause"
 PKG_URL="https://github.com/libretro/yabause/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="YabaSanshiro Sega Saturn emulator libretro port."
-
 PKG_TOOLCHAIN="make"
 
 PKG_LIBNAME="yabasanshiro_libretro.so"
 PKG_LIBPATH="yabause/src/libretro/${PKG_LIBNAME}"
 
-PKG_MAKE_OPTS_TARGET=" -C yabause/src/libretro GIT_VERSION=${PKG_VERSION:0:7}"
+PKG_MAKE_OPTS_TARGET="-C yabause/src/libretro GIT_VERSION=${PKG_VERSION:0:7}"
 
 configure_package() {
   # Apply project specific patches
   PKG_PATCH_DIRS="${PROJECT}"
+
+  # Displayserver Support
+  if [ "${DISPLAYSERVER}" = "x11" ]; then
+    PKG_DEPENDS_TARGET+=" xorg-server"
+  fi
+
+  # OpenGL Support
+  if [ "${OPENGL_SUPPORT}" = "yes" ]; then
+    PKG_DEPENDS_TARGET+=" ${OPENGL}"
+  fi
+
+  # OpenGLES Support
+  if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
+    PKG_DEPENDS_TARGET+=" ${OPENGLES}"
+  fi
 }
 
 pre_configure_target() {
