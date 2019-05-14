@@ -6,11 +6,11 @@ PKG_VERSION="53591985319edc34d83a0858ad9a935b934dcf5c"
 PKG_SHA256="5c9ae8e49622b95df6485dffe75f90e9282542a3b6d7b5331a8e48287b355302"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/beetle-psx-libretro"
-PKG_URL="https://github.com/libretro/beetle-psx-libretro/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/libretro/beetle-psx-libretro/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Standalone port/fork of Mednafen PSX to the Libretro API."
 
-PKG_LIBNAME="mednafen_psx_libretro.so"
+PKG_LIBNAME="mednafen_psx_*libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
 
 configure_package() {
@@ -43,6 +43,6 @@ make_target() {
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/lib/libretro
-  cp mednafen_psx_*libretro.so $INSTALL/usr/lib/libretro/
+  mkdir -p ${INSTALL}/usr/lib/libretro
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
