@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
 
 PKG_NAME="lr-yabasanshiro"
-PKG_VERSION="d92cf2262b283cfef3e01f76a622a98435ff138c"
-PKG_SHA256="da076144cbf18d88e58a0527cfd9337d0ba6923392dd32c5cfe85aeeff76b0a8"
+PKG_VERSION="f7024661996d5386bb9a9d19f729d91ac6558149"
+PKG_SHA256="f614fd6799280cbfe4f537445d0eb7cdc1b7feaa5429393e9ae2faca68c7898b"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/yabause"
 PKG_URL="https://github.com/libretro/yabause/archive/${PKG_VERSION}.tar.gz"
