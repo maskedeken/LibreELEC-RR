@@ -105,6 +105,11 @@ pre_configure_target() {
     elif [ "${OPENGLES}" = "opengl-meson" ]; then
       PKG_CONFIGURE_OPTS_TARGET+=" --enable-mali_fbdev \
                                    --disable-kms"
+
+    # Mali OpenGLES Features Support
+    elif [ "${OPENGLES}" = "libmali" ]; then
+      PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles3 \
+                                   --enable-kms"
     fi
   fi
 
