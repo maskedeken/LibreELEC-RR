@@ -1,8 +1,8 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (at) gmail.com)
 
+# Source environment variables
 . /etc/profile
 
 # Set some common variables
@@ -14,8 +14,8 @@ AMIBERRY_LOG=/var/log/amiberry.log
 MAX_DRIVES=4
 i=0
 
-# Freeze Kodi / stop audio
-kodifreeze.sh freeze > $AMIBERRY_LOG
+# Stop Kodi service / load audio backend config
+kodi-service.sh --stop >> $AMIBERRY_LOG
 
 # Change refresh rate to 50Hz(PAL) or 60Hz(NTSC/PAL60)
 set_refresh_rate_AMIGA >> $AMIBERRY_LOG
@@ -133,5 +133,5 @@ fi
 # Remove temporary dir
 rm -rf "$AMIBERRY_TMP_DIR"
 
-# Switch back to Frontends or unfreeze Kodi & start audio
-pidof emulationstation > /dev/null 2>&1 || pidof pegasus-fe > /dev/null 2>&1 || kodifreeze.sh unfreeze
+# Switch back to frontends or start Kodi service / unload audio backend config
+pidof emulationstation > /dev/null 2>&1 || pidof pegasus-fe > /dev/null 2>&1 || kodi-service.sh --start
