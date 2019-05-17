@@ -1,8 +1,13 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (at) gmail.com)
 
+# Source environment variables
 . /etc/profile
+
+# Set common variables
+RR_PEGASUS_HOME_LOG=/storage/.config/pegasus-frontend/lastrun.log
+RR_PEGASUS_VAR_LOG=/var/log/pegasus-frontend.log
 
 # Check if Pegasus is already running
 if pidof "pegasus-fe" > /dev/null; then
@@ -14,8 +19,8 @@ else
   # Create basic links & files
   set_RR_environment
 
-  # Freeze Kodi / stop audio
-  kodifreeze.sh freeze
+  # Stop Kodi service / load audio backend config
+  kodi-service.sh --stop
 
   # Change refresh rate to 50Hz
   set_refresh_rate_50
@@ -27,13 +32,13 @@ else
   set_QT_qpa_eglfs_environment_vars
 
   # Create symlink to logfile
-  if [ ! -L /var/log/pegasus-frontend.log ]; then
-    ln -sf /storage/.config/pegasus-frontend/lastrun.log /var/log/pegasus-frontend.log
+  if [ ! -L ${RR_PEGASUS_VAR_LOG} ]; then
+    ln -sf ${RR_PEGASUS_HOME_LOG} ${RR_PEGASUS_VAR_LOG}
   fi
 
   # Run Pegasus
   pegasus-fe "$@"
 
-  # Unfreeze Kodi / start audio
-  kodifreeze.sh unfreeze
+  # Start Kodi service / unload audio backend config
+  kodi-service.sh --start
 fi
