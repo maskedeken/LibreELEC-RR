@@ -1,11 +1,11 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) Originally created by Escalade (https://github.com/escalade)
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (at) gmail.com)
 
+# Source environment variables
 . /etc/profile
 
-### Define common vars ###
+### Define common variables ###
 
 ICON=/usr/config/google-chrome/icon.png
 CHROME_HOME=/storage/.cache/app.chrome
@@ -81,9 +81,9 @@ fi
 
 if [ -f /opt/google/chrome/chrome ]; then 
   echo "Starting Google Chrome..." >> $CHROME_LOG 2>&1
-  kodifreeze.sh freeze muteonly
+  kodi-service.sh --mute
   systemctl stop pulseaudio
   run_chrome "$@" >> $CHROME_LOG 2>&1
   systemctl start pulseaudio
-  kodifreeze.sh unfreeze muteonly
+  kodi-service.sh --unmute
 fi
