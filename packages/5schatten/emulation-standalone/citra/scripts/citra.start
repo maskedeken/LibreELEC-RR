@@ -1,22 +1,26 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (at) gmail.com)
 
+# Source environment variables
 . /etc/profile
 
 # Set common paths
 CITRA_HOME_CONFIG=/storage/.config/citra-emu
 CITRA_HOME_LOCAL=/storage/.local/share/citra-emu
+CITRA_VAR_LOG=/var/log/citra.log
 
 # create link to config directory
-if [ ! -L $CITRA_HOME_LOCAL ]; then
-  cp -r $CITRA_HOME_LOCAL/* $CITRA_HOME_CONFIG/
-  rm -rf $CITRA_HOME_LOCAL
-  ln -s $CITRA_HOME_CONFIG $CITRA_HOME_LOCAL
+if [ ! -L ${CITRA_HOME_LOCAL} ]; then
+  if [ -d ${CITRA_HOME_LOCAL} ]; then
+    cp -rf ${CITRA_HOME_LOCAL} ${CITRA_HOME_CONFIG}
+    rm -rf ${CITRA_HOME_LOCAL}
+  fi
+  ln -sf ${CITRA_HOME_CONFIG} ${CITRA_HOME_LOCAL}
 fi
 
-# Freeze Kodi / stop audio
-kodifreeze.sh freeze
+# Stop Kodi service / load audio backend config
+kodi-service.sh --stop
 
 # Set SDL audio driver to PulseAudio or ALSA
 set_SDL_audiodriver
@@ -34,12 +38,12 @@ set_CITRA_videosettings
 set_QT_screen_scale_environment_vars
 
 # Create symlink to logfile
-if [ ! -L /var/log/citra.log ]; then
-  ln -sf $CITRA_HOME_CONFIG/log/citra_log.txt /var/log/citra.log
+if [ ! -L ${CITRA_VAR_LOG} ]; then
+  ln -sf ${CITRA_HOME_CONFIG}/log/citra_log.txt ${CITRA_VAR_LOG}
 fi
 
-# run citra
+# Run the emulator
 citra-qt "$@"
 
-# Switch back to Frontends or unfreeze Kodi & start audio
-pidof emulationstation > /dev/null 2>&1 || pidof pegasus-fe > /dev/null 2>&1 || kodifreeze.sh unfreeze
+# Switch back to frontends or start Kodi service / unload audio backend config
+pidof emulationstation > /dev/null 2>&1 || pidof pegasus-fe > /dev/null 2>&1 || kodi-service.sh --start
