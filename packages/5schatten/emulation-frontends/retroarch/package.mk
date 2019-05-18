@@ -33,7 +33,7 @@ configure_package() {
 
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
-    PKG_DEPENDS_TARGET+=" xorg-server"
+    PKG_DEPENDS_TARGET+=" xorg-server unclutter-xfixes"
   fi
 
   # OpenGL Support
@@ -148,7 +148,8 @@ makeinstall_target() {
     cp ${PKG_BUILD}/libretro-common/audio/dsp_filters/*.dsp ${INSTALL}/usr/share/retroarch/filters/audio
   mkdir -p ${INSTALL}/usr/bin
     cp ${PKG_BUILD}/retroarch ${INSTALL}/usr/bin
-    cp ${PKG_DIR}/scripts/$PROJECT/* ${INSTALL}/usr/bin
+    cp -rf $PKG_DIR/scripts/common/*     $INSTALL/usr/bin/
+    cp -rf $PKG_DIR/scripts/${PROJECT}/* $INSTALL/usr/bin/
 
   if [ "${PROJECT}" = "Generic" ]; then
     mkdir -p ${INSTALL}/usr/config/retroarch
