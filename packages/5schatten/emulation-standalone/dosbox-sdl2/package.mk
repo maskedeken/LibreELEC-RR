@@ -14,7 +14,7 @@ PKG_TOOLCHAIN="autotools"
 configure_package() {
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
-    PKG_DEPENDS_TARGET+=" xorg-server"
+    PKG_DEPENDS_TARGET+=" xorg-server unclutter-xfixes"
   fi
 
   if [ "${OPENGL_SUPPORT}" = "yes" ]; then
