@@ -15,7 +15,7 @@ GET_HANDLER_SUPPORT="git"
 configure_package() {
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
-    PKG_DEPENDS_TARGET+=" xorg-server"
+    PKG_DEPENDS_TARGET+=" xorg-server unclutter-xfixes"
   fi
 
   # OpenGL Support
@@ -40,7 +40,8 @@ post_makeinstall_target() {
   ln -s /usr/config/emulationstation/themes         $INSTALL/etc/emulationstation/themes
 
   # Install scripts
-  cp $PKG_DIR/scripts/${PROJECT}/emulationstation.start $INSTALL/usr/bin/
+  cp -rf $PKG_DIR/scripts/common/*     $INSTALL/usr/bin/
+  cp -rf $PKG_DIR/scripts/${PROJECT}/* $INSTALL/usr/bin/
 
   # Install resources
   cp -r $PKG_DIR/files/*     $INSTALL/usr/config/emulationstation/
