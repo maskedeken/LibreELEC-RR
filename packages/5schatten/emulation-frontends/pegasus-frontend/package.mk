@@ -18,7 +18,7 @@ post_unpack() {
 configure_package() {
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
-    PKG_DEPENDS_TARGET+=" xorg-server"
+    PKG_DEPENDS_TARGET+=" xorg-server unclutter-xfixes"
   fi
 
   # OpenGL Support
@@ -50,7 +50,8 @@ post_makeinstall_target() {
   mkdir -p ${INSTALL}/usr/bin
   mkdir -p ${INSTALL}/usr/config/pegasus-frontend/themes
   echo "Place your Pegasus-Frontend Themes here!" > ${INSTALL}/usr/config/pegasus-frontend/themes/readme.txt
-  cp ${PKG_DIR}/scripts/${PROJECT}/pegasus-fe.start ${INSTALL}/usr/bin/
+  cp -rf ${PKG_DIR}/scripts/common/*     ${INSTALL}/usr/bin/
+  cp -rf ${PKG_DIR}/scripts/${PROJECT}/* ${INSTALL}/usr/bin/
 
   # Clean up
   rm -rf ${INSTALL}/usr/bin/pegasus-fe.desktop
