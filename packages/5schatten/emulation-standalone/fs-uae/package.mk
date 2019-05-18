@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (at) gmail.com)
 
 PKG_NAME="fs-uae"
 PKG_VERSION="246a829ffc3251b663c943952e74c81f4e1c03ca" # 2.9.8dev2+
