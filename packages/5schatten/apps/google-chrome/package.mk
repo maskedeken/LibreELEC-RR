@@ -12,19 +12,18 @@ PKG_TOOLCHAIN="manual"
 
 makeinstall_target() {
   # creating directories
-  mkdir -p $INSTALL/usr/bin
-  mkdir -p $INSTALL/usr/config
-  mkdir -p $INSTALL/usr/config/google-chrome
-  mkdir -p $INSTALL/usr/share/applications
-  mkdir -p $INSTALL/opt/google
+  mkdir -p ${INSTALL}/usr/bin
+  mkdir -p ${INSTALL}/usr/config/google-chrome
+  mkdir -p ${INSTALL}/usr/share/applications
+  mkdir -p ${INSTALL}/opt/google
   
   # copy scripts, config files & resources
-  cp $PKG_DIR/config/chrome-flags.conf $INSTALL/usr/config/google-chrome/
-  cp $PKG_DIR/config/mimeapps.list $INSTALL/usr/share/applications/
-  cp $PKG_DIR/files/icon.png $INSTALL/usr/config/google-chrome/
-  cp $PKG_DIR/scripts/google-chrome-stable $INSTALL/usr/bin/
+  cp ${PKG_DIR}/config/chrome-flags.conf ${INSTALL}/usr/config/google-chrome/
+  cp ${PKG_DIR}/config/mimeapps.list     ${INSTALL}/usr/share/applications/
+  cp ${PKG_DIR}/files/icon.png           ${INSTALL}/usr/config/google-chrome/
+  cp -rf ${PKG_DIR}/scripts/*            ${INSTALL}/usr/bin/
 
   # creating symlinks to working directories
-  ln -s /storage/.cache/app.chrome/google-chrome.desktop $INSTALL/usr/share/applications/
-  ln -s /storage/.cache/app.chrome $INSTALL/opt/google/chrome
+  ln -s /storage/.cache/app.chrome/google-chrome.desktop ${INSTALL}/usr/share/applications/
+  ln -s /storage/.cache/app.chrome                       ${INSTALL}/opt/google/chrome
 }
