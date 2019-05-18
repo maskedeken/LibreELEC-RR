@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-mupen64plus-nx"
 PKG_VERSION="9f92565f791a5a2d979d86dddd174af94abc24b7"
