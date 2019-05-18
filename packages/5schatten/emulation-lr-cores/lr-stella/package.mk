@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-stella"
 PKG_VERSION="3ed815409799f0e6ea92a1866a936ef95a741e39"
