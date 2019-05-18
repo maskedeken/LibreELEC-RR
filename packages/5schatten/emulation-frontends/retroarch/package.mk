@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (at) gmail.com)
 
 PKG_NAME="retroarch"
 PKG_VERSION="ba3f164bdd06b4e00b4712e0d5c1aed5a5aac51e" #1.7.7
