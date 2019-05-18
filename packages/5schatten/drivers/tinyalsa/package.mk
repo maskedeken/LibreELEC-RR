@@ -1,16 +1,15 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 0riginally created by Escalade (https://github.com/escalade)
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (at) gmail.com)
 
 PKG_NAME="tinyalsa"
-PKG_VERSION="1.1.1"
-PKG_SHA256="d92b438cea348ae316c4b2cbf367b4f01ed821a947e6a34d813624e9e3c936c1"
+PKG_VERSION="809054250a32b6b1f0c416bf820ef807b98b740f"
+PKG_SHA256="290b596887ffceef5ac3fc310fc3d93b124777d6685912a98173ec2cdf21b53d"
 PKG_LICENSE="AOSP"
 PKG_SITE="https://github.com/tinyalsa/tinyalsa"
-PKG_URL="https://github.com/tinyalsa/tinyalsa/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/tinyalsa/tinyalsa/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="TinyALSA is a small library to interface with ALSA in the Linux kernel."
 
-make_target() {
-  make CC=$CC LD=$CC AR=$AR
-}
+PKG_MESON_OPTS_TARGET="-Ddocs=disabled \
+                       -Dexamples=disabled \
+                       -Dutils=disabled"
