@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-mgba"
 PKG_VERSION="1deff07aa1b0d3d4b6b15e875fbeb0cc8eff0926" # v0.7.1+
