@@ -13,7 +13,7 @@ RR_KODI_SERVICE_STATE=$(systemctl status kodi | grep 'Active:' | awk '{print $2}
 RR_USLEEP_DELAY=500000
 
 # Set functions
-kodi_cleanup_mute() {
+kodi_cleanup_mute_state() {
   if [ -f "${RR_KODI_MUTE_STATE}" ]; then
     rm "${RR_KODI_MUTE_STATE}"
   fi
@@ -28,11 +28,11 @@ kodi_service_mute() {
 kodi_service_unmute() {
   kodi-send --action="RunScript(/usr/bin/kodi-service-unmute.py)" > /dev/null
   echo "Unmuting Kodi service."
-  kodi_cleanup_mute
+  kodi_cleanup_mute_state
 }
 
 kodi_service_start() {
-  kodi_cleanup_mute
+  kodi_cleanup_mute_state
   if [ ! "${RR_FLUIDSYNTH_SERVICE_STATE}" = "active" ]; then
     echo "Starting Kodi service."
     usleep "${RR_USLEEP_DELAY}"
@@ -53,7 +53,7 @@ kodi_service_start() {
 }
 
 kodi_service_stop() {
-  kodi_cleanup_mute
+  kodi_cleanup_mute_state
   if [ "${1}" = "forceALSA" ]; then
     echo "Stopping Kodi service & force using ALSA backend."
     systemctl stop kodi
