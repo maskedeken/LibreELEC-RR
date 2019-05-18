@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-snes9x2010"
 PKG_VERSION="d857a313e3631636d256b27185567e874581d86d"
