@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="pegasus-frontend"
 PKG_VERSION="d41233eb26d892d9ed7e961dee6f6db629d1a02f" # Continuous build
