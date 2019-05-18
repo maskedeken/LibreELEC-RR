@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2019-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2019-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="unclutter-xfixes"
 PKG_VERSION="1.5"
