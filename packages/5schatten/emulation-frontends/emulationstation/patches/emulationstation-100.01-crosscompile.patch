@@ -1,5 +1,5 @@
 From 48663c0b298f3d60d5aeb2c026de5be8ca6cd2ae Mon Sep 17 00:00:00 2001
-From: 5schatten <supervisedthinking@gmail.com>
+From: 5schatten <supervisedthinking (@) gmail.com>
 Date: Tue, 16 Apr 2019 17:29:12 +0200
 Subject: [PATCH] CMakeList.txt: added CMAKE_FIND_ROOT_PATH to detect RPi &
  Mali OpenGLES libs & headers
