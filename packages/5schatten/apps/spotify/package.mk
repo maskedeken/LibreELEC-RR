@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) Originally created by Escalade (https://github.com/escalade)
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking (at) gmail.com)
 
 PKG_NAME="spotify"
 PKG_VERSION="latest"
@@ -13,10 +12,10 @@ PKG_TOOLCHAIN="manual"
 
 makeinstall_target() {
   # creating directories  
-  mkdir -p $INSTALL/usr/bin
-  mkdir -p $INSTALL/usr/config/spotify
+  mkdir -p ${INSTALL}/usr/bin
+  mkdir -p ${INSTALL}/usr/config/spotify
 
   # copy scripts, config files & resources
-  cp $PKG_DIR/files/icon.png $INSTALL/usr/config/spotify/
-  cp $PKG_DIR/scripts/spotify $INSTALL/usr/bin/
+  cp ${PKG_DIR}/files/icon.png  ${INSTALL}/usr/config/spotify/
+  cp ${PKG_DIR}/scripts/spotify ${INSTALL}/usr/bin/
 }
