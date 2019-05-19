@@ -19,27 +19,31 @@ configure_package() {
   fi
 }
 
+post_unpack() {
+  # Copy custom input configs
+  cp -rf ${PKG_DIR}/input/* ${PKG_BUILD}/share/fs-uae/input/
+}
+
 pre_configure_target() {
+  # Fix cross compiling
   export ac_cv_func_realloc_0_nonnull=yes
-  export SYSROOT_PREFIX
-  cp ${PKG_DIR}/input/* ../share/fs-uae/input/
 }
 
 post_makeinstall_target() {
-  # install scripts
-  cp ${PKG_DIR}/scripts/* ${INSTALL}/usr/bin/
+  # Install scripts
+  cp -rfv ${PKG_DIR}/scripts/* ${INSTALL}/usr/bin/
 
-  # set up default config directory
+  # Set up default config directory
   mkdir -p ${INSTALL}/usr/config
-  cp -R ${PKG_DIR}/config ${INSTALL}/usr/config/fs-uae
-  ln -s /storage/roms/bios/Kickstarts ${INSTALL}/usr/config/fs-uae/Kickstarts
+  cp -rfv ${PKG_DIR}/config ${INSTALL}/usr/config/fs-uae
+  ln -sf /storage/roms/bios/Kickstarts ${INSTALL}/usr/config/fs-uae/Kickstarts
 
-  # create symlink to capsimg for IPF support
+  # Create symlink to capsimg for IPF support
   mkdir -p ${INSTALL}/usr/config/fs-uae/Plugins
   ln -sf /usr/lib/libcapsimage.so.5.1 ${INSTALL}/usr/config/fs-uae/Plugins/capsimg.so
 
-  # clean up
-  rm -rf ${INSTALL}/usr/share/applications
-  rm -rf ${INSTALL}/usr/share/icons
-  rm -rf ${INSTALL}/usr/share/mime
+  # Clean up
+  safe_remove ${INSTALL}/usr/share/applications
+  safe_remove ${INSTALL}/usr/share/icons
+  safe_remove ${INSTALL}/usr/share/mime
 }
