@@ -14,7 +14,7 @@ GET_HANDLER_SUPPORT="git"
 pre_configure_target() {
   PKG_CMAKE_OPTS_TARGET="-DDISTRIBUTOR=SupervisedThinking
                          -DUSE_SHARED_ENET=on \
-                         -DENABLE_LTO=on \
+                         -DENABLE_LTO=off \
                          -DUSE_DISCORD_PRESENCE=off \
                          -DENABLE_ANALYTICS=off"
 }
