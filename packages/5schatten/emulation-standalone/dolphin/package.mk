@@ -2,22 +2,21 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="dolphin"
-PKG_VERSION="1d5dd5db914d94f3f612c13c6c5e1d5e711b49b5"
-PKG_SHA256="d7a6303ac8e04a4428a96b6705771a967cd6143ed2f5ee495e41a229b3cf3ab6"
-PKG_DOLPHIN_RELEASE="5.0-10200"
+PKG_VERSION="d3c4d278e2a795ab4aadbb6ed1dafcc826c03301"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/dolphin-emu/dolphin"
-PKG_URL="https://github.com/dolphin-emu/${PKG_NAME}/archive/${PKG_VERSION}.tar.gz"
+PKG_URL="https://github.com/dolphin-emu/dolphin.git"
 PKG_DEPENDS_TARGET="toolchain linux glibc systemd openal-soft libevdev curl ffmpeg libpng zlib bzip2 bluez pulseaudio alsa-lib libogg libvorbis libSM enet qt-everywhere unclutter-xfixes"
 PKG_LONGDESC="Dolphin is a GameCube / Wii emulator, allowing you to play games for these two platforms on PC with improvements."
+GET_HANDLER_SUPPORT="git"
 
 pre_configure_target() {
-  PKG_CMAKE_OPTS_TARGET="-DENABLE_LTO=off \
+  PKG_CMAKE_OPTS_TARGET="-DDISTRIBUTOR=SupervisedThinking
                          -DUSE_SHARED_ENET=on \
+                         -DENABLE_LTO=on \
                          -DUSE_DISCORD_PRESENCE=off \
-                         -DENABLE_ANALYTICS=off \
-                         -DDISTRIBUTOR=5schatten"
+                         -DENABLE_ANALYTICS=off"
 }
 
 pre_make_target() {
@@ -27,18 +26,6 @@ pre_make_target() {
   
   # Export QT path
   export Qt5Gui_DIR=${SYSROOT_PREFIX}/usr/lib
-
-  # Export Dolphin revision
-  PKG_DOLPHIN_BRANCH="Master"
-  PKG_DOLPHIN_DISTRI="5schatten"
-  PKG_DOLPHIN_REV_H=Source/Core/Common/scmrev.h
-
-  echo "#define SCM_REV_STR" ""\"${PKG_VERSION}""\"                >  ${PKG_DOLPHIN_REV_H}
-  echo "#define SCM_DESC_STR" ""\"${PKG_DOLPHIN_RELEASE}""\"       >> ${PKG_DOLPHIN_REV_H}
-  echo "#define SCM_BRANCH_STR" ""\"$PKG_DOLPHIN_BRANCH""\"        >> ${PKG_DOLPHIN_REV_H}
-  echo "#define SCM_IS_MASTER 0"                                   >> ${PKG_DOLPHIN_REV_H}
-  echo "#define SCM_DISTRIBUTOR_STR" ""\"${PKG_DOLPHIN_DISTRI}""\" >> ${PKG_DOLPHIN_REV_H}
-  echo "#define SCM_UPDATE_TRACK_STR" ""\"\"                       >> ${PKG_DOLPHIN_REV_H}
 }
 
 post_makeinstall_target() {
@@ -48,7 +35,8 @@ post_makeinstall_target() {
   cp -PR ${PKG_DIR}/config/* ${INSTALL}/usr/config/dolphin-emu/
 
   # Clean up
-  rm ${INSTALL}/usr/bin/dolphin-emu-nogui
-  rm -rf ${INSTALL}/usr/share/applications
-  rm -rf ${INSTALL}/usr/share/icons
+  safe_remove ${INSTALL}/usr/bin/dolphin-emu-nogui
+  safe_remove ${INSTALL}/usr/share/applications
+  safe_remove ${INSTALL}/usr/share/icons
 }
+
