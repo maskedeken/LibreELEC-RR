@@ -8,8 +8,9 @@ oe_setup_addon service.rr-config-tool
 
 # Set common vars
 DOCKER_PATH=/storage/.kodi/addons/service.system.docker/bin/docker
-PCSX2_DOCKER_REPO=5schatten/arch-pcsx2
-PCSX2_DOCKER_IMAGE_VERSION=version-1.0.0
+PCSX2_DOCKER_IMAGE_NAME=arch-pcsx2
+PCSX2_DOCKER_IMAGE_VERSION=v1.0.0
+PCSX2_DOCKER_REPO=supervisedthinking/${PCSX2_DOCKER_IMAGE_NAME}
 PCSX2_LOG=/var/log/pcsx2.log
 
 # Install the PCSX2 Docker image
@@ -46,12 +47,12 @@ clean_docker_image() {
   fi
 
   # Clean up images with oudated tags
-  DOCKER_TAG_OUTDATED=$(docker images -a | grep ${PCSX2_DOCKER_REPO} | awk '{print $3}' | awk 'FNR == 2')
+  DOCKER_TAG_OUTDATED=$(docker images -a | grep ${PCSX2_DOCKER_IMAGE_NAME} | awk '{print $3}' | awk 'FNR == 2')
   if [ ! -z "${DOCKER_TAG_OUTDATED}" ]; then
     echo "#######################" >> ${PCSX2_LOG} 2>&1
     echo "# Clean up "old" tags #" >> ${PCSX2_LOG} 2>&1
     echo "#######################" >> ${PCSX2_LOG} 2>&1
-    for IMAGE_ID in $(docker images -a | grep ${PCSX2_DOCKER_REPO} | awk '{print $3}' | awk 'NR>1'); do
+    for IMAGE_ID in $(docker images -a | grep ${PCSX2_DOCKER_IMAGE_NAME} | awk '{print $3}' | awk 'NR>1'); do
       docker image rm -f ${IMAGE_ID} >> ${PCSX2_LOG} 2>&1
     done
   fi
@@ -68,7 +69,7 @@ run_docker_image() {
   set_PCSX2_audiodriver
 
   # Get tag of installed Docker image
-  DOCKER_IMAGE_INSTALLED_VERSION=$(docker images -a | grep ${PCSX2_DOCKER_REPO} | awk '{print $2}' | awk 'FNR == 1')
+  DOCKER_IMAGE_INSTALLED_VERSION=$(docker images -a | grep ${PCSX2_DOCKER_IMAGE_NAME} | awk '{print $2}' | awk 'FNR == 1')
 
   # Set common Docker arguments
   DOCKER_ARGS="--rm \
