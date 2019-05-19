@@ -1,5 +1,5 @@
---- a/Makefile.gnu	2016-03-21 16:07:00.122741950 +0100
-+++ b/Makefile.gnu	2016-03-21 16:07:25.745733760 +0100
+--- a/Makefile.gnu
++++ b/Makefile.gnu
 @@ -71,9 +71,9 @@
  
  install:

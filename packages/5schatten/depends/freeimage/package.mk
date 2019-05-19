@@ -10,3 +10,10 @@ PKG_URL="${SOURCEFORGE_SRC}/${PKG_NAME}/FreeImage${PKG_VERSION}.zip"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_SOURCE_DIR="FreeImage"
 PKG_LONGDESC="FreeImage is a library to support graphics image formats like PNG, BMP, JPEG, TIFF and other."
+
+pre_configure_target() {
+  # Workaround for missing ARM NEON in LibPNG source files
+  if target_has_feature neon; then
+    CFLAGS+=" -DPNG_ARM_NEON_OPT=0"
+  fi
+}
