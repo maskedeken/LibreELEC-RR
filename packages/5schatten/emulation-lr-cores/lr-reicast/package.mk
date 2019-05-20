@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-reicast"
-PKG_VERSION="2e3813fc7a48e7c192496a08d6223d117410aa7f"
-PKG_SHA256="8dc9aa72210354d215da33a052ce2fb7f5baab11aaa156a54924b253253f670e"
+PKG_VERSION="69c9d1a1a256b7dec76e185c51411e2ecabccceb"
+PKG_SHA256="0b73d8859d08938a9cab2259df526e1f299f2b5c9579cfc548ed0fbbe777a07f"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/reicast-emulator"
 PKG_URL="https://github.com/libretro/reicast-emulator/archive/${PKG_VERSION}.tar.gz"
