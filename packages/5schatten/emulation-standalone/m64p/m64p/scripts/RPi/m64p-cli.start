@@ -6,9 +6,20 @@
 . /etc/profile
 
 # Set some common variables
+M64P_SHADER_CACHE=/storage/.cache/mupen64plus/shaders
+M64P_SHADER_HOME=/storage/.config/mupen64plus/shaders
 M64P_TMP_DIR=/tmp/emulation/m64p
 M64P_LOG=/var/log/m64p.log
 M64P_GAME_NAME=$(basename -- "$1")
+
+# create link to shader directory
+if [ ! -L ${M64P_SHADER_CACHE} ]; then
+  if [ -d ${M64P_SHADER_CACHE} ]; then
+    cp -rf ${M64P_SHADER_CACHE} ${M64P_SHADER_HOME}
+    rm -rf ${M64P_SHADER_CACHE}
+  fi
+  ln -sf ${M64P_SHADER_HOME} ${M64P_SHADER_CACHE}
+fi
  
 # Clean up log file
 if [ -f "${M64P_LOG}" ]; then

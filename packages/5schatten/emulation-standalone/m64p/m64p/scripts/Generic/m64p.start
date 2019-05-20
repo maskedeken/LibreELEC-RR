@@ -5,6 +5,19 @@
 # Source environment variables
 . /etc/profile
 
+# Set some common variables
+M64P_SHADER_CACHE=/storage/.cache/mupen64plus/shaders
+M64P_SHADER_HOME=/storage/.config/mupen64plus/shaders
+
+# create link to shader directory
+if [ ! -L ${M64P_SHADER_CACHE} ]; then
+  if [ -d ${M64P_SHADER_CACHE} ]; then
+    cp -rf ${M64P_SHADER_CACHE} ${M64P_SHADER_HOME}
+    rm -rf ${M64P_SHADER_CACHE}
+  fi
+  ln -sf ${M64P_SHADER_HOME} ${M64P_SHADER_CACHE}
+fi
+
 # Stop Kodi service / load audio backend config
 kodi-service.sh --stop
 
