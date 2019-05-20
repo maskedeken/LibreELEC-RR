@@ -7,9 +7,9 @@
 oe_setup_addon service.rr-config-tool
 
 # Set common variables
-RR_FLUIDSYNTH_SERVICE_STATE=$(systemctl status fluidsynth | grep 'Active:' | awk '{print $2}')
+RR_FLUIDSYNTH_SERVICE_STATE=$(systemctl is-active fluidsynth)
 RR_KODI_MUTE_STATE=/var/run/kodi-service-muted
-RR_KODI_SERVICE_STATE=$(systemctl status kodi | grep 'Active:' | awk '{print $2}')
+RR_KODI_SERVICE_STATE=$(systemctl is-active kodi)
 RR_USLEEP_DELAY=500000
 
 # Set functions
@@ -21,55 +21,46 @@ kodi_cleanup_mute_state() {
 
 kodi_service_mute() {
   kodi-send --action="RunScript(/usr/bin/kodi-service-mute.py)" > /dev/null
-  echo "Muting Kodi service."
+  echo "rr-config-tool: muting Kodi service"
   touch ${RR_KODI_MUTE_STATE}
 }
 
 kodi_service_unmute() {
   kodi-send --action="RunScript(/usr/bin/kodi-service-unmute.py)" > /dev/null
-  echo "Unmuting Kodi service."
+  echo "rr-config-tool: unmuting Kodi service"
   kodi_cleanup_mute_state
 }
 
 kodi_service_start() {
   kodi_cleanup_mute_state
   if [ ! "${RR_FLUIDSYNTH_SERVICE_STATE}" = "active" ]; then
-    echo "Starting Kodi service."
     usleep "${RR_USLEEP_DELAY}"
     systemctl start kodi
   else
-    if [ "${RR_AUDIO_BACKEND}" = "PulseAudio" ];then
-      echo "Stopping FluidSynth service, unloading PulseAudio sinks & start Kodi service."
-    else
-      echo "Starting Kodi service."
-    fi
-    stop_FluidSynth_backend
+    fluidsynth_service_stop
     usleep "${RR_USLEEP_DELAY}"
-    unload_pulseaudio_sink
+    pulseaudio_sink_unload
     wait $(pidof pactl)
     usleep "${RR_USLEEP_DELAY}"
     systemctl start kodi
   fi
+  echo "rr-config-tool: starting Kodi service."
 }
 
 kodi_service_stop() {
   kodi_cleanup_mute_state
   if [ "${1}" = "forceALSA" ]; then
-    echo "Stopping Kodi service & force using ALSA backend."
+    echo "rr-config-tool: stopping Kodi service & force using ALSA backend."
     systemctl stop kodi
     wait $(pidof kodi.bin)
   else
-    if [ ${RR_AUDIO_BACKEND} = "PulseAudio" ];then
-      echo "Stopping Kodi service, load PulseAudio sinks & start FluidSynth service."
-    else
-      echo "Stopping Kodi service."
-    fi
+    echo "rr-config-tool: stopping Kodi service"
     systemctl stop kodi
     wait $(pidof kodi.bin)
     usleep "${RR_USLEEP_DELAY}"
-    load_pulseaudio_sink
+    pulseaudio_sink_load
     usleep "${RR_USLEEP_DELAY}"
-    start_FluidSynth_backend
+    fluidsynth_service_start
   fi
 }
 
@@ -79,28 +70,28 @@ case ${1} in
     if [ "${RR_KODI_SERVICE_STATE}" = "active" ] && [ ! -f "${RR_KODI_MUTE_STATE}" ]; then
       kodi_service_mute
     else
-      echo "Kodi service was already muted or isn't running."
+      echo "rr-config-tool: Kodi service was already muted or isn't running"
     fi
     ;;
   --unmute)
     if [ "${RR_KODI_SERVICE_STATE}" = "active" ] && [ -f "${RR_KODI_MUTE_STATE}" ]; then
       kodi_service_unmute
     else
-      echo "Kodi service was not muted or isn't running."
+      echo "rr-config-tool: Kodi service was not muted or isn't running"
     fi
     ;;
   --start)
     if [ ! "${RR_KODI_SERVICE_STATE}" = "active" ]; then
       kodi_service_start
     else
-      echo "Kodi service is already running."
+      echo "rr-config-tool: Kodi service is already running"
     fi
     ;;
   --stop)
     if [ "${RR_KODI_SERVICE_STATE}" = "active" ]; then
       kodi_service_stop ${2}
     else
-      echo "Kodi service is already stopped."
+      echo "rr-config-tool: Kodi service is already stopped"
     fi
     ;;
   *)
