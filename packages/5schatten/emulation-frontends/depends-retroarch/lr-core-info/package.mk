@@ -17,5 +17,5 @@ makeinstall_target() {
 }
 
 post_makeinstall_target() {
-  cp -rfv ${PKG_FILES}/files/* ${INSTALL}/usr/share/retroarch/coreinfo/
+  cp -rfv ${PKG_DIR}/files/* ${INSTALL}/usr/share/retroarch/coreinfo/
 }
