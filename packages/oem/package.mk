@@ -49,6 +49,7 @@ OEM_EMU_COMMON=" \
   dosbox-sdl2 \
   hatari \
   moonlight-embedded \
+  moonlight-qt \
   ppsspp \
   lr-2048 \
   lr-atari800 \
