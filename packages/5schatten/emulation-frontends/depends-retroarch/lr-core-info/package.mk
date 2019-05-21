@@ -15,3 +15,7 @@ makeinstall_target() {
   cd ${PKG_BUILD}
   make install INSTALLDIR="${INSTALL}/usr/share/retroarch/coreinfo"
 }
+
+post_makeinstall_target() {
+  cp -rfv ${PKG_FILES}/files/* ${INSTALL}/usr/share/retroarch/coreinfo/
+}
