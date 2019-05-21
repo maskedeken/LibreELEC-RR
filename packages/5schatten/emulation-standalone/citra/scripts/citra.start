@@ -35,7 +35,7 @@ set_CITRA_audioengine
 set_CITRA_videosettings
 
 # Set Qt5 screen scale environment vars
-set_QT_screen_scale_environment_vars
+set_QT_environment_vars
 
 # Create symlink to logfile
 if [ ! -L ${CITRA_VAR_LOG} ]; then
