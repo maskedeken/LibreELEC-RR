@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="citra"
-PKG_VERSION="46b015befd45bc74dd5ac316ed508bb832fb5d9d"
+PKG_VERSION="5727e1b43d85aee137174375c41d35e44bc8b06f"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv2+"
 PKG_SITE="https://github.com/citra-emu/citra"
@@ -39,6 +39,6 @@ post_makeinstall_target() {
   cp -PR ${PKG_DIR}/files/*   ${INSTALL}/usr/config/citra-emu/
   
   # Clean up
-  rm -rf ${INSTALL}/usr/share/
-  rm -rf ${INSTALL}/usr/bin/citra
+  safe_remove ${INSTALL}/usr/share/
+  safe_remove ${INSTALL}/usr/bin/citra
 }
