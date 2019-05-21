@@ -28,7 +28,7 @@ set_refresh_rate_60
 set_SDL_audiodriver
 
 # Set Qt5 screen scale environment vars
-set_QT_screen_scale_environment_vars
+set_QT_environment_vars
 
 # Run the emulator
 mupen64plus-gui "$@" > /var/log/m64p.log 2>&1
