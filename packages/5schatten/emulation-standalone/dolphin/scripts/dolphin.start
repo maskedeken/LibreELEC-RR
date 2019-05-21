@@ -28,7 +28,7 @@ set_refresh_rate_DOLPHIN
 set_DOLPHIN_audiobackend
 
 # Set Qt5 screen scale environment vars
-set_QT_screen_scale_environment_vars
+set_QT_environment_vars
 
 # Run the emulator
 dolphin-emu "$@"> /var/log/dolphin.log 2>&1
