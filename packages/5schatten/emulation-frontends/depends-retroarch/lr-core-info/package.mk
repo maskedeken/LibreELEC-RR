@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-core-info"
-PKG_VERSION="f07499692853d46182ba924b524e2d9a2ba3ecb3" # v1.7.7
-PKG_SHA256="ef7f147435836238b5902c05ada7e0f342a1d524b62ba638a8ef0f4cd169f01b"
+PKG_VERSION="cd22a6ae55e07a4a8898f4a2ccb17b27e9e2626e" # v1.7.7+
+PKG_SHA256="34bc5e3409a8b12c8dcfc4b7728cf696eff22503f604041ecf7e89a647b109d9"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/libretro/libretro-core-info"
 PKG_URL="https://github.com/libretro/libretro-core-info/archive/$PKG_VERSION.tar.gz"
@@ -14,8 +14,4 @@ PKG_TOOLCHAIN="manual"
 makeinstall_target() {
   cd ${PKG_BUILD}
   make install INSTALLDIR="${INSTALL}/usr/share/retroarch/coreinfo"
-}
-
-post_makeinstall_target() {
-  cp -rfv ${PKG_DIR}/files/* ${INSTALL}/usr/share/retroarch/coreinfo/
 }
