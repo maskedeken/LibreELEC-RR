@@ -59,6 +59,7 @@ OEM_EMU_COMMON=" \
   lr-desmume \
   lr-dosbox \
   lr-fbalpha \
+  lr-fbneo \
   lr-fceumm \
   lr-fuse \
   lr-gambatte \
