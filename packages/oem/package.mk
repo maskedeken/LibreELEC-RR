@@ -30,6 +30,7 @@ OEM_APPS_GENERIC=" \
   dmidecode \
   google-chrome \
   mesa-demos-system \
+  moonlight-qt \
   smartmontools \
   spotify \
   tigervnc-system \
@@ -49,7 +50,6 @@ OEM_EMU_COMMON=" \
   dosbox-sdl2 \
   hatari \
   moonlight-embedded \
-  moonlight-qt \
   ppsspp \
   lr-2048 \
   lr-atari800 \
