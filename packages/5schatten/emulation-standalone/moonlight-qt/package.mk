@@ -31,4 +31,8 @@ post_makeinstall_target() {
   mv ${INSTALL}/usr/bin/moonlight ${INSTALL}/usr/bin/moonlight-qt
   cp -rfv ${PKG_DIR}/scripts/*    ${INSTALL}/usr/bin/
   safe_remove ${INSTALL}/usr/share
+
+ if [ ${DISPLAYSERVER} = "no" ]; then
+   sed -e "s/set_QT_environment_vars.*/set_QT_environment_vars cursor/" -i ${INSTALL}/usr/bin/moonlight-qt.start
+ fi
 }
