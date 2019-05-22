@@ -18,11 +18,11 @@ makeinstall_target() {
   # Add Chrome & Spotify shortcuts to menu
   if [ ! "${OEM_APPS}" = "no" ] && [ "${PROJECT}" = "Generic" ]; then
     patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.01-app-menu.patch
+    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.03-moonlight-qt-menu.patch
   fi
 
   # Add Emulationstation, Moonlight, Pegasus & Retroarch shortcuts to menu
   if [ ! "${OEM_EMU}" = "no" ]; then
     patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.02-emulation-menu.patch
-    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.03-moonlight-qt-menu.patch
   fi
 }
