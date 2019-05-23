@@ -30,4 +30,4 @@ if [ -n "${RR_AUDIO_DEVICE}" ]; then
 fi
 
 # Output configuration
-echo "rr-config-tool: will use "${RR_AUDIO_DEVICE}" audio device for ALSA & PulseAudio"
+echo "rr-config-script: will use "${RR_AUDIO_DEVICE}" audio device for ALSA & PulseAudio"
