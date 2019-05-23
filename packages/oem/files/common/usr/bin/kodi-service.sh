@@ -21,13 +21,13 @@ kodi_cleanup_mute_state() {
 
 kodi_service_mute() {
   kodi-send --action="RunScript(/usr/bin/kodi-service-mute.py)" > /dev/null
-  echo "rr-config-tool: muting Kodi service"
+  echo "rr-config-script: Kodi service muted"
   touch ${RR_KODI_MUTE_STATE}
 }
 
 kodi_service_unmute() {
   kodi-send --action="RunScript(/usr/bin/kodi-service-unmute.py)" > /dev/null
-  echo "rr-config-tool: unmuting Kodi service"
+  echo "rr-config-script: Kodi service unmuted"
   kodi_cleanup_mute_state
 }
 
@@ -44,19 +44,19 @@ kodi_service_start() {
     usleep "${RR_USLEEP_DELAY}"
     systemctl start kodi
   fi
-  echo "rr-config-tool: starting Kodi service."
+  echo "rr-config-script: Kodi service starting."
 }
 
 kodi_service_stop() {
   kodi_cleanup_mute_state
   if [ "${1}" = "forceALSA" ]; then
-    echo "rr-config-tool: stopping Kodi service & force using ALSA backend."
     systemctl stop kodi
     wait $(pidof kodi.bin)
+    echo "rr-config-script: Kodi service stopped & force ALSA backend."
   else
-    echo "rr-config-tool: stopping Kodi service"
     systemctl stop kodi
     wait $(pidof kodi.bin)
+    echo "rr-config-script: Kodi service stopped"
     usleep "${RR_USLEEP_DELAY}"
     pulseaudio_sink_load
     usleep "${RR_USLEEP_DELAY}"
@@ -70,28 +70,28 @@ case ${1} in
     if [ "${RR_KODI_SERVICE_STATE}" = "active" ] && [ ! -f "${RR_KODI_MUTE_STATE}" ]; then
       kodi_service_mute
     else
-      echo "rr-config-tool: Kodi service was already muted or isn't running"
+      echo "rr-config-script: Kodi service was already muted or isn't running"
     fi
     ;;
   --unmute)
     if [ "${RR_KODI_SERVICE_STATE}" = "active" ] && [ -f "${RR_KODI_MUTE_STATE}" ]; then
       kodi_service_unmute
     else
-      echo "rr-config-tool: Kodi service was not muted or isn't running"
+      echo "rr-config-script: Kodi service was not muted or isn't running"
     fi
     ;;
   --start)
     if [ ! "${RR_KODI_SERVICE_STATE}" = "active" ]; then
       kodi_service_start
     else
-      echo "rr-config-tool: Kodi service is already running"
+      echo "rr-config-script: Kodi service was already started"
     fi
     ;;
   --stop)
     if [ "${RR_KODI_SERVICE_STATE}" = "active" ]; then
       kodi_service_stop ${2}
     else
-      echo "rr-config-tool: Kodi service is already stopped"
+      echo "rr-config-script: Kodi service was already stopped"
     fi
     ;;
   *)
