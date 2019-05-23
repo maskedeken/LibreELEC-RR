@@ -44,7 +44,7 @@ kodi_service_start() {
     usleep "${RR_USLEEP_DELAY}"
     systemctl start kodi
   fi
-  echo "rr-config-script: Kodi service starting."
+  echo "rr-config-script: Kodi service starting"
 }
 
 kodi_service_stop() {
@@ -52,10 +52,12 @@ kodi_service_stop() {
   if [ "${1}" = "forceALSA" ]; then
     systemctl stop kodi
     wait $(pidof kodi.bin)
-    echo "rr-config-script: Kodi service stopped & force ALSA backend."
+    systemctl reset-failed kodi
+    echo "rr-config-script: Kodi service stopped & force ALSA backend"
   else
     systemctl stop kodi
     wait $(pidof kodi.bin)
+    systemctl reset-failed kodi
     echo "rr-config-script: Kodi service stopped"
     usleep "${RR_USLEEP_DELAY}"
     pulseaudio_sink_load
@@ -66,6 +68,17 @@ kodi_service_stop() {
 
 # Command line interface
 case ${1} in
+  --info)
+    echo -e "Basic service & audio config states:\n"
+    echo    "  Kodi service                  : "$(systemctl is-active kodi)
+    echo -e "  Selected audio device         : "${RR_AUDIO_DEVICE}"\n"
+    echo    "  PulseAudio service            : "$(systemctl is-active pulseaudio)
+    echo    "  PulseAudio module-udev-detect : "${RR_PA_UDEV}
+    echo    "  PulseAudio sink               : "$(pactl list sinks short)
+    echo    "  PulseAudio tsched state       : "${RR_PA_TSCHED}
+    echo -e "  PulseAudio volume             : "${RR_AUDIO_VOLUME}"%\n"
+    echo    "  FluidSynth service            : "$(systemctl is-active fluidsynth)
+    ;;
   --mute)
     if [ "${RR_KODI_SERVICE_STATE}" = "active" ] && [ ! -f "${RR_KODI_MUTE_STATE}" ]; then
       kodi_service_mute
@@ -98,10 +111,11 @@ case ${1} in
     echo "Usage:" 
     echo -e "  ${0} --[mute|unmute|start|stop] [forceALSA]\n"
     echo "Kodi service options:"
+    echo "  --info           - lists a brief summary of service & config states"
     echo "  --mute           - mutes   Kodi audio & stopps video player"
     echo "  --unmute         - unmutes Kodi audio"
     echo "  --start          - starts  Kodi service"
     echo "  --stop           - stops   Kodi service & starts audio services depending on configured backend"
-    echo "  --stop forceALSA - stops   Kodi service & forces ALSA audio"
+    echo -e "  --stop forceALSA - stops   Kodi service & forces ALSA audio"
     ;;
 esac
