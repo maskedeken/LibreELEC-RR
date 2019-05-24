@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-glsl-shaders"
-PKG_VERSION="acc1bef93590be4752216e6ddd6e397e489a96c4"
-PKG_SHA256="d0e545bad122dc3dad84130b5874542f6f9349b6748a9d34ec223ae763950cb0"
+PKG_VERSION="c78d6562c881b6aed4257e25da3101988a357152"
+PKG_SHA256="2d4822c8f2b09b2e96dd3eac3f0d52cb25bfdad758c2ca77bef0b1a2104b834d"
 PKG_LICENSE="MIT"
 PKG_SITE="https://github.com/libretro/glsl-shaders"
 PKG_URL="https://github.com/libretro/glsl-shaders/archive/${PKG_VERSION}.tar.gz"
