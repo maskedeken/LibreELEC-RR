@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-mupen64plus-nx"
-PKG_VERSION="a479228312a9a568468c800c30466614b6cd6998"
-PKG_SHA256="94bf9a198ce0610ca2b15803c5d8bbcdc84e79fee853fe7c9eed195e71a08d01"
+PKG_VERSION="96608bace2b9caf3fd5f7e685b2d3ce2add2ff0e"
+PKG_SHA256="c208e4b33887635dcace82f6af9b6a81bfd9e305e845a0880242b44862cc6f53"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mupen64plus-libretro-nx"
 PKG_URL="https://github.com/libretro/mupen64plus-libretro-nx/archive/${PKG_VERSION}.tar.gz"
@@ -17,6 +17,11 @@ PKG_LIBPATH="${PKG_LIBNAME}"
 PKG_MAKE_OPTS_TARGET="GIT_VERSION=${PKG_VERSION:0:7}"
 
 configure_package() {
+  # Apply project specific patches
+  if [ "${OPENGLES}" = "libmali" ]; then
+    PKG_PATCH_DIRS="${OPENGLES}"
+  fi
+
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
     PKG_DEPENDS_TARGET+=" xorg-server"
@@ -34,13 +39,9 @@ configure_package() {
 }
 
 pre_configure_target() {
-  # OpenGLES Support
-  if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
-    PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
-  fi
-
-  if [ "$PROJECT" = "RPi" ]; then
-    case $DEVICE in
+  # Set project specific platform flags
+  if [ "${PROJECT}" = "RPi" ]; then
+    case ${DEVICE} in
       RPi)
         PKG_MAKE_OPTS_TARGET+=" platform=rpi"
         ;;
@@ -48,7 +49,17 @@ pre_configure_target() {
         PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
         ;;
     esac
+  elif [ "${PROJECT}" = "Amlogic" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=amlogic"
   else
+    # OpenGLES 2.0/3.0 Support
+    if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
+      if [ "${OPENGLES}" = "libmali" ]; then
+        PKG_MAKE_OPTS_TARGET+=" FORCE_GLES3=1"
+      else
+        PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
+      fi
+    fi
     # Dynarec
     if [ "${ARCH}" = "arm" ]; then
       PKG_MAKE_OPTS_TARGET+=" WITH_DYNAREC=arm"
