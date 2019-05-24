@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-database"
-PKG_VERSION="d491e37bb9bb2b9126e70ac56b7ca38482ab4435"
-PKG_SHA256="2ea9993eb5c1ad887ed18c76cd34644182e3b3a03d82983a02a9886cf253a1a3"
+PKG_VERSION="122c69b5e2b5b30f73960bb07f314fe5a8558c23"
+PKG_SHA256="7823056a461a67c14f5cc44fcfbe6b9530d2db6c790f7cecc89c9377a89d61a1"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/libretro/libretro-database"
 PKG_URL="https://github.com/libretro/libretro-database/archive/${PKG_VERSION}.tar.gz"
@@ -18,20 +18,20 @@ makeinstall_target() {
 
 post_makeinstall_target() {
   # Remove common unnecessary databases
-  rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME.rdb
-  rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2000.rdb
-  rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2003.rdb
-  rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2015.rdb
-  rm ${INSTALL}/usr/share/retroarch/database/rdb/Microsoft*Xbox*.rdb
-  rm ${INSTALL}/usr/share/retroarch/database/rdb/Sony*PlayStation*3*.rdb
+  safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/MAME.rdb
+  safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2000.rdb
+  safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2003.rdb
+  safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2015.rdb
+  safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/Microsoft*Xbox*.rdb
+  safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/Sony*PlayStation*3*.rdb
 
   # Remove additional unnecessary databases
   if [ ! "${PROJECT}" = "Generic" ]; then
-    rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2016.rdb
-    rm ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*GameCube*.rdb
-    rm ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*Nintendo*3DS*.rdb
-    rm ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*Wii*.rdb
+    safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2016.rdb
+    safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*GameCube*.rdb
+    safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*Nintendo*3DS*.rdb
+    safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/Nintendo*Wii*.rdb
   elif [ "${PROJECT}" = "Generic" ]; then
-    rm ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2010.rdb
+    safe_remove ${INSTALL}/usr/share/retroarch/database/rdb/MAME*2010.rdb
   fi
 }
