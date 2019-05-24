@@ -17,6 +17,11 @@ PKG_LIBPATH="$PKG_LIBNAME"
 PKG_MAKE_OPTS_TARGET="GIT_VERSION=${PKG_VERSION:0:7}"
 
 configure_package() {
+  # Apply project specific patches
+  if [ "${OPENGLES}" = "libmali" ]; then
+    PKG_PATCH_DIRS="${OPENGLES}"
+  fi
+
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
     PKG_DEPENDS_TARGET+=" xorg-server"
@@ -34,13 +39,9 @@ configure_package() {
 }
 
 pre_configure_target() {
-  # OpenGLES Support
-  if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
-    PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
-  fi
-
-  if [ "$PROJECT" = "RPi" ]; then
-    case $DEVICE in
+  # Set project specific platform flags
+  if [ "${PROJECT}" = "RPi" ]; then
+    case ${DEVICE} in
       RPi)
         PKG_MAKE_OPTS_TARGET+=" platform=rpi"
         ;;
@@ -49,6 +50,14 @@ pre_configure_target() {
         ;;
     esac
   else
+    # OpenGLES 2.0/3.0 Support
+    if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
+      if [ "${OPENGLES}" = "libmali" ]; then
+        PKG_MAKE_OPTS_TARGET+=" FORCE_GLES3=1"
+      else
+        PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
+      fi
+    fi
     # Dynarec
     if [ "${ARCH}" = "arm" ]; then
       PKG_MAKE_OPTS_TARGET+=" WITH_DYNAREC=arm"
@@ -63,6 +72,6 @@ pre_configure_target() {
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/lib/libretro
-  cp $PKG_LIBPATH $INSTALL/usr/lib/libretro/
+  mkdir -p ${INSTALL}/usr/lib/libretro
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
