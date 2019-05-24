@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-mupen64plus-nx"
-PKG_VERSION="d0151dd86dff7829740838e253210f4e8f6fe0f8"
-PKG_SHA256="2240ae10d1fbf427ff6fb4fa5123680c3b2249dc1e13201d8cb15cebf6ace758"
+PKG_VERSION="a479228312a9a568468c800c30466614b6cd6998"
+PKG_SHA256="94bf9a198ce0610ca2b15803c5d8bbcdc84e79fee853fe7c9eed195e71a08d01"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mupen64plus-libretro-nx"
 PKG_URL="https://github.com/libretro/mupen64plus-libretro-nx/archive/${PKG_VERSION}.tar.gz"
