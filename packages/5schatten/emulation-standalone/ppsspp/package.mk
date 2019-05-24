@@ -10,7 +10,7 @@ PKG_LONGDESC="A PSP emulator for Android, Windows, Mac, Linux and Blackberry 10,
 GET_HANDLER_SUPPORT="git"
 
 if [ "${PROJECT}" = "Generic" ]; then
-  PKG_VERSION="122f871c746b57734d20585db4c1d3b99969ba29" #v1.8.0+
+  PKG_VERSION="4b124a73444bfeca7af460834467c5ae4ea61f9f" #v1.8.0+
 else
   PKG_VERSION="74d87fa2b4a3c943c1df09cc26a8c70b1335fd30" #v1.7.5
 fi
