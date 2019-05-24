@@ -14,80 +14,29 @@ PKG_TOOLCHAIN="manual"
 makeinstall_target() {
   PKG_OVERLAY_INSTALL_PATH=$INSTALL/usr/share/retroarch/overlay/borders/systems
   mkdir -p ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Nintendo NES
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoEntertainmentSystem-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoEntertainmentSystem-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Nintendo SNES
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoSuperNintendo-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoSuperNintendo-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Nintendo SNES
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoSNES-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoSNES-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Nintendo N64
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoN64-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoN64-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Nintendo GameCube
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoGameCube-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoGameCube-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Nintendo GameBoy Color
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoGameBoyColorNoir-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/NintendoGameBoyColorNoir-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Sega Genesis/Megadrive
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SegaMegadrive-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SegaMegadrive-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Sega Saturn
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SegaSaturnEU-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SegaSaturnEU-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Sega Dreamcast
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SegaDreamcast-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SegaDreamcast-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Sony Playstation
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SonyPlaystation-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SonyPlaystation-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #MAME
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/Mame-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/Mame-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Bandai Wonderswan
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/BandaiWonderSwanColor-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/BandaiWonderSwanColor-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #IBM
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/IBM-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/IBM-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Sinclair ZXSpectrum
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SinclairZXSpectrum-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/SinclairZXSpectrum-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Amiga
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/Amiga-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/Amiga-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #ScummVM
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/ScummVM-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/ScummVM-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Commodore64
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/Commodore64-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/Commodore64-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Vierge
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/Vierge-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/Vierge-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
-
-  #Vierge Vertical
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/ViergeVertical-nyny77.cfg" ${PKG_OVERLAY_INSTALL_PATH}
-  cp "${PKG_BUILD}/16x9 Collections/NyNy77 1080 Bezel/ViergeVertical-nyny77.png" ${PKG_OVERLAY_INSTALL_PATH}
+  # Install overlay borders
+  for PKG_OVERLAY_FILE in \
+    "16x9 Collections/NyNy77 1080 Bezel/NintendoEntertainmentSystem-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/NintendoGameCube-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/NintendoSuperNintendo-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/NintendoSNES-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/NintendoN64-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/NintendoGameBoyColorNoir-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/SegaMegadrive-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/SegaSaturnEU-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/SegaDreamcast-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/SonyPlaystation-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/Mame-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/BandaiWonderSwanColor-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/IBM-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/SinclairZXSpectrum-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/Amiga-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/ScummVM-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/Commodore64-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/Vierge-nyny77" \
+    "16x9 Collections/NyNy77 1080 Bezel/ViergeVertical-nyny77"
+  do
+    cp -v ${PKG_BUILD}/"${PKG_OVERLAY_FILE}".cfg ${PKG_OVERLAY_INSTALL_PATH}
+    cp -v ${PKG_BUILD}/"${PKG_OVERLAY_FILE}".png ${PKG_OVERLAY_INSTALL_PATH}
+  done
 }
