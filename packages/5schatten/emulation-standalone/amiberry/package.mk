@@ -14,6 +14,12 @@ PKG_TOOLCHAIN="make"
 
 PKG_MAKE_OPTS_TARGET="all"
 
+configure_package() {
+  if [ ! "${PROJECT}" = "RPi" ]; then
+    PKG_BUILD_FLAGS="+lto"
+  fi
+}
+
 pre_configure_target() {
   cd ${PKG_BUILD}
   export SYSROOT_PREFIX=${SYSROOT_PREFIX}
