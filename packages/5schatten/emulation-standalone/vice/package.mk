@@ -11,6 +11,7 @@ PKG_URL="https://sourceforge.net/projects/vice-emu/files/releases/vice-${PKG_VER
 PKG_DEPENDS_TARGET="toolchain linux glibc alsa-lib SDL2-git libpng giflib zlib portaudio libvorbis libogg lame flac unclutter-xfixes"
 PKG_LONGDESC="VICE C64 emulator"
 PKG_TOOLCHAIN="configure"
+PKG_BUILD_FLAGS="+lto"
 
 pre_configure_target() {
   PKG_CONFIGURE_OPTS_TARGET="ac_cv_prog_sdl2_config=${SYSROOT_PREFIX}/usr/bin/sdl2-config \
