@@ -9,7 +9,7 @@ PKG_SHA256="68535cc2a000946b62ce4be6edf7dda7900bd524f22bcb826800b94f4a873314"
 PKG_LICENSE="LGPLv2.1+"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="https://github.com/xbmc/FFmpeg/archive/${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain zlib bzip2 openssl speex x264 libvpx flac lame opus"
+PKG_DEPENDS_TARGET="toolchain zlib bzip2 gnutls speex x264 libvpx flac lame opus"
 PKG_LONGDESC="FFmpeg is a complete, cross-platform solution to record, convert and stream audio and video."
 PKG_BUILD_FLAGS="-gold"
 
@@ -78,7 +78,7 @@ fi
 
 if [ "${NON_FREE_PKG_SUPPORT}" = "yes" ]; then
   PKG_DEPENDS_TARGET+=" fdk-aac"
-  PKG_FFMPEG_AAC_FDK="--enable-libfdk-aac"
+  PKG_FFMPEG_AAC_FDK="--enable-nonfree --enable-libfdk-aac"
 fi
 
 pre_configure_target() {
@@ -117,7 +117,6 @@ configure_target() {
               --enable-shared \
               --enable-gpl \
               --disable-version3 \
-              --enable-nonfree \
               --enable-logging \
               --disable-doc \
               $PKG_FFMPEG_DEBUG \
@@ -135,7 +134,7 @@ configure_target() {
               --disable-devices \
               --enable-pthreads \
               --enable-network \
-              --disable-gnutls --enable-openssl \
+              --enable-gnutls --disable-openssl \
               --disable-gray \
               --enable-swscale-alpha \
               --disable-small \
