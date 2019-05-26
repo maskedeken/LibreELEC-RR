@@ -11,6 +11,7 @@ PKG_URL="https://github.com/FrodeSolheim/fs-uae/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc glib SDL2-git glew glu libmpeg2 libXi openal-soft capsimg zlib libpng"
 PKG_LONGDESC="FS-UAE amiga emulator."
 PKG_TOOLCHAIN="autotools"
+PKG_BUILD_FLAGS="+lto"
 
 configure_package() {
   # Displayserver Support
