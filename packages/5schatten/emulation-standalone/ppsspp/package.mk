@@ -8,6 +8,7 @@ PKG_URL="https://github.com/hrydgard/ppsspp.git"
 PKG_DEPENDS_TARGET="toolchain linux glibc SDL2-git zlib ffmpeg bzip2 openssl speex"
 PKG_LONGDESC="A PSP emulator for Android, Windows, Mac, Linux and Blackberry 10, written in C++."
 GET_HANDLER_SUPPORT="git"
+PKG_BUILD_FLAGS="+lto"
 
 if [ "${PROJECT}" = "Generic" ]; then
   PKG_VERSION="4b124a73444bfeca7af460834467c5ae4ea61f9f" #v1.8.0+
