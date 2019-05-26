@@ -9,6 +9,7 @@ PKG_SITE="https://hatari.tuxfamily.org/"
 PKG_URL="https://github.com/hatari/hatari/archive/$PKG_VERSION.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc systemd alsa-lib SDL2-git portaudio zlib capsimg libpng"
 PKG_LONGDESC="Hatari is an Atari ST/STE/TT/Falcon emulator"
+PKG_BUILD_FLAGS="+lto"
 
 configure_package() {
   # Displayserver Support
