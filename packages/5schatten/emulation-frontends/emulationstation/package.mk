@@ -11,6 +11,7 @@ PKG_DEPENDS_TARGET="toolchain linux glibc systemd dbus openssl zlib libpng alsa-
 PKG_LONGDESC="A Fork of Emulation Station for RetroPie. Emulation Station is a flexible emulator front-end supporting keyboardless navigation and custom system themes."
 PKG_BUILD_FLAGS="-gold"
 GET_HANDLER_SUPPORT="git"
+PKG_BUILD_FLAGS="+lto"
 
 configure_package() {
   # Displayserver Support
