@@ -10,6 +10,7 @@ PKG_URL="https://github.com/citra-emu/citra.git"
 PKG_DEPENDS_TARGET="toolchain linux glibc systemd dbus zlib pulseaudio ffmpeg mesa xorg-server boost qt-everywhere SDL2-git unclutter-xfixes"
 PKG_LONGDESC="A Nintendo 3DS Emulator"
 GET_HANDLER_SUPPORT="git"
+PKG_BUILD_FLAGS="+lto"
 
 pre_configure_target() {
   PKG_CMAKE_OPTS_TARGET="-DENABLE_SDL2=1 \
