@@ -10,6 +10,7 @@ PKG_DEPENDS_TARGET="toolchain linux glibc zlib libpng SDL2-git qt-everywhere peg
 PKG_LONGDESC="A cross platform, customizable graphical frontend for launching emulators and managing your game collection."
 GET_HANDLER_SUPPORT="git"
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 post_unpack() {
   cp -r ${PKG_DIR}/files/logos/* ${PKG_BUILD}/src/themes/pegasus-theme-grid/assets/logos
