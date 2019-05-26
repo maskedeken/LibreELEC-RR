@@ -10,6 +10,7 @@ PKG_URL="https://github.com/duganchen/dosbox/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc glib systemd dbus alsa-lib SDL2-git SDL2_net SDL_sound libpng zlib libvorbis flac libogg fluidsynth-git munt"
 PKG_LONGDESC="This is an enhanced fork of DOSBox. It is currently in sync with revision 4156."
 PKG_TOOLCHAIN="autotools"
+PKG_BUILD_FLAGS="+lto"
 
 configure_package() {
   # Displayserver Support
