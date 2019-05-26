@@ -9,6 +9,7 @@ PKG_URL="https://github.com/libretro/RetroArch.git"
 PKG_DEPENDS_TARGET="toolchain linux glibc systemd dbus openssl expat alsa-lib libpng libusb libass speex tinyalsa fluidsynth-git freetype zlib bzip2 ffmpeg lr-common-overlays lr-core-info lr-database lr-glsl-shaders lr-overlay-borders lr-samples retroarch-assets retroarch-joypad-autoconfig libxkbcommon"
 PKG_LONGDESC="Reference frontend for the libretro API."
 GET_HANDLER_SUPPORT="git"
+PKG_BUILD_FLAGS="+lto"
 
 configure_package() {
   # SAMBA Support
