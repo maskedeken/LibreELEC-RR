@@ -9,6 +9,7 @@ PKG_SITE="https://github.com/libretro/beetle-psx-libretro"
 PKG_URL="https://github.com/libretro/beetle-psx-libretro/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Standalone port/fork of Mednafen PSX to the Libretro API."
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="mednafen_psx_*libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
