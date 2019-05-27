@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/yabause/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="YabaSanshiro Sega Saturn emulator libretro port."
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="yabasanshiro_libretro.so"
 PKG_LIBPATH="yabause/src/libretro/${PKG_LIBNAME}"
