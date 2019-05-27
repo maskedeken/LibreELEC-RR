@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/libretro-prboom/archive/${PKG_VERSION}.tar.
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Port of prboom to libretro - plays Doom, Doom II, Final Doom and other Doom IWAD mods."
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="prboom_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
