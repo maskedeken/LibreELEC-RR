@@ -2,13 +2,14 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-mgba"
-PKG_VERSION="1deff07aa1b0d3d4b6b15e875fbeb0cc8eff0926" # v0.7.1+
-PKG_SHA256="97ddd736e88a11974496310ce313ac34dafc0cec5898d10a4b7021a8ef459318"
+PKG_VERSION="0.7.2"
+PKG_SHA256="ed635e05798d3fa0d55e5abb439f6d1708d519e4ecd5ed10b9bc6e319ed9dba7"
 PKG_LICENSE="MPL 2.0"
 PKG_SITE="https://github.com/mgba-emu/mgba"
 PKG_URL="https://github.com/mgba-emu/mgba/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc zlib"
 PKG_LONGDESC="mGBA is an emulator for running Game Boy Advance games."
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="mgba_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
@@ -30,7 +31,6 @@ pre_configure_target() {
                          -DUSE_MINIZIP=OFF \
                          -DUSE_LIBZIP=OFF \
                          -DUSE_MAGICK=OFF \
-                         -DUSE_DISCORD_RPC=OFF \
                          -DUSE_ELF=OFF"
 
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
