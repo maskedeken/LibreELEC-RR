@@ -9,6 +9,7 @@ PKG_SITE="https://github.com/libretro/gambatte-libretro"
 PKG_URL="https://github.com/libretro/gambatte-libretro/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Gambatte is an accuracy-focused, open-source, cross-platform Game Boy Color emulator written in C++."
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="gambatte_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
