@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/libretro-2048/archive/$PKG_VERSION.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Port of 2048 puzzle game to the libretro API."
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="2048_libretro.so"
 PKG_LIBPATH="$PKG_LIBNAME"
