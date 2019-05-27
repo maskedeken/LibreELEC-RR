@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/yabause/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Kronos is a Sega Saturn emulator forked from uoYabause. "
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="kronos_libretro.so"
 PKG_LIBPATH="yabause/src/libretro/${PKG_LIBNAME}"
