@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/beetle-saturn-libretro/archive/$PKG_VERSION
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Standalone port of Mednafen Saturn to the libretro API."
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="mednafen_saturn_libretro.so"
 PKG_LIBPATH="$PKG_LIBNAME"
