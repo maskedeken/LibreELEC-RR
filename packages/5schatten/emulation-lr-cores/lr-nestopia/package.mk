@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/nestopia/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="This project is a fork of the original Nestopia source code, plus the Linux port"
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="nestopia_libretro.so"
 PKG_LIBPATH="libretro/${PKG_LIBNAME}"
