@@ -10,7 +10,7 @@ PKG_URL="https://github.com/libretro/reicast-emulator/archive/${PKG_VERSION}.tar
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Reicast is a multiplatform Sega Dreamcast emulator"
 PKG_TOOLCHAIN="make"
-PKG_BUILD_FLAGS="-gold"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="reicast_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
