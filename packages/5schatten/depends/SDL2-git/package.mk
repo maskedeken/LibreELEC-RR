@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="SDL2-git"
-PKG_VERSION="4cd4ad8df6db00989dad155d43a3f13f9ba22f10" # 2.0.9+
-PKG_SHA256="b91987e4bd2a3797a842c8a1ee00bd7a7040f419f6e8c0f888689102e8c44930"
+PKG_VERSION="eebad73d2f8e0c177041ec5ec42d3f5530876ea1" # 2.0.9+
+PKG_SHA256="5967958853201835af0b67b8d2bf1dc98ed865fe657f7250286cc62c1d7dfc5a"
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.libsdl.org/"
 PKG_URL="https://github.com/spurious/SDL-mirror/archive/${PKG_VERSION}.tar.gz"
@@ -15,7 +15,7 @@ configure_package() {
   PKG_PATCH_DIRS="${PROJECT}"
 
   # Use ppc assembly only for x86_64
-  if [ "$TARGET_ARCH" = "x86_64" ]; then
+  if [ "${TARGET_ARCH}" = "x86_64" ]; then
     PKG_DEPENDS_TARGET+=" nasm:host"
   fi
 
@@ -26,12 +26,12 @@ configure_package() {
 
   # OpenGL Support
   if [ "${OPENGL_SUPPORT}" = "yes" ]; then
-    PKG_DEPENDS_TARGET+=" $OPENGL"
+    PKG_DEPENDS_TARGET+=" ${OPENGL}"
   fi
 
   # OpenGLES Support
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
-    PKG_DEPENDS_TARGET+=" $OPENGLES"
+    PKG_DEPENDS_TARGET+=" ${OPENGLES}"
   fi
 
   # Pulseaudio Support
@@ -64,8 +64,6 @@ pre_configure_target(){
                          -DVIDEO_WAYLAND=OFF \
                          -DVIDEO_WAYLAND_QT_TOUCH=ON \
                          -DWAYLAND_SHARED=OFF \
-                         -DVIDEO_MIR=OFF \
-                         -DMIR_SHARED=OFF \
                          -DVIDEO_COCOA=OFF \
                          -DVIDEO_DIRECTFB=OFF \
                          -DVIDEO_VIVANTE=OFF \
