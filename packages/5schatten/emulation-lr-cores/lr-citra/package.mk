@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/citra.git"
 PKG_DEPENDS_TARGET="toolchain linux glibc boost"
 PKG_LONGDESC="A Nintendo 3DS Emulator, running on libretro"
 GET_HANDLER_SUPPORT="git"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="citra_libretro.so"
 PKG_LIBPATH="src/citra_libretro/$PKG_LIBNAME"
