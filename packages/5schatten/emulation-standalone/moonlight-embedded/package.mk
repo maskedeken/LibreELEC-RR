@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="moonlight-embedded"
-PKG_VERSION="6a7ac5c7cb393e7edde67359bb3d1dcc8ecafd26" #v2.4.9
+PKG_VERSION="039eabca1e9fa8addafde826e4e6f4f675b3bca9" #v2.4.10
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/irtimmer/moonlight-embedded"
 PKG_URL="https://github.com/irtimmer/moonlight-embedded.git"
@@ -33,10 +33,10 @@ post_makeinstall_target() {
   ln -sf /usr/config/moonlight/moonlight.conf                  ${INSTALL}/etc/moonlight/
   ln -sf /usr/config/SDL-GameControllerDB/gamecontrollerdb.txt ${INSTALL}/usr/share/moonlight/
   ln -sf /usr/config/SDL-GameControllerDB/gamecontrollerdb.txt ${INSTALL}/usr/config/moonlight/
-  cp -PR $PKG_DIR/config/*  ${INSTALL}/usr/config/moonlight/
-  cp -PR $PKG_DIR/scripts/* ${INSTALL}/usr/bin/
+  cp -PR ${PKG_DIR}/config/*  ${INSTALL}/usr/config/moonlight/
+  cp -PR ${PKG_DIR}/scripts/* ${INSTALL}/usr/bin/
 
   # Clean up
-  rm -rf ${INSTALL}/usr/share
-  rm -rf ${INSTALL}/usr/etc
+  safe_remove ${INSTALL}/usr/share
+  safe_remove ${INSTALL}/usr/etc
 }
