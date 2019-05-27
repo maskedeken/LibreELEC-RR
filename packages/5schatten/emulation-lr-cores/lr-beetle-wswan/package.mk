@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/beetle-wswan-libretro/archive/$PKG_VERSION.
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Standalone port of Mednafen WonderSwan to libretro, itself a fork of Cygne."
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="mednafen_wswan_libretro.so"
 PKG_LIBPATH="$PKG_LIBNAME"
