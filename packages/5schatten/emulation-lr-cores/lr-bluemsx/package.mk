@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/blueMSX-libretro/archive/${PKG_VERSION}.tar
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Port of blueMSX to the libretro API."
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="bluemsx_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
