@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/nSide/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="A fork of higan v106 that reimplements the Balanced profile."
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="higan_sfc_balanced_libretro.so"
 PKG_LIBPATH="out/${PKG_LIBNAME}"
@@ -22,5 +23,5 @@ pre_make_target() {
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/lib/libretro
-  cp ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
 }
