@@ -10,6 +10,7 @@ PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="ChaiLove is an awesome framework you can use to make 2D games in ChaiScript."
 GET_HANDLER_SUPPORT="git"
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="chailove_libretro.so"
 PKG_LIBPATH="$PKG_LIBNAME"
