@@ -10,7 +10,14 @@ PKG_URL="https://github.com/libretro/pcsx_rearmed/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="PCSX ReARMed is yet another PCSX fork based on the PCSX-Reloaded project, which itself contains code from PCSX, PCSX-df and PCSX-Revolution."
 PKG_TOOLCHAIN="make"
-PKG_BUILD_FLAGS="-gold"
+
+configure_package() {
+  if [ ! "${ARCH}" = "arm" ]; then
+    PKG_BUILD_FLAGS="+lto"
+  else
+    PKG_BUILD_FLAGS="-gold"
+  fi
+}
 
 PKG_LIBNAME="pcsx_rearmed_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
