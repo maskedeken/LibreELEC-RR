@@ -10,6 +10,7 @@ PKG_URL="https://github.com/libretro/mame2003-plus-libretro/archive/${PKG_VERSIO
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Updated 2018 version of MAME (0.78) for libretro. with added game support plus many fixes and improvements"
 PKG_TOOLCHAIN="make"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="mame2003_plus_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
