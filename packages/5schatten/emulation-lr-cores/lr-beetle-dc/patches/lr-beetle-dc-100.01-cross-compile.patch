@@ -1,0 +1,48 @@
+From 361f3a3523bbbd684f14798365120cfc68907c2d Mon Sep 17 00:00:00 2001
+From: 5schatten <supervisedthinking@gmail.com>
+Date: Tue, 28 May 2019 14:38:52 +0200
+Subject: [PATCH] [Makefile] fix cross compile
+
+---
+ Makefile | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index de39c78c5..5f41802bf 100644
+--- a/Makefile
++++ b/Makefile
+@@ -21,25 +21,11 @@ HAVE_CLANG    := 0
+ 
+ TARGET_NAME   := beetle-dc
+ 
+-ifeq ($(HAVE_CLANG),1)
+-	CXX      = ${CC_PREFIX}clang++
+-	CC       = ${CC_PREFIX}clang
+-	SHARED   := -fuse-ld=lld
+-else
+-	CXX      = ${CC_PREFIX}g++
+-	CC       = ${CC_PREFIX}gcc
+-	SHARED   :=
+-endif
+-CC_AS    = ${CC_PREFIX}as
+-
+ MFLAGS   := 
+ ASFLAGS  := 
+-LDFLAGS  :=
+ LDFLAGS_END :=
+ INCFLAGS :=
+ LIBS     :=
+-CFLAGS   := 
+-CXXFLAGS :=
+ 
+ GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
+ ifneq ($(GIT_VERSION)," unknown")
+@@ -857,7 +843,7 @@ LIBS     += -lm
+ PREFIX        ?= /usr/local
+ 
+ ifneq (,$(findstring arm, $(ARCH)))
+-	CC_AS    = ${CC_PREFIX}gcc #The ngen_arm.S must be compiled with gcc, not as
++	CC_AS    = ${CC_PREFIX}${CC} #The ngen_arm.S must be compiled with gcc, not as
+ 	ASFLAGS  += $(CFLAGS)
+ endif
+ 
