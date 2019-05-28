@@ -12,7 +12,7 @@ PKG_LONGDESC="OEM: Metapackage for various OEM packages"
 PKG_TOOLCHAIN="manual"
 
 # Common tools included in all images
-OEM_APPS_COMMON=" \
+OEM_TOOLS_COMMON=" \
   rr-config-tool \
   ds4drv \
   htop \
@@ -22,11 +22,11 @@ OEM_APPS_COMMON=" \
   Skyscraper \
   spectre-meltdown-checker"
 
-# Specific tools included in Amlogic_Legacy images
-OEM_APPS_AMLOGIC_LEGACY=""
+# Specific tools included in Amlogic images
+OEM_TOOLS_AMLOGIC=""
 
 # Specific tools included in Generic images
-OEM_APPS_GENERIC=" \
+OEM_TOOLS_GENERIC=" \
   dmidecode \
   google-chrome \
   mesa-demos-system \
@@ -37,13 +37,13 @@ OEM_APPS_GENERIC=" \
   vulkan-tools"
 
 # Specific tools included in Rockchip images
-OEM_APPS_ROCKCHIP=""
+OEM_TOOLS_ROCKCHIP=""
 
 # Specific tools included in RPi images
-OEM_APPS_RPI=""
+OEM_TOOLS_RPI=""
 
 # Common emulators included in all images
-OEM_EMU_COMMON=" \
+OEM_EMULATORS_COMMON=" \
   emulationstation \
   pegasus-frontend \
   retroarch \
@@ -53,6 +53,7 @@ OEM_EMU_COMMON=" \
   ppsspp \
   lr-2048 \
   lr-atari800 \
+  lr-beetle-dc \
   lr-beetle-pce-fast \
   lr-beetle-wswan \
   lr-bluemsx \
@@ -72,14 +73,13 @@ OEM_EMU_COMMON=" \
   lr-nestopia \
   lr-pcsx-rearmed \
   lr-prboom \
-  lr-reicast \
   lr-scummvm \
   lr-snes9x \
   lr-stella \
   lr-tyrquake"
 
-# Specific emulators included in Amlogic_Legacy images
-OEM_EMU_AMLOGIC_LEGACY=" \
+# Specific emulators included in Amlogic images
+OEM_EMULATORS_AMLOGIC=" \
   amiberry \
   lr-mame2010 \
   lr-snes9x2010 \
@@ -87,7 +87,7 @@ OEM_EMU_AMLOGIC_LEGACY=" \
   lr-yabause"
 
 # Specific emulators included in Generic images
-OEM_EMU_GENERIC=" \
+OEM_EMULATORS_GENERIC=" \
   citra \
   dolphin \
   fs-uae \
@@ -110,7 +110,7 @@ OEM_EMU_GENERIC=" \
   lr-yabasanshiro"
 
 # Specific emulators included in Rockchip images
-OEM_EMU_ROCKCHIP=" \
+OEM_EMULATORS_ROCKCHIP=" \
   amiberry \
   lr-mame2016 \
   lr-snes9x2010 \
@@ -119,7 +119,7 @@ OEM_EMU_ROCKCHIP=" \
   lr-yabasanshiro"
 
 # Specific emulators included in RPi images
-OEM_EMU_RPI=" \
+OEM_EMULATORS_RPI=" \
   amiberry \
   lr-mame2010 \
   lr-snes9x2010 \
@@ -127,39 +127,39 @@ OEM_EMU_RPI=" \
   lr-yabause"
 
 # Install common & specific tools
-if [ "${OEM_APPS}" = "yes" ]; then
-      PKG_DEPENDS_TARGET+=" ${OEM_APPS_COMMON}"
+if [ "${OEM_TOOLS}" = "yes" ]; then
+      PKG_DEPENDS_TARGET+=" ${OEM_TOOLS_COMMON}"
   case ${PROJECT} in
-    Amlogic_Legacy)
-      PKG_DEPENDS_TARGET+=" ${OEM_APPS_AMLOGIC_LEGACY}"
+    Amlogic)
+      PKG_DEPENDS_TARGET+=" ${OEM_TOOLS_AMLOGIC}"
       ;;
     Generic)
-      PKG_DEPENDS_TARGET+=" ${OEM_APPS_GENERIC}"
+      PKG_DEPENDS_TARGET+=" ${OEM_TOOLS_GENERIC}"
       ;;
     Rockchip)
-      PKG_DEPENDS_TARGET+=" ${OEM_APPS_ROCKCHIP}"
+      PKG_DEPENDS_TARGET+=" ${OEM_TOOLS_ROCKCHIP}"
       ;;
     RPi*)
-      PKG_DEPENDS_TARGET+=" ${OEM_APPS_RPI}"
+      PKG_DEPENDS_TARGET+=" ${OEM_TOOLS_RPI}"
       ;;
   esac
 fi
 
 # Install common & specific emulators
-if [ "${OEM_EMU}" = "yes" ]; then
-      PKG_DEPENDS_TARGET+=" ${OEM_EMU_COMMON}"
+if [ "${OEM_EMULATORS}" = "yes" ]; then
+      PKG_DEPENDS_TARGET+=" ${OEM_EMULATORS_COMMON}"
   case ${PROJECT} in
-    Amlogic_Legacy)
-      PKG_DEPENDS_TARGET+=" ${OEM_EMU_AMLOGIC_LEGACY}"
+    Amlogic)
+      PKG_DEPENDS_TARGET+=" ${OEM_EMULATORS_AMLOGIC}"
       ;;
     Generic)
-      PKG_DEPENDS_TARGET+=" ${OEM_EMU_GENERIC}"
+      PKG_DEPENDS_TARGET+=" ${OEM_EMULATORS_GENERIC}"
       ;;
-   Rockchip)
-      PKG_DEPENDS_TARGET+=" ${OEM_EMU_ROCKCHIP}"
+    Rockchip)
+      PKG_DEPENDS_TARGET+=" ${OEM_EMULATORS_ROCKCHIP}"
       ;;
     RPi*)
-      PKG_DEPENDS_TARGET+=" ${OEM_EMU_RPI}"
+      PKG_DEPENDS_TARGET+=" ${OEM_EMULATORS_RPI}"
       ;;
   esac
 fi
