@@ -86,7 +86,7 @@ docker_image_run() {
                -v /storage:/storage \
                -v /storage/.config/asound.conf:/etc/asound.conf \
                -v /storage/.config/PCSX2:/root/.config/PCSX2 \
-               -v /storage/roms/bios:/root/.config/PCSX2/bios \
+               -v /storage/roms/bios/PCSX2:/root/.config/PCSX2/bios \
                -v /tmp/.X11-unix:/tmp/.X11-unix"
 
   # Log the installed Docker image version & arguments
