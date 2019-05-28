@@ -25,8 +25,8 @@ pre_configure_target() {
   export SYSROOT_PREFIX=${SYSROOT_PREFIX}
 
   case ${PROJECT} in
-    Amlogic_Legacy)
-      AMIBERRY_PLATFORM="amlogic_legacy"
+    Amlogic)
+      AMIBERRY_PLATFORM="amlogic"
       ;;
     Rockchip)
       if [ "${DEVICE}" = "RK3399" ]; then
@@ -51,7 +51,6 @@ makeinstall_target() {
   # Create directories
   mkdir -p ${INSTALL}/usr/bin
   mkdir -p ${INSTALL}/usr/lib
-  mkdir -p ${INSTALL}/usr/config/amiberry
   mkdir -p ${INSTALL}/usr/config/amiberry/controller
 
   # Copy ressources
@@ -67,7 +66,7 @@ makeinstall_target() {
   ln -s "/usr/share/retroarch/autoconfig/udev/Pro Controller.cfg"     "${INSTALL}/usr/config/amiberry/controller/Pro Controller.cfg"
 
   # Copy binary, scripts & link libcapsimg
-  cp -a amiberry-${AMIBERRY_PLATFORM} ${INSTALL}/usr/bin/amiberry
-  cp -a ${PKG_DIR}/scripts/*          ${INSTALL}/usr/bin
-  ln -sf /usr/lib/libcapsimage.so.5.1 ${INSTALL}/usr/config/amiberry/capsimg.so
+  cp -av amiberry-${AMIBERRY_PLATFORM} ${INSTALL}/usr/bin/amiberry
+  cp -a ${PKG_DIR}/scripts/*           ${INSTALL}/usr/bin
+  ln -sf /usr/lib/libcapsimage.so.5.1  ${INSTALL}/usr/config/amiberry/capsimg.so
 }
