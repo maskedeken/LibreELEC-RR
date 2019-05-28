@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-nestopia"
-PKG_VERSION="7e288bbf9b989192f57d8973c7d76336f731be61"
-PKG_SHA256="4dcb2e280e6243f46e52d26396b27c504a5515c9477ce844a21eb18fb10616f0"
+PKG_VERSION="db7555c2f612dacc70f890e155c6ee9b8dc58e56"
+PKG_SHA256="028a4ceb15abbe051079bdb8a6fe8021cfdf046f105df6f65d0b763940e5d8ea"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/nestopia"
 PKG_URL="https://github.com/libretro/nestopia/archive/${PKG_VERSION}.tar.gz"
@@ -18,8 +18,12 @@ PKG_LIBPATH="libretro/${PKG_LIBNAME}"
 PKG_MAKE_OPTS_TARGET="-C libretro GIT_VERSION=${PKG_VERSION:0:7}"
 
 pre_configure_target() {
-  if [ "${PROJECT}" = "RPi" ]; then
-    PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
+  if [ "${ARCH}" = "arm" ]; then
+    if [ "${PROJECT}" = "RPi" ]; then
+      PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
+    else
+      PKG_MAKE_OPTS_TARGET+=" platform=armv"
+    fi
   fi
 }
 
