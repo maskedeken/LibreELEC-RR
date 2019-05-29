@@ -2,22 +2,22 @@
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="libmali"
-PKG_VERSION="28f97bf45f5e71cf760b6d8a7abba231998c68c1"
-PKG_SHA256="bf4de370efb2ead9153594a617430611af5b6801a93f6825b9ede2b7f5692cd6"
+PKG_VERSION="4cbf211cfd9b07854aab4978e50b1151052c6d4c"
+PKG_SHA256="d3c5dd43ee0830feada4a86d32b9c794cddab29a863dfd1dddb3954f380086c5"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="nonfree"
 PKG_SITE="https://github.com/LibreELEC/libmali"
-PKG_URL="https://github.com/5schatten/libmali/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/LibreELEC/libmali/archive/$PKG_VERSION.tar.gz"
 PKG_LONGDESC="OpenGL ES user-space binary for the ARM Mali GPU family"
 PKG_STAMP="$MALI_FAMILY"
 
 PKG_DEPENDS_TARGET="libdrm"
 
-if [ "$MALI_FAMILY" = "t620" -o "$MALI_FAMILY" = "t720" -o "$MALI_FAMILY" = "g52" ]; then
+if listcontains "$MALI_FAMILY" "(t620|t720)"; then
   PKG_DEPENDS_TARGET+=" wayland"
 fi
 
-PKG_CMAKE_OPTS_TARGET="-DMALI_VARIANT=$MALI_FAMILY"
+PKG_CMAKE_OPTS_TARGET="-DMALI_VARIANT=${MALI_FAMILY// /;}"
 
 if [ "$TARGET_ARCH" = "aarch64" ]; then
   PKG_CMAKE_OPTS_TARGET+=" -DMALI_ARCH=aarch64-linux-gnu"
