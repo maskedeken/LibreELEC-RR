@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-beetle-dc"
-PKG_VERSION="2af59a8717a6800ce2282a882e9409594c9e1af9"
-PKG_SHA256="a2fec63e8c6a54e2dc67380a4584e951d6f6bfe7f2b9666723e7708982b7ea77"
+PKG_VERSION="c6fe8e4d601bebb64ca09446b877219d4f0549cd"
+PKG_SHA256="29f265821f400cb4c73af5f947b775ed871e9fb0f7d1240d5c81bde4ab79304b"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/beetle-dc"
 PKG_URL="https://github.com/libretro/beetle-dc/archive/${PKG_VERSION}.tar.gz"
