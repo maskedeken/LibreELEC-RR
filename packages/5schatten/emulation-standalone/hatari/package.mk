@@ -29,7 +29,7 @@ pre_configure_target() {
   mkdir -p ${PKG_BUILD}/src/includes/caps5/
   cp -R $(get_build_dir capsimg)/LibIPF/* ${PKG_BUILD}/src/includes/caps5/
   cp -R $(get_build_dir capsimg)/Core/CommonTypes.h ${PKG_BUILD}/src/includes/caps5/
-  cp -R $(get_build_dir capsimg)/libcapsimage.so.5.1 ${PKG_BUILD}/
+  cp -R $(get_build_dir capsimg)/CAPSImg/libcapsimage.so.5.1 ${PKG_BUILD}/
 
   # add library search path for loading libcapsimage library
   LDFLAGS+=" -Wl,-rpath='${PKG_BUILD}'"
@@ -45,6 +45,6 @@ makeinstall_target() {
   cp -R ${PKG_DIR}/config/* ${INSTALL}/usr/config/hatari
 
   # copy binary & start script
-  cp src/hatari ${INSTALL}/usr/bin
+  cp -v src/hatari ${INSTALL}/usr/bin
   cp -R ${PKG_DIR}/scripts/* ${INSTALL}/usr/bin/
 }
