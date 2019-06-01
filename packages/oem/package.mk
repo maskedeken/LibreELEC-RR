@@ -75,7 +75,7 @@ OEM_EMULATORS_COMMON=" \
   lr-prboom \
   lr-scummvm \
   lr-snes9x \
-  lr-stella \
+  lr-stella2014 \
   lr-tyrquake"
 
 # Specific emulators included in Amlogic images
