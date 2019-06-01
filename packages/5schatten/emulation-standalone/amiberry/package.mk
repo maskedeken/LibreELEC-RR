@@ -15,7 +15,7 @@ PKG_TOOLCHAIN="make"
 PKG_MAKE_OPTS_TARGET="all"
 
 configure_package() {
-  if [ ! "${PROJECT}" = "RPi" ]; then
+  if [ "${TARGET_SUBARCH}" = "armv8-a" ]; then
     PKG_BUILD_FLAGS="+lto"
   fi
 }
