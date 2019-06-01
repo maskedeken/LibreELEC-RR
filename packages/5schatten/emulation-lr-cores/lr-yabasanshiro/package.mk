@@ -38,13 +38,18 @@ configure_package() {
 }
 
 pre_configure_target() {
-  case ${PROJECT} in
-    Rockchip)
-      if [ "${DEVICE}" = "RK3399" ]; then
-        PKG_MAKE_OPTS_TARGET+=" platform=rockpro64"
+  if [ "${ARCH}" = "arm" ]; then
+    if [ "${DEVICE}" = "RK3399" ]; then
+      PKG_MAKE_OPTS_TARGET+=" platform=rockpro64"
+    else
+      PKG_MAKE_OPTS_TARGET+=" platform=armv"
+      # ARM NEON support
+      if target_has_feature neon; then
+        PKG_MAKE_OPTS_TARGET+="-neon"
       fi
-    ;;
-  esac
+      PKG_MAKE_OPTS_TARGET+="-${TARGET_FLOAT}float-${TARGET_CPU}"
+    fi
+  fi
 }
 
 pre_make_target() {
