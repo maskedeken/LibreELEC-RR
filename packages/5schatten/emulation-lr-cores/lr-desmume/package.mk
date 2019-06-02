@@ -20,7 +20,7 @@ if [ ! ${OPENGL_SUPPORT} = "yes" ]; then
   PKG_PATCH_DIRS="no-opengl"
 fi
 
-PKG_MAKE_OPTS_TARGET="-C desmume/src/frontend/libretro -f Makefile.libretro GIT_VERSION=${PKG_VERSION:0:7}"
+PKG_MAKE_OPTS_TARGET="-C desmume/src/frontend/libretro GIT_VERSION=${PKG_VERSION:0:7}"
 
 configure_package() {
   # Displayserver Support
@@ -35,14 +35,9 @@ configure_package() {
 }
 
 pre_configure_target() {
-  case ${TARGET_CPU} in
-    arm1176jzf-s)
-      PKG_MAKE_OPTS_TARGET+=" platform=armv6-hardfloat-${TARGET_CPU}"
-      ;;
-    cortex-a7|cortex-a9|cortex-a17|*cortex-a53)
-      PKG_MAKE_OPTS_TARGET+=" platform=armv7-neon-hardfloat-${TARGET_CPU}"
-      ;;
-  esac
+  if [ "${ARCH}" = "arm" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=armv-${TARGET_FLOAT}float-${TARGET_CPU}"
+  fi
 }
 
 makeinstall_target() {
