@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-mame2003-plus"
-PKG_VERSION="2e28b08dbaee81fc3001ac872f8c46b61520e431"
-PKG_SHA256="fc2b5132952ed3281dd940eff959083da7ca307c918e79bd3069746305082a95"
+PKG_VERSION="ee491ad23cf25041089ff765827050c6f1342e7f"
+PKG_SHA256="1fbb3f60177a9dc6dd4779287da5f5aacc5b8ee59c3d09794d11db2f5dbcf527"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mame2003-plus-libretro"
 PKG_URL="https://github.com/libretro/mame2003-plus-libretro/archive/${PKG_VERSION}.tar.gz"
@@ -28,11 +28,12 @@ pre_configure_target() {
         ;;
     esac
   fi
+  # Fix linking
   export LD="${CC}"
 }
 
 pre_make_target() {
-  # Set skip Disclaimer to enabled
+  # Enable disclaimer skipping at default
   sed -e "s/\"Skip Disclaimer; disabled|enabled\"/\"Skip Disclaimer; enabled|disabled\"/" -i ${PKG_BUILD}/src/mame2003/mame2003.c
 }
 
