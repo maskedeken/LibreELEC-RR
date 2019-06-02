@@ -18,21 +18,16 @@ PKG_LIBPATH="${PKG_LIBNAME}"
 PKG_MAKE_OPTS_TARGET="GIT_VERSION=${PKG_VERSION:0:7}"
 
 pre_configure_target() {
-  export CFLAGS+=" -fpermissive"
-  export CXXFLAGS+=" -fpermissive"
+  if [ "${ARCH}" = "arm" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=armv"
+    # ARM NEON support
+    if target_has_feature neon; then
+      PKG_MAKE_OPTS_TARGET+="-neon"
+    fi
+    PKG_MAKE_OPTS_TARGET+="-${TARGET_FLOAT}float-${TARGET_CPU}"
+  fi
+  # Fix linking
   export LD="${CXX}"
-
-  case ${TARGET_CPU} in
-    arm1176jzf-s)
-      PKG_MAKE_OPTS_TARGET+=" platform=armv6-hardfloat-${TARGET_CPU}"
-      ;;
-    cortex-a7|cortex-a9)
-      PKG_MAKE_OPTS_TARGET+=" platform=armv7-neon-hardfloat-${TARGET_CPU}"
-      ;;
-    *cortex-a53|cortex-a17)
-      PKG_MAKE_OPTS_TARGET+=" platform=armv7-neon-hardfloat-cortex-a9"
-      ;;
-  esac
 }
 
 makeinstall_target() {
