@@ -15,7 +15,7 @@ PKG_TOOLCHAIN="make"
 PKG_MAKE_OPTS_TARGET="all"
 
 configure_package() {
-  if [ "${TARGET_SUBARCH}" = "armv8-a" ]; then
+  if [ "${TARGET_SUBARCH}" = "armv8-a" ] || [ "${TARGET_SUBARCH}" = "armv7ve" ]; then
     PKG_BUILD_FLAGS="+lto"
   fi
 }

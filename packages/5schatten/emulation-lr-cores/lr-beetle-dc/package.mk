@@ -52,7 +52,7 @@ pre_configure_target() {
     Rockchip)
       if [ "${DEVICE}" = "RK3399" ]; then
         PKG_MAKE_OPTS_TARGET+=" platform=rockpro64"
-      elif [ "${DEVICE}" = "RK3328" ] || [ "${DEVICE}" = "TinkerBoard" ]; then
+      elif [ "${DEVICE}" = "RK3328" ] || [ "${DEVICE}" = "MiQi" ]|| [ "${DEVICE}" = "TinkerBoard" ]; then
         PKG_MAKE_OPTS_TARGET+=" platform=tinkerboard"
       fi
       ;;

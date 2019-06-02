@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 3e7864c..430b329 100644
+--- a/Makefile
++++ b/Makefile
+@@ -153,7 +153,7 @@ USE_SDL2 = 1
+ 
+ else ifeq ($(PLATFORM),tinker)
+ USE_SDL2 = 1
+-    CFLAGS += -march=armv7-a -mtune=cortex-a17 -mfpu=neon-vfpv4
++    CFLAGS += -march=armv7ve -mtune=cortex-a17 -mfpu=neon-vfpv4
+     CPPFLAGS += -DARMV6_ASSEMBLY -D_FILE_OFFSET_BITS=64 -DARMV6T2 -DUSE_ARMNEON -DARM_HAS_DIV -DUSE_SDL2 -DFASTERCYCLES -DUSE_RENDER_THREAD -DMALI_GPU
+     HAVE_NEON = 1
+     NAME  = amiberry-tinker
