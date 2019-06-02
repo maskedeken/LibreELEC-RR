@@ -14,13 +14,19 @@ PKG_TOOLCHAIN="make"
 PKG_LIBNAME="scummvm_libretro.so"
 PKG_LIBPATH="backends/platform/libretro/build/${PKG_LIBNAME}"
 
-PKG_MAKE_OPTS_TARGET="-C backends/platform/libretro/build/ GIT_VERSION=${PKG_VERSION:0:7}"
+PKG_MAKE_OPTS_TARGET="-C backends/platform/libretro/build GIT_VERSION=${PKG_VERSION:0:7}"
 
 pre_configure_target() {
+  if [ "${ARCH}" = "arm" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=armv"
+    # ARM NEON support
+    if target_has_feature neon; then
+      PKG_MAKE_OPTS_TARGET+="-neon"
+    fi
+    PKG_MAKE_OPTS_TARGET+="-${TARGET_FLOAT}float-${TARGET_CPU}"
+  fi
+  # Fix build path
   cd ${PKG_BUILD}
-  CXXFLAGS+=" -DHAVE_POSIX_MEMALIGN=1"
-  export LD="${CC}"
-  export AR+=" cru"
 }
 
 makeinstall_target() {
