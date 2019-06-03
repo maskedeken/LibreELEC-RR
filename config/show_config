@@ -104,8 +104,11 @@ show_config() {
   config_message="$config_message\n $dashes$dashes"
 
   config_message="$config_message\n - OEM Support:\t\t\t\t $OEM_SUPPORT"
-  config_message="$config_message\n - OEM Apps:\t\t\t\t $OEM_APPS"
-  config_message="$config_message\n - OEM Emulators:\t\t\t $OEM_EMU"
+  config_message="$config_message\n - OEM Applications:\t\t\t $OEM_APPLICATIONS"
+  config_message="$config_message\n - OEM Emulators:\t\t\t $OEM_EMULATORS"
+  config_message="$config_message\n - OEM Frontends:\t\t\t $OEM_FRONTENDS"
+  config_message="$config_message\n - OEM Libretro:\t\t\t $OEM_LIBRETRO"
+  config_message="$config_message\n - OEM Tools:\t\t\t\t $OEM_TOOLS"
   config_message="$config_message\n - Add non-free packages:\t\t $NON_FREE_PKG_SUPPORT"
   config_message="$config_message\n - Default ROOT Password:\t\t $ROOT_PASSWORD"
   config_message="$config_message\n - Bootloader:\t\t\t\t $BOOTLOADER"
