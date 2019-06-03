@@ -16,13 +16,32 @@ makeinstall_target() {
     cp -a $(get_build_dir kodi)/.$TARGET_NAME/addons/skin.estuary $INSTALL/usr/share/kodi/addons/
 
   # Add Chrome & Spotify shortcuts to menu
-  if [ ! "${OEM_APPS}" = "no" ] && [ "${PROJECT}" = "Generic" ]; then
-    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.01-app-menu.patch
-    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.03-moonlight-qt-menu.patch
+  if [ ! "${OEM_APPLICATIONS}" = "no" ]; then
+    echo "### Adding Chrome & Spotify to Estuary menu ###"
+    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.01-application-menu.patch
+
+    # Add Moonlight shortcut to menu 
+    if [ "${PROJECT}" = "Generic" ]; then
+      echo "### Adding Moonlight to Estuary menu ###"
+      patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.05-moonlight-qt-menu.patch
+    fi
   fi
 
-  # Add Emulationstation, Moonlight, Pegasus & Retroarch shortcuts to menu
-  if [ ! "${OEM_EMU}" = "no" ]; then
-    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.02-emulation-menu.patch
+  # Add Emulationstation shortcut to menu 
+  if [ ! "${OEM_EMULATORS}" = "no" ]; then
+    echo "### Adding Emulationstation to Estuary menu ###"
+    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.02-emulationstation-menu.patch
+  fi
+
+  # Add Retroarch shortcut to menu 
+  if [ ! "${OEM_LIBRETRO}" = "no" ]; then
+    echo "### Adding Retroarch to Estuary menu ###"
+    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.03-retroarch-menu.patch
+  fi
+
+  # Add Pegasus Frontend shortcut to menu 
+  if [ ! "${OEM_FRONTENDS}" = "no" ]; then
+    echo "### Adding Pegasus-Frontend to Estuary menu ###"
+    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.04-pegasus-menu.patch
   fi
 }
