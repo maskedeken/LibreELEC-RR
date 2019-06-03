@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="citra"
-PKG_VERSION="5727e1b43d85aee137174375c41d35e44bc8b06f"
+PKG_VERSION="186ffc235f744dad315a603a98cce4597ef0f65f"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv2+"
 PKG_SITE="https://github.com/citra-emu/citra"
@@ -10,7 +10,6 @@ PKG_URL="https://github.com/citra-emu/citra.git"
 PKG_DEPENDS_TARGET="toolchain linux glibc systemd dbus zlib pulseaudio ffmpeg mesa xorg-server boost qt-everywhere SDL2-git unclutter-xfixes"
 PKG_LONGDESC="A Nintendo 3DS Emulator"
 GET_HANDLER_SUPPORT="git"
-PKG_BUILD_FLAGS="+lto"
 
 pre_configure_target() {
   PKG_CMAKE_OPTS_TARGET="-DENABLE_SDL2=1 \
