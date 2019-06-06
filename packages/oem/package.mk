@@ -168,14 +168,15 @@ OEM_TOOLS_AMLOGIC=""
 
 # Common tools included in all images
 OEM_TOOLS_COMMON=" \
-  rr-config-tool \
   ds4drv \
   htop \
   lm-sensors \
   midnight-commander \
+  rr-config-tool \
   sdl-jstest \
   Skyscraper \
-  spectre-meltdown-checker"
+  spectre-meltdown-checker \
+  strace-system"
 
 # Specific tools included in Generic images
 OEM_TOOLS_GENERIC=" \
