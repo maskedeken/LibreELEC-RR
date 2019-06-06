@@ -72,23 +72,20 @@ OEM_EMULATORS_RPI=" \
 ################################################################################
 
 # Specific frontends included in Amlogic images
-OEM_FRONTENDS_AMLOGIC=" \
-  pegasus-frontend"
+OEM_FRONTENDS_EXTRA_AMLOGIC=""
 
 # Common frontends included in all images
-OEM_FRONTENDS_COMMON=""
+OEM_FRONTENDS_EXTRA_COMMON=" \
+  pegasus-frontend"
 
 # Specific frontends included in Generic images
-OEM_FRONTENDS_GENERIC=" \
-  pegasus-frontend"
+OEM_FRONTENDS_EXTRA_GENERIC=""
 
 # Specific frontends included in Rockchip images
-OEM_FRONTENDS_ROCKCHIP=" \
-  pegasus-frontend"
+OEM_FRONTENDS_EXTRA_ROCKCHIP=""
 
 # Specific frontends included in RPi images
-OEM_FRONTENDS_RPI=" \
-  pegasus-frontend"
+OEM_FRONTENDS_EXTRA_RPI=""
 
 ################################################################################
 # Setup LibreELEC-RR libretro cores
@@ -240,20 +237,20 @@ configure_package() {
     fi
 
     # Add frontend packages
-    if [ "${OEM_FRONTENDS}" = "yes" ]; then
-      PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_COMMON}"
+    if [ "${OEM_FRONTENDS_EXTRA}" = "yes" ]; then
+      PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_EXTRA_COMMON}"
       case ${PROJECT} in
         Amlogic)
-          PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_AMLOGIC}"
+          PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_EXTRA_AMLOGIC}"
           ;;
         Generic)
-          PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_GENERIC}"
+          PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_EXTRA_GENERIC}"
           ;;
         Rockchip)
-          PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_ROCKCHIP}"
+          PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_EXTRA_ROCKCHIP}"
           ;;
         RPi)
-          PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_RPI}"
+          PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_EXTRA_RPI}"
           ;;
       esac
     fi
