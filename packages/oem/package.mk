@@ -87,7 +87,8 @@ OEM_FRONTENDS_ROCKCHIP=" \
   pegasus-frontend"
 
 # Specific frontends included in RPi images
-OEM_FRONTENDS_RPI=""
+OEM_FRONTENDS_RPI=" \
+  pegasus-frontend"
 
 ################################################################################
 # Setup LibreELEC-RR libretro cores
