@@ -40,7 +40,7 @@ makeinstall_target() {
   fi
 
   # Add Pegasus Frontend shortcut to menu 
-  if [ ! "${OEM_FRONTENDS}" = "no" ]; then
+  if [ ! "${OEM_FRONTENDS_EXTRA}" = "no" ]; then
     echo "### Adding Pegasus-Frontend to Estuary menu ###"
     patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.04-pegasus-menu.patch
   fi
