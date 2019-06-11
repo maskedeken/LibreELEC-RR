@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="vlc"
-PKG_VERSION="3.0.6"
-PKG_SHA256="18c16d4be0f34861d0aa51fbd274fb87f0cab3b7119757ead93f3db3a1f27ed3"
+PKG_VERSION="3.0.7"
+PKG_SHA256="5cb5fe140f0f4bae3e0a613fb5f516270f62e2dbde6de27fa78ea9f43cd73916"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.videolan.org"
 PKG_URL="http://get.videolan.org/vlc/${PKG_VERSION}/vlc-${PKG_VERSION}.tar.xz"
