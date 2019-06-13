@@ -103,7 +103,6 @@ OEM_LIBRETRO_COMMON=" \
   retroarch \
   lr-2048 \
   lr-atari800 \
-  lr-beetle-dc \
   lr-beetle-pce-fast \
   lr-beetle-wswan \
   lr-bluemsx \
@@ -112,6 +111,7 @@ OEM_LIBRETRO_COMMON=" \
   lr-dosbox \
   lr-fbneo \
   lr-fceumm \
+  lr-flycast \
   lr-fuse \
   lr-gambatte \
   lr-genplus \
