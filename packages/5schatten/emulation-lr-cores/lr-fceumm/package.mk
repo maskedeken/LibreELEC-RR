@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-fceumm"
-PKG_VERSION="e083f098e0661853acd7b943fcc398a6f22eaaf9"
-PKG_SHA256="2168bfe27797f433b291eef83643af2645d28f11c6e75c5de329fb5b73416fa8"
+PKG_VERSION="27a71cc3fb9a64d5f67faa6e8d8c5b75c2ae293f"
+PKG_SHA256="2c8f5789ff5c7eebef60ad4b9a23e9c8229d6cce7d91ba32a8688516598342bd"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/libretro-fceumm"
 PKG_URL="https://github.com/libretro/libretro-fceumm/archive/${PKG_VERSION}.tar.gz"
