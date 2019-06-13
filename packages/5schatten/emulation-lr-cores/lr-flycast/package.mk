@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="lr-beetle-dc"
-PKG_VERSION="78bc44ab932920e6c318bafeb262f4f941529189"
-PKG_SHA256="4de36fa3df5b27b5407e7590d31e34912c1b5f0fad9612a0b1222c092c59e68c"
+PKG_NAME="lr-flycast"
+PKG_VERSION="4a020d4080221a32ca18b22045ff41d0364c5d5b"
+PKG_SHA256="46f69d1ed57f9675683775d97779245c9ef118b9cd33d564c63750abbb1433b7"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/beetle-dc"
 PKG_URL="https://github.com/libretro/beetle-dc/archive/${PKG_VERSION}.tar.gz"
@@ -12,7 +12,7 @@ PKG_LONGDESC="Beetle DC is a multiplatform Sega Dreamcast emulator"
 PKG_TOOLCHAIN="make"
 PKG_BUILD_FLAGS="+lto"
 
-PKG_LIBNAME="beetledc_libretro.so"
+PKG_LIBNAME="flycast_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
 
 PKG_MAKE_OPTS_TARGET="HAVE_OPENMP=0 GIT_VERSION=${PKG_VERSION:0:7} WITH_DYNAREC=${ARCH}"
@@ -74,5 +74,5 @@ pre_configure_target() {
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/lib/libretro
-  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/
+  cp -v ${PKG_LIBPATH} ${INSTALL}/usr/lib/libretro/beetledc_libretro.so
 }
