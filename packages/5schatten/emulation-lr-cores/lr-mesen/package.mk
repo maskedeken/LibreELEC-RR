@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-mesen"
-PKG_VERSION="96851e6c7a881e40322a1a3e33b5aa4fcc0acbce" # 0.9.7+
-PKG_SHA256="c335083fc2143cbbefacc28726cd8ecc3699cbf11b9563332d357084cfebc18f"
+PKG_VERSION="1b035efb182cff211b76816fde45608665e742e3" # 0.9.7+
+PKG_SHA256="9dea2938842c2b6fe5e0906ba29be4e2b88f717c9a93d4234008de38b045d10c"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/SourMesen/Mesen"
