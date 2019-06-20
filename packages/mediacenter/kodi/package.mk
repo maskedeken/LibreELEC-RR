@@ -13,25 +13,24 @@ PKG_PATCH_DIRS="$KODI_VENDOR"
 
 case $KODI_VENDOR in
   raspberrypi)
-    PKG_VERSION="newclock5_18.2-Leia"
-    PKG_SHA256="ff3f1770dd7a3223fb1f9441c0abf028bb4c3d406c5d9ba6fe202872b7237ee5"
+    PKG_VERSION="newclock5_18.3-Leia"
+    PKG_SHA256="7e7a89a66a1921b0fa32478277d11361b3c7a04aea88784bac668b300b182298"
     PKG_URL="https://github.com/popcornmix/xbmc/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="kodi-$KODI_VENDOR-$PKG_VERSION.tar.gz"
     ;;
   rockchip)
-    PKG_VERSION="rockchip_18.2-Leia"
-    PKG_SHA256="437b3608bb4ddb4703cc2ee86acb0a4065846244b84fe555d9f4c7b74a49b263"
+    PKG_VERSION="rockchip_18.3-Leia"
+    PKG_SHA256="a9eb3f44b0c7ab409604a2de0c3469f88b20c5d4a69209c006ca4a61673db318"
     PKG_URL="https://github.com/kwiboo/xbmc/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="kodi-$KODI_VENDOR-$PKG_VERSION.tar.gz"
     ;;
   *)
-    PKG_VERSION="18.2-Leia"
-    PKG_SHA256="07b8cffc396473523a51354dc95dfffb54a6a456b82cda7ad67dc2c052d99f64"
+    PKG_VERSION="18.3-Leia"
+    PKG_SHA256="4f265901c00f582beb8d6ad96c9c303e5ab82611e828c7121ae822b07c0915cc"
     PKG_URL="https://github.com/xbmc/xbmc/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="kodi-$PKG_VERSION.tar.gz"
     ;;
 esac
-
 configure_package() {
   # Single threaded LTO is very slow so rely on Kodi for parallel LTO support
   if [ "$LTO_SUPPORT" = "yes" ] && ! build_with_debug; then
