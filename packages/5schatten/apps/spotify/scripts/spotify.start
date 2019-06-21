@@ -47,8 +47,7 @@ get_spotify_download_url() {
       URL=`echo ${SOURCE_x86_64} | sed s:\$\{pkgver\}:${PKGVER}: | sed s:\$\{_commit\}:${COMMIT}: | sed s:\$\{_ver_x86_64\}:${VER_x86_64}: | cut -d \" -f 2`
     ;;
   esac
-  URL_STATUS=`curl -s --head ${URL} | head -n 1 | grep "HTTP/1.[01] [23].."`
-  if [ ! -z "${URL_STATUS}" ]; then
+  if [ ! -z "$(curl -s --head ${URL} | head -n 1 | grep "HTTP/2 [23]..")" ]; then
     echo ${URL}
   fi
 }
@@ -110,6 +109,8 @@ if [ ! -z "${SPOTIFY_DOWNLOAD_URL}" ]; then
     echo "Updating Spotify" "$(cat ${SPOTIFY_VERSION})" "to" "${SPOTIFY_PKGVER}" "(Branch: "${RR_SPOTIFY_BRANCH}")"
     update_spotify "$1" > ${SPOTIFY_LOG}-update.log 2>&1
   fi
+else
+  echo "Error: Could not obtain a valid url to the Spotify package or the server did not respond!"
 fi
 
 # Start Spotify if binary is in place
