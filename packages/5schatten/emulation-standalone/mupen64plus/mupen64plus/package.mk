@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="m64p"
+PKG_NAME="mupen64plus"
 PKG_VERSION="1.0"
-PKG_SITE="https://m64p.github.io/"
+PKG_SITE="https://github.com/mupen64plus"
 PKG_URL=""
 PKG_DEPENDS_TARGET="toolchain mupen64plus-core mupen64plus-rsp-hle mupen64plus-rsp-cxd4 mupen64plus-input-sdl mupen64plus-audio-sdl2 mupen64plus-ui-console GLideN64"
 PKG_LONGDESC="mupen64plus + GLideN64 + a GUI"
