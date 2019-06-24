@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="amiberry"
-PKG_VERSION="99d1b64852c770dce70b05a44547ac3c712cae57" # v2.25+
+PKG_VERSION="928b4e2bf2047bbb2d174fd58c7450153b4d94d5" # v2.25+
 PKG_ARCH="arm"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/midwan/amiberry"
@@ -20,7 +20,11 @@ pre_configure_target() {
 
   case ${PROJECT} in
     Amlogic)
-      AMIBERRY_PLATFORM="amlogic"
+      if [ "${DEVICE}" = "AMLG12" ]; then
+        AMIBERRY_PLATFORM="amlg12"
+      else
+        AMIBERRY_PLATFORM="amlgx"
+      fi
       ;;
     Rockchip)
       if [ "${DEVICE}" = "RK3399" ]; then
