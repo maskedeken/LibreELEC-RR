@@ -49,7 +49,7 @@ pre_configure_target() {
         PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
         ;;
     esac
-  elif [ "${PROJECT}" = "Amlogic" ]; then
+  elif [ "${DEVICE}" = "AMLGX" ]; then
     PKG_MAKE_OPTS_TARGET+=" platform=amlogic"
   else
     # OpenGLES 2.0/3.0 Support
