@@ -12,36 +12,13 @@ PKG_LONGDESC="OEM: Metapackage for various OEM packages"
 PKG_TOOLCHAIN="manual"
 
 ################################################################################
-# Setup LibreELEC-RR applications
+# Setup common LibreELEC-RR packages included in all images
 ################################################################################
 
-# Specific applications included in Amlogic images
-OEM_APPLICATIONS_AMLOGIC=""
-
-# Common applications included in all images
+# Common applications
 OEM_APPLICATIONS_COMMON=""
 
-# Specific applications included in Generic images
-OEM_APPLICATIONS_GENERIC=" \
-  google-chrome \
-  moonlight-qt \
-  spotify"
-
-# Specific applications included in Rockchip images
-OEM_APPLICATIONS_ROCKCHIP=""
-
-# Specific applications included in RPi images
-OEM_APPLICATIONS_RPI=""
-
-################################################################################
-# Setup LibreELEC-RR standalone emulators
-################################################################################
-
-# Specific standalone emulators included in Amlogic images
-OEM_EMULATORS_AMLOGIC=" \
-  amiberry"
-
-# Common standalone emulators included in all images
+# Common standalone emulators
 OEM_EMULATORS_COMMON=" \
   emulationstation \
   dosbox-sdl2 \
@@ -49,56 +26,11 @@ OEM_EMULATORS_COMMON=" \
   moonlight-embedded \
   ppsspp"
 
-# Specific standalone emulators included in Generic images
-OEM_EMULATORS_GENERIC=" \
-  citra \
-  dolphin \
-  fs-uae \
-  m64p \
-  PCSX2 \
-  vice \
-  yquake2"
-
-# Specific standalone emulators included in Rockchip images
-OEM_EMULATORS_ROCKCHIP=" \
-  amiberry"
-
-# Specific standalone emulators included in RPi images
-OEM_EMULATORS_RPI=" \
-  amiberry"
-
-################################################################################
-# Setup LibreELEC-RR additional frontends
-################################################################################
-
-# Specific frontends included in Amlogic images
-OEM_FRONTENDS_EXTRA_AMLOGIC=""
-
-# Common frontends included in all images
+# Extra frontends
 OEM_FRONTENDS_EXTRA_COMMON=" \
   pegasus-frontend"
 
-# Specific frontends included in Generic images
-OEM_FRONTENDS_EXTRA_GENERIC=""
-
-# Specific frontends included in Rockchip images
-OEM_FRONTENDS_EXTRA_ROCKCHIP=""
-
-# Specific frontends included in RPi images
-OEM_FRONTENDS_EXTRA_RPI=""
-
-################################################################################
-# Setup LibreELEC-RR libretro cores
-################################################################################
-
-# Specific libretro cores included in Amlogic images
-OEM_LIBRETRO_AMLOGIC=" \
-  lr-mame2010 \
-  lr-snes9x2010 \
-  lr-vice \
-  lr-yabause"
-
-# Common libretro cores included in all images
+# Common libretro cores
 OEM_LIBRETRO_COMMON=" \
   retroarch \
   lr-2048 \
@@ -128,7 +60,75 @@ OEM_LIBRETRO_COMMON=" \
   lr-stella2014 \
   lr-tyrquake"
 
-# Specific libretro cores included in Generic images
+# Common tools
+OEM_TOOLS_COMMON=" \
+  ds4drv \
+  htop \
+  lm-sensors \
+  midnight-commander \
+  rr-config-tool \
+  sdl-jstest \
+  Skyscraper \
+  spectre-meltdown-checker \
+  strace-system"
+
+################################################################################
+# Setup packages included in Amlogic images
+################################################################################
+
+# Applications
+OEM_APPLICATIONS_AMLOGIC=""
+
+# Standalone emulators
+OEM_EMULATORS_AMLOGIC=" \
+  amiberry"
+
+# Frontends
+OEM_FRONTENDS_EXTRA_AMLOGIC=""
+
+# Libretro cores 
+OEM_LIBRETRO_AMLOGIC=" \
+  lr-snes9x2010 \
+  lr-vice \
+  lr-yabause"
+
+# Libretro cores for AMLG12 devices
+OEM_LIBRETRO_AMLG12=" \
+  lr-mame2016 \
+  lr-mesen \
+  lr-yabasanshiro"
+
+# Libretro cores for AMLGX devices
+OEM_LIBRETRO_AMLGX=" \
+  lr-mame2010"
+
+# Tools
+OEM_TOOLS_AMLOGIC=""
+
+################################################################################
+# Setup packages included in Generic images
+################################################################################
+
+# Applications
+OEM_APPLICATIONS_GENERIC=" \
+  google-chrome \
+  moonlight-qt \
+  spotify"
+
+# Standalone emulators
+OEM_EMULATORS_GENERIC=" \
+  citra \
+  dolphin \
+  fs-uae \
+  mupen64plus \
+  PCSX2 \
+  vice \
+  yquake2"
+
+# Frontends
+OEM_FRONTENDS_EXTRA_GENERIC=""
+
+# Libretro cores
 OEM_LIBRETRO_GENERIC=" \
   lr-beetle-psx \
   lr-beetle-saturn \
@@ -144,41 +144,7 @@ OEM_LIBRETRO_GENERIC=" \
   lr-ppsspp \
   lr-yabasanshiro"
 
-# Specific libretro cores included in Rockchip images
-OEM_LIBRETRO_ROCKCHIP=" \
-  lr-mame2016 \
-  lr-snes9x2010 \
-  lr-vice \
-  lr-yabause \
-  lr-yabasanshiro"
-
-# Specific libretro cores included in RPi images
-OEM_LIBRETRO_RPI=" \
-  lr-mame2010 \
-  lr-snes9x2010 \
-  lr-vice \
-  lr-yabause"
-
-################################################################################
-# Setup LibreELEC-RR tools
-################################################################################
-
-# Specific tools included in Amlogic images
-OEM_TOOLS_AMLOGIC=""
-
-# Common tools included in all images
-OEM_TOOLS_COMMON=" \
-  ds4drv \
-  htop \
-  lm-sensors \
-  midnight-commander \
-  rr-config-tool \
-  sdl-jstest \
-  Skyscraper \
-  spectre-meltdown-checker \
-  strace-system"
-
-# Specific tools included in Generic images
+# Tools
 OEM_TOOLS_GENERIC=" \
   dmidecode \
   mesa-demos-system \
@@ -186,10 +152,57 @@ OEM_TOOLS_GENERIC=" \
   tigervnc-system \
   vulkan-tools"
 
-# Specific tools included in Rockchip images
+################################################################################
+# Setup packages included in Rockchip images
+################################################################################
+
+# Applications
+OEM_APPLICATIONS_ROCKCHIP=""
+
+# Frontends
+OEM_FRONTENDS_EXTRA_ROCKCHIP=""
+
+# Standalone emulators
+OEM_EMULATORS_ROCKCHIP=" \
+  amiberry"
+
+# Libretro cores 
+OEM_LIBRETRO_ROCKCHIP=" \
+  lr-snes9x2010 \
+  lr-vice \
+  lr-yabause"
+
+# Libretro cores for RK3399 devices
+OEM_LIBRETRO_RK3399=" \
+  lr-mame2016 \
+  lr-mesen \
+  lr-yabasanshiro"
+
+# Tools
 OEM_TOOLS_ROCKCHIP=""
 
-# Specific tools included in RPi images
+################################################################################
+# Setup packages included in Raspberry Pie images
+################################################################################
+
+# Applications
+OEM_APPLICATIONS_RPI=""
+
+# Frontends
+OEM_FRONTENDS_EXTRA_RPI=""
+
+# Libretro cores
+OEM_LIBRETRO_RPI=" \
+  lr-mame2010 \
+  lr-snes9x2010 \
+  lr-vice \
+  lr-yabause"
+
+# Standalone emulators
+OEM_EMULATORS_RPI=" \
+  amiberry"
+
+# Tools
 OEM_TOOLS_RPI=""
 
 ################################################################################
@@ -218,7 +231,7 @@ configure_package() {
       esac
     fi
 
-    # Add emulator packages
+    # Add Emulationstation frontend & standalone emulator packages
     if [ "${OEM_EMULATORS}" = "yes" ]; then
       PKG_DEPENDS_TARGET+=" ${OEM_EMULATORS_COMMON}"
       case ${PROJECT} in
@@ -237,7 +250,7 @@ configure_package() {
       esac
     fi
 
-    # Add frontend packages
+    # Add additional frontend packages
     if [ "${OEM_FRONTENDS_EXTRA}" = "yes" ]; then
       PKG_DEPENDS_TARGET+=" ${OEM_FRONTENDS_EXTRA_COMMON}"
       case ${PROJECT} in
@@ -256,18 +269,31 @@ configure_package() {
       esac
     fi
 
-    # Add libretro packages
+    # Add Retroarch frontend & libretro core packages 
     if [ "${OEM_LIBRETRO}" = "yes" ]; then
       PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_COMMON}"
       case ${PROJECT} in
         Amlogic)
           PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLOGIC}"
+          case ${DEVICE} in
+            AMLG12)
+              PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLG12}"
+            ;;
+            AMLGX)
+              PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLGX}"
+            ;;
+           esac
           ;;
         Generic)
           PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_GENERIC}"
           ;;
         Rockchip)
           PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_ROCKCHIP}"
+          case ${DEVICE} in
+           RK3399)
+             PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_RK3399}"
+           ;;
+          esac
           ;;
         RPi)
           PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_RPI}"
