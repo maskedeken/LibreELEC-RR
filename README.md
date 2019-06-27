@@ -53,8 +53,8 @@
 * [ATI](https://cgit.freedesktop.org/xorg/driver/xf86-video-ati) - v19.0.1
 * [Intel-video](https://cgit.freedesktop.org/xorg/driver/xf86-video-intel/) - git 6afed33
 * [Intel](https://downloadcenter.intel.com/download/28087/Linux-Processor-Microcode-Data-File) - µcode 2018-08-07a
-* [Mesa 3D](https://www.mesa3d.org/) - v19.1.0-rc3
-* [Nvidia](https://www.nvidia.com/Download/driverResults.aspx/134859/en-us) - v430.14
+* [Mesa 3D](https://www.mesa3d.org/) - v19.1.1
+* [Nvidia](https://www.nvidia.com/Download/driverResults.aspx/134859/en-us) - v430.26
 * [Nvidia-legacy](https://www.nvidia.com/Download/driverResults.aspx/135161/en-us) - v340.107
 ---
 **Updated daemons / backends**
@@ -62,14 +62,14 @@
 * [GCC](https://gcc.gnu.org/gcc-8/changes.html) - v8.3
 * [glibc](https://sourceware.org/glibc/wiki/Release/2.28) - v2.29
 * [LLVM](https://llvm.org/) - v8.0.0
-* [Vulkan-Loader](https://github.com/KhronosGroup/Vulkan-Loader) - v1.1.107
+* [Vulkan-Loader](https://github.com/KhronosGroup/Vulkan-Loader) - v1.1.112
 * [openssl](https://www.openssl.org/source/) - v1.1.1b
 * [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) - 12.2
-* [Samba](https://www.samba.org/samba/history/samba-4.9.1.html) - v4.9.8
+* [Samba](https://www.samba.org/samba/history/samba-4.9.1.html) - v4.9.9
 * [SDL2](https://github.com/spurious/SDL-mirror) - git eebad73 | v2.0.9-dev
 * [systemd](https://github.com/systemd/systemd) - v242
 * [Qt](https://wiki.qt.io/Qt_5.12_Release) - v5.12.0
-* [Xorg-Server](https://cgit.freedesktop.org/xorg/xserver/log/) - v1.20.4
+* [Xorg-Server](https://cgit.freedesktop.org/xorg/xserver/log/) - v1.20.5
 ---
 **Sysutils**
 
@@ -77,7 +77,7 @@
 * [sdl-jstest](https://gitlab.com/sdl-jstest/sdl-jstest) - git 53b89cc2 | v0.2.1
 * [spectre-meltdown-checker](https://github.com/speed47/spectre-meltdown-checker) - git c705afe | v0.41
 * [Skyscraper by Lars Muldjord](https://github.com/muldjord/skyscraper/releases) - v3.1.4
-* [vulkan-tools](https://github.com/KhronosGroup/Vulkan-Tools) -git 4951cdb | 1.1.107
+* [vulkan-tools](https://github.com/KhronosGroup/Vulkan-Tools) -git 4951cdb | 1.1.112
 ---
 **Emulator Frontends**
 
@@ -209,28 +209,28 @@ PROJECT=RPi DEVICE=RPi2 ARCH=arm tools/dashboard
 
 For generic x86-64 Intel & AMD CPU use:
 ```
-PROJECT=Generic ARCH=x86_64 BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.1 make image
+PROJECT=Generic ARCH=x86_64 BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.80 make image
 ```
 
 **Build commands Raspberry**
 
 For Raspberry Pi (RPi2 & RPi3) use:
 ```
-PROJECT=RPi DEVICE=RPi2 ARCH=arm BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.1 make image
+PROJECT=RPi DEVICE=RPi2 ARCH=arm BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.80 make image
 ```
 
 **Build commands Amlogic**
 
 For Amlogic S905/S905X AMLGX use:
 ```
-PROJECT=Amlogic DEVICE=AMLGX ARCH=arm BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.1 make image
+PROJECT=Amlogic DEVICE=AMLGX ARCH=arm BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.80 make image
 ```
 
 **Build commands Rockchip**
 
 For ROCKPro64 use:
 ```
-PROJECT=Rockchip DEVICE=RK3399 ARCH=arm UBOOT_SYSTEM=rockpro64 BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.1 make image
+PROJECT=Rockchip DEVICE=RK3399 ARCH=arm UBOOT_SYSTEM=rockpro64 BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.80 make image
 ```
 
 **Build commands single packages / addons**
