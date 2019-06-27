@@ -2,13 +2,13 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-flycast"
-PKG_VERSION="4a020d4080221a32ca18b22045ff41d0364c5d5b"
-PKG_SHA256="46f69d1ed57f9675683775d97779245c9ef118b9cd33d564c63750abbb1433b7"
+PKG_VERSION="4d3a6e2b46868c119261041f913ee55c51bfc9d0"
+PKG_SHA256="c3f6718af68bac9ba791592c561e0ea36f92b565160db20a35fd981bd5e4f88a"
 PKG_LICENSE="GPLv2"
-PKG_SITE="https://github.com/libretro/beetle-dc"
-PKG_URL="https://github.com/libretro/beetle-dc/archive/${PKG_VERSION}.tar.gz"
+PKG_SITE="https://github.com/libretro/flycast"
+PKG_URL="https://github.com/libretro/flycast/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
-PKG_LONGDESC="Beetle DC is a multiplatform Sega Dreamcast emulator"
+PKG_LONGDESC="Flycast is a multiplatform Sega Dreamcast emulator"
 PKG_TOOLCHAIN="make"
 PKG_BUILD_FLAGS="+lto"
 
