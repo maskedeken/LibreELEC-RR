@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="lr-kronos"
-PKG_VERSION="eeef51b81b9756af7e99fc850607fd8875ce5294"
-PKG_SHA256="27e109873a17c1299994a32a28918ce9bdb8132a375590d3709ad7e1bcb1c1a8"
+PKG_VERSION="080a340c36d2993173587ee4c7d92e96cb32161a"
+PKG_SHA256="b5a7fde6a77e9925df5807a12ce1347647e6d50d3eb521849d44182bb1f864a3"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/yabause"
 PKG_URL="https://github.com/libretro/yabause/archive/${PKG_VERSION}.tar.gz"
