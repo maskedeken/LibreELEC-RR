@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="midnight-commander"
-PKG_VERSION="4.8.22"
-PKG_SHA256="a15a9a437a230f306848a8ab9e7e2d686a7984d2d4da179ce3c4c1eb730ce0ab"
+PKG_VERSION="4.8.23"
+PKG_SHA256="732024636611f1d770a4324204eef4b9ac840ec37a9d3c3476087278962e3f90"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.midnight-commander.org"
 PKG_URL="https://github.com/MidnightCommander/mc/archive/${PKG_VERSION}.tar.gz"
