@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="spectre-meltdown-checker"
-PKG_VERSION="0.41"
-PKG_SHA256="979820b882bd4277cc6dc8c5b5a725a23c755ad001cfb413a113a780f2dc46e3"
+PKG_VERSION="0.42"
+PKG_SHA256="79b4137e4988753deae63a5c0c63ab521cafe09ba1547d3a6368cf7ba07272b7"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/speed47/spectre-meltdown-checker"
 PKG_URL="https://github.com/speed47/spectre-meltdown-checker/archive/v${PKG_VERSION}.tar.gz"
@@ -13,6 +13,6 @@ PKG_TOOLCHAIN="manual"
 
 makeinstall_target() {
  mkdir -p ${INSTALL}/usr/bin
- chmod +x ${PKG_BUILD}/spectre-meltdown-checker.sh
- cp -v spectre-meltdown-checker.sh ${INSTALL}/usr/bin/spectre-meltdown-checker
+   chmod +x ${PKG_BUILD}/spectre-meltdown-checker.sh
+   cp -v spectre-meltdown-checker.sh ${INSTALL}/usr/bin/spectre-meltdown-checker
 }
