@@ -10,10 +10,10 @@ else
   OPENGLES_SUPPORT="yes"
 fi
 
-if [ "$VULKANAPI" = no ]; then
-  VULKAN_SUPPORT="no"
-else
+if [ "$VULKANAPI" = yes ]; then
   VULKAN_SUPPORT="yes"
+else
+  VULKAN_SUPPORT="no"
 fi
 
 get_graphicdrivers() {
