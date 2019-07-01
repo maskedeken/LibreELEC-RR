@@ -41,6 +41,13 @@ configure_package() {
 
 pre_configure_target() {
   case ${PROJECT} in
+    Amlogic)
+      if [ "${DEVICE}" = "AMLG12" ]; then
+        PKG_MAKE_OPTS_TARGET+=" platform=odroid-n2"
+      else
+        PKG_MAKE_OPTS_TARGET+=" platform=armv-gles-neon"
+      fi
+      ;;
     Generic)
       PKG_MAKE_OPTS_TARGET+=" HAVE_OIT=1"
       ;;
@@ -72,6 +79,7 @@ pre_configure_target() {
       fi
       ;;
   esac
+ # LDFLAGS+=" -lrt"
 }
 
 makeinstall_target() {
