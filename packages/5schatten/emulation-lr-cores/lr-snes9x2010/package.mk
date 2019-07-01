@@ -15,7 +15,7 @@ PKG_BUILD_FLAGS="+lto"
 PKG_LIBNAME="snes9x2010_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
 
-PKG_MAKE_OPTS_TARGET="-f Makefile.libretro GIT_VERSION=${PKG_VERSION:0:7}"
+PKG_MAKE_OPTS_TARGET="GIT_VERSION=${PKG_VERSION:0:7}"
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/lib/libretro
