@@ -19,7 +19,9 @@ PKG_MAKE_OPTS_TARGET="HAVE_OPENMP=0 GIT_VERSION=${PKG_VERSION:0:7} WITH_DYNAREC=
 
 configure_package() {
   # Apply project specific patches
-  PKG_PATCH_DIRS="${PROJECT}"
+  if [ "${OPENGLES}" = "libmali" ]; then
+    PKG_PATCH_DIRS="libmali"
+  fi
 
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
