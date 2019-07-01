@@ -18,9 +18,6 @@ PKG_LIBPATH="yabause/src/libretro/${PKG_LIBNAME}"
 PKG_MAKE_OPTS_TARGET="-C yabause/src/libretro GIT_VERSION=${PKG_VERSION:0:7}"
 
 configure_package() {
-  # Apply project specific patches
-  PKG_PATCH_DIRS="${PROJECT}"
-
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
     PKG_DEPENDS_TARGET+=" xorg-server"
@@ -34,6 +31,7 @@ configure_package() {
   # OpenGLES Support
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
     PKG_DEPENDS_TARGET+=" ${OPENGLES}"
+    PKG_PATCH_DIRS="OpenGLES"
   fi
 }
 
@@ -41,6 +39,8 @@ pre_configure_target() {
   if [ "${ARCH}" = "arm" ]; then
     if [ "${DEVICE}" = "RK3399" ]; then
       PKG_MAKE_OPTS_TARGET+=" platform=rockpro64"
+    elif [ "${DEVICE}" = "AMLG12" ]; then
+      PKG_MAKE_OPTS_TARGET+=" platform=amlg12"
     else
       PKG_MAKE_OPTS_TARGET+=" platform=armv"
       # ARM NEON support
