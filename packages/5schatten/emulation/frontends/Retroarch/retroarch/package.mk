@@ -6,7 +6,7 @@ PKG_VERSION="ba3f164bdd06b4e00b4712e0d5c1aed5a5aac51e" #1.7.7
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/libretro/RetroArch"
 PKG_URL="https://github.com/libretro/RetroArch.git"
-PKG_DEPENDS_TARGET="toolchain linux glibc systemd dbus openssl expat alsa-lib libpng libusb libass speex tinyalsa fluidsynth-git freetype zlib bzip2 ffmpeg lr-common-overlays lr-core-info lr-database lr-glsl-shaders lr-overlay-borders lr-samples retroarch-assets retroarch-joypad-autoconfig libxkbcommon"
+PKG_DEPENDS_TARGET="toolchain linux glibc systemd dbus openssl expat alsa-lib libpng libusb libass speex tinyalsa fluidsynth-git freetype zlib bzip2 ffmpeg common-overlays-lr core-info-lr database-lr glsl-shaders-lr overlay-borders-lr samples-lr retroarch-assets retroarch-joypad-autoconfig libxkbcommon"
 PKG_LONGDESC="Reference frontend for the libretro API."
 GET_HANDLER_SUPPORT="git"
 PKG_BUILD_FLAGS="+lto"
@@ -49,7 +49,7 @@ configure_package() {
 
   # Vulkan Support
   if [ "${VULKAN_SUPPORT}" = "yes" ]; then
-    PKG_DEPENDS_TARGET+=" vulkan-loader lr-slang-shaders"
+    PKG_DEPENDS_TARGET+=" vulkan-loader slang-shaders-lr"
   fi
 }
 
