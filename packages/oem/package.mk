@@ -53,7 +53,7 @@ OEM_LIBRETRO_COMMON=" \
   mupen64plus-lr \
   mupen64plus-nx-lr \
   nestopia-lr \
-  pcsx-rearmed-lr \
+  pcsx_rearmed-lr \
   prboom-lr \
   scummvm-lr \
   snes9x-lr \
