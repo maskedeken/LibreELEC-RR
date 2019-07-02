@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="lr-genplus"
+PKG_NAME="lr-genesis-plus-gx"
 PKG_VERSION="654bd85b49712af7fac1a555ac33602a6ad81967"
 PKG_SHA256="ba1ecef9adfa75d805765b0b612721ff5426eab55669daf744b5d4505fc91c11"
 PKG_LICENSE="Modified BSD / LGPLv2.1"
