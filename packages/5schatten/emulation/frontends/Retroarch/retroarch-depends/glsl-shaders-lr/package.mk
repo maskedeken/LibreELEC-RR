@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="lr-glsl-shaders"
+PKG_NAME="glsl-shaders-lr"
 PKG_VERSION="72b170001ec1766115c26f1943ae819ca920c721"
 PKG_SHA256="ccc365d5e4ab3a39e8d90255a19058f7e5d81fae1c2e65d44ce14d22fb5d457e"
 PKG_LICENSE="MIT"

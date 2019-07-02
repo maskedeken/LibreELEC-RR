@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="lr-common-overlays"
+PKG_NAME="common-overlays-lr"
 PKG_VERSION="c648ade231b7882e95d34e0eec5fd92c9045b696"
 PKG_SHA256="697bcb39be0a4157ee0edb2c1ae2088ef3389df597a672fb43afbb853aafe0ce"
 PKG_LICENSE="GPL"

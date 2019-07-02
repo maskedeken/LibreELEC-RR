@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="lr-slang-shaders"
+PKG_NAME="slang-shaders-lr"
 PKG_VERSION="24f3e6d6c8d4b39b984f586d04362a600b3d4b6d"
 PKG_SHA256="ef9a22a932416dca00349f68fbd3292b70c70d88c4c5ae39e7ac228c3cf3db08"
 PKG_LICENSE="MIT"

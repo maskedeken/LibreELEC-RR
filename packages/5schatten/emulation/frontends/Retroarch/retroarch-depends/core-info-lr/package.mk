@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="lr-core-info"
+PKG_NAME="core-info-lr"
 PKG_VERSION="13a966e89feb1cf7b10493a041ba036a9e98a14d" # v1.7.7+
 PKG_SHA256="5cf940a3947061773266040f27af4964753fe52708873ebdd23758d6962d2e00"
 PKG_LICENSE="GPL"

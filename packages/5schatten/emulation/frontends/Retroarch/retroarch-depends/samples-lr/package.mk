@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="lr-samples"
+PKG_NAME="samples-lr"
 PKG_VERSION="32aa98eeaad66cc3318d6e821a7a83de75603831"
 PKG_SHA256="a634e8d2789691b69bdc82eea912917845eb18b02d3f444c495e029591263f46"
 PKG_LICENSE="MIT"
 PKG_SITE="https://github.com/libretro/libretro-samples"
-PKG_URL="https://github.com/libretro/libretro-samples/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/libretro/libretro-samples/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="A set of samples to illustrate libretro API."
 PKG_TOOLCHAIN="manual"
@@ -41,20 +41,22 @@ make_target() {
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/lib/libretro
+  mkdir -p ${INSTALL}/usr/lib/libretro
+  # Install common test cores
+  cp input/button_test/*.so ${INSTALL}/usr/lib/libretro/
+  cp midi/midi_test/*.so    ${INSTALL}/usr/lib/libretro/
+  cp tests/test/*.so        ${INSTALL}/usr/lib/libretro/
 
-  cp input/button_test/*.so $INSTALL/usr/lib/libretro/
-  cp midi/midi_test/*.so $INSTALL/usr/lib/libretro/
-  cp tests/test/*.so $INSTALL/usr/lib/libretro/
-
+  # Install OpenGL test cores
   if [ "${ARCH}" = "x86_64" ]; then
-    cp tests/test_advanced/*.so $INSTALL/usr/lib/libretro/
-    cp video/opengl/libretro_test_gl_fixedfunction/*.so $INSTALL/usr/lib/libretro/
-    cp video/opengl/libretro_test_gl_shaders/*.so $INSTALL/usr/lib/libretro/
+    cp tests/test_advanced/*.so                         ${INSTALL}/usr/lib/libretro/
+    cp video/opengl/libretro_test_gl_fixedfunction/*.so ${INSTALL}/usr/lib/libretro/
+    cp video/opengl/libretro_test_gl_shaders/*.so       ${INSTALL}/usr/lib/libretro/
   fi
 
+  # Install Vulkan test cores
   if [ "${VULKAN_SUPPORT}" = "yes" ]; then
-    cp video/vulkan/vk_rendering/*.so $INSTALL/usr/lib/libretro/
-    cp video/vulkan/vk_async_compute/*.so $INSTALL/usr/lib/libretro/
+    cp video/vulkan/vk_rendering/*.so     ${INSTALL}/usr/lib/libretro/
+    cp video/vulkan/vk_async_compute/*.so ${INSTALL}/usr/lib/libretro/
   fi
 }

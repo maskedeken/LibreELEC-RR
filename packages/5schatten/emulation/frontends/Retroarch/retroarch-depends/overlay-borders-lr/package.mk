@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="lr-overlay-borders"
+PKG_NAME="overlay-borders-lr"
 PKG_VERSION="9aceca2dd514c589a57d40086557b804851aafcf"
 PKG_SHA256="f78ca10f26a960c902440512a4fa790b411551b1710ae64a3a1418af05fede58"
 PKG_LICENSE="GPL"
