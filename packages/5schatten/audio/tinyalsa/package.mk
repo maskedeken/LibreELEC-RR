@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="tinyalsa"
-PKG_VERSION="809054250a32b6b1f0c416bf820ef807b98b740f"
-PKG_SHA256="290b596887ffceef5ac3fc310fc3d93b124777d6685912a98173ec2cdf21b53d"
+PKG_VERSION="9ec09d5124bc1d1c081d8c910ace663e1f398649"
+PKG_SHA256="c028871db1b778a518f1269ae04b3e23675a5b7f82b8e0d9fb9532718ca8e5c1"
 PKG_LICENSE="AOSP"
 PKG_SITE="https://github.com/tinyalsa/tinyalsa"
 PKG_URL="https://github.com/tinyalsa/tinyalsa/archive/${PKG_VERSION}.tar.gz"
