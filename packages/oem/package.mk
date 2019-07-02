@@ -46,7 +46,7 @@ OEM_LIBRETRO_COMMON=" \
   lr-flycast \
   lr-fuse \
   lr-gambatte \
-  lr-genplus \
+  lr-genesis-plus-gx \
   lr-mame2003-plus \
   lr-mgba \
   lr-mrboom \
