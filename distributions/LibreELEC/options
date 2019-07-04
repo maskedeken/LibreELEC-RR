@@ -225,6 +225,9 @@
 # debug tty path
   DEBUG_TTY="/dev/tty3"
 
+# wireless daemon to use (wpa_supplicant/iwd)
+  WIRELESS_DAEMON="wpa_supplicant"
+
 # This will be put in retroarch.cfg as core playlists
   RA_PLAYLIST_NAMES=""\
 "Atari - 2600.lpl;"\
@@ -300,7 +303,7 @@
 "/tmp/cores/vice_x64_libretro.so;"\
 "/tmp/cores/prboom_libretro.so;"\
 "/tmp/cores/dosbox_libretro.so;"\
-"/tmp/cores/fbalpha_libretro.so;"\
+"/tmp/cores/fbaneo_libretro.so;"\
 "/tmp/cores/vecx_libretro.so;"\
 "/tmp/cores/lutro_libretro.so;"\
 "/tmp/cores/o2em_libretro.so;"\
@@ -331,8 +334,8 @@
 "/tmp/cores/scummvm_libretro.so;"\
 "/tmp/cores/picodrive_libretro.so;"\
 "/tmp/cores/genesis_plus_gx_libretro.so;"\
-"/tmp/cores/reicast_libretro.so;"\
-"/tmp/cores/reicast_libretro.so;"\
+"/tmp/cores/flycast_libretro.so;"\
+"/tmp/cores/flycast_libretro.so;"\
 "/tmp/cores/genesis_plus_gx_libretro.so;"\
 "/tmp/cores/genesis_plus_gx_libretro.so;"\
 "/tmp/cores/yabause_libretro.so;"\
