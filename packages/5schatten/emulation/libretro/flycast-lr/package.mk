@@ -79,7 +79,6 @@ pre_configure_target() {
       fi
       ;;
   esac
- # LDFLAGS+=" -lrt"
 }
 
 makeinstall_target() {
