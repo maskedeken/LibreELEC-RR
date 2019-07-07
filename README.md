@@ -20,7 +20,7 @@
 
 *WIP:*
 
-* Amlogic S905 | AMLGX
+* Amlogic S905 | AMLGXL
 * Rockchip Rk3399 - ROCKPro64
 
 *Currently unsupported:*
@@ -33,7 +33,7 @@
 * [LibreELEC 9.x-devel](https://github.com/LibreELEC/LibreELEC.tv) | 9.1
 * [Kodi 18](https://github.com/xbmc/xbmc) - v18.2
 * [Linux 5.1.x](https://www.kernel.org/) - generic x86-64 builds
-* [Linux 5.1.x](https://www.kernel.org/) - Amlogic S905 | AMLGX builds
+* [Linux 5.1.x](https://www.kernel.org/) - Amlogic S905 | AMLGXL builds
 * [Linux 5.1.x](https://github.com/raspberrypi/linux) - RPi2 & RPi3 builds
 * [Linux 4.4.154](https://github.com/rockchip-linux/kernel) - Rockchip RK3399 builds
 ---
@@ -140,7 +140,7 @@
 *  [libretro-ppsspp](https://github.com/hrydgard/ppsspp) - git 4b124a7 | v1.8.0 | Sony PSP
 *  [libretro-yabasanshiro](https://github.com/libretro/yabause/tree/yabasanshiro) - git f702466 | Sega Saturn
 ---
-**Emulators included in Amlogic S905 | AMLGX builds**
+**Emulators included in Amlogic S905 | AMLGXL builds**
 
 *  [amiberry](https://github.com/midwan/amiberry) - git 780c020 | v2.25+ | Commodore Amiga
 *  [libretro-mame2010](https://github.com/libretro/mame2010-libretro) - git c87309d | Romset 0.139 | Multiple Arcade Machine Emulator
@@ -221,9 +221,9 @@ PROJECT=RPi DEVICE=RPi2 ARCH=arm BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDE
 
 **Build commands Amlogic**
 
-For Amlogic S905/S905X AMLGX use:
+For Amlogic S905/S905X AMLGXL use:
 ```
-PROJECT=Amlogic DEVICE=AMLGX ARCH=arm BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.80 make image
+PROJECT=Amlogic DEVICE=AMLGXL ARCH=arm BUILD_PERIODIC=RR BUILDER_NAME=5schatten BUILDER_VERSION=9.80 make image
 ```
 
 **Build commands Rockchip**
