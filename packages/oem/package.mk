@@ -98,8 +98,8 @@ OEM_LIBRETRO_AMLG12=" \
   mesen-lr \
   yabasanshiro-lr"
 
-# Libretro cores for AMLGX devices
-OEM_LIBRETRO_AMLGX=" \
+# Libretro cores for AMLGXL devices
+OEM_LIBRETRO_AMLGXL=" \
   mame2010-lr"
 
 # Tools
@@ -279,8 +279,8 @@ configure_package() {
             AMLG12)
               PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLG12}"
             ;;
-            AMLGX)
-              PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLGX}"
+            AMLGXL)
+              PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLGXL}"
             ;;
            esac
           ;;
