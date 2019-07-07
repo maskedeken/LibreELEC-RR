@@ -5,15 +5,22 @@
 . /etc/profile
 oe_setup_addon service.rr-config-tool
 
+################################################################################
 # Set common vars
+################################################################################
+
 ICON=/usr/config/spotify/icon.png
-SPOTIFY_HOME=/storage/.cache/app.spotify
+SPOTIFY_HOME=/storage/.cache/spotify.pkg
 SPOTIFY_CACHE=/storage/.cache/spotify
 SPOTIFY_CONFIG_PATH=/storage/.config/spotify
 SPOTIFY_VERSION=$SPOTIFY_CONFIG_PATH/spotify.version
 SPOTIFY_LOG=/var/log/spotify
 SPOTIFY_BRANCH_STABLE=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=spotify
 SPOTIFY_BRANCH_DEV=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=spotify-dev
+
+################################################################################
+# Functions
+################################################################################
 
 # Get the current online version
 get_spotify_version() {
@@ -47,7 +54,9 @@ get_spotify_download_url() {
       URL=`echo ${SOURCE_x86_64} | sed s:\$\{pkgver\}:${PKGVER}: | sed s:\$\{_commit\}:${COMMIT}: | sed s:\$\{_ver_x86_64\}:${VER_x86_64}: | cut -d \" -f 2`
     ;;
   esac
-  if [ ! -z "$(curl -s --head ${URL} | head -n 1 | grep "HTTP/2 [23]..")" ]; then
+
+  # Print URL to Spotify package if curl can access it
+  if [ ! -z "$(curl -s --head ${URL} | head -n 1 | grep "HTTP/2 [23]..")" ] || [ ! -z "$(curl -s --head ${URL} | head -n 1 | grep "HTTP/1.1 [23]..")" ]; then
     echo ${URL}
   fi
 }
@@ -61,6 +70,9 @@ install_spotify() {
   ar -x *.deb && tar -zxf data.tar.gz
   rm -rf ${SPOTIFY_CACHE}
   mv usr/share/spotify ${SPOTIFY_HOME}
+  if [ ! -d ${SPOTIFY_CONFIG_PATH} ]; then
+    mkdir ${SPOTIFY_CONFIG_PATH}
+  fi
   echo ${SPOTIFY_PKGVER} > ${SPOTIFY_VERSION} 2>&1
   cd ~ ; rm -rf /tmp/spotify
 }
@@ -89,6 +101,10 @@ run_spotify() {
   kodi-service.sh --start
 }
 
+################################################################################
+# Run
+################################################################################
+
 # Clean up
 rm -rf /tmp/spotify
 rm -f ${SPOTIFY_LOG}*.log
@@ -105,7 +121,7 @@ if [ ! -z "${SPOTIFY_DOWNLOAD_URL}" ]; then
   fi
 
   # Update if installed version != online version
-  if [ "${SPOTIFY_PKGVER}" != "$(cat ${SPOTIFY_VERSION})" ] && [ ! -z "${SPOTIFY_PKGVER}" ]; then
+  if [ ! -z "${SPOTIFY_PKGVER}" ] && [ "${SPOTIFY_PKGVER}" != "$(cat ${SPOTIFY_VERSION})" ]; then
     echo "Updating Spotify" "$(cat ${SPOTIFY_VERSION})" "to" "${SPOTIFY_PKGVER}" "(Branch: "${RR_SPOTIFY_BRANCH}")"
     update_spotify "$1" > ${SPOTIFY_LOG}-update.log 2>&1
   fi
