@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="mrboom-lr"
-PKG_VERSION="7f18b80a2794cd82d222febeb2fdc9a340fa54dc" # v4.7
-PKG_SHA256="1c20fd76f74354c18ae9b81d000634820e5a84e93e2ec487e93a71c5951ebf98"
+PKG_VERSION="7a36164d08c4e86509e384dbda6eebeae5ee6166" # v4.7
+PKG_SHA256="1a8396591d65e6d9d7bcc7d43f89fffb5223bc17b944d075679ec6942afade26"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/libretro/mrboom-libretro"
 PKG_URL="https://github.com/libretro/mrboom-libretro/archive/${PKG_VERSION}.tar.gz"
