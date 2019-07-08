@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="mame2016-lr"
-PKG_VERSION="e06d731644217f46bf5a7613222632d41a327f93"
-PKG_SHA256="60a8aaab5158868419f24cc0671f8bcba0a578aae46cae7b9482e2c332784553"
+PKG_VERSION="efc37c9968fe24af8d91d9ce6022e080a1fd90c3"
+PKG_SHA256="6033fad40c676b65d8892aa216c5a23d1043cc2776878244ee7ec39298a8cacd"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mame2016-libretro"
 PKG_URL="https://github.com/libretro/mame2016-libretro/archive/${PKG_VERSION}.tar.gz"
