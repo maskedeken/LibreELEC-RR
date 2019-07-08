@@ -91,20 +91,25 @@ pre_configure_target() {
      PKG_CONFIGURE_OPTS_TARGET+=" --enable-vulkan"
   fi
 
-  # OpenGLES Support
+  # OpenGL ES Support
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
     PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles"
 
-    # RPi OpenGLES Features Support
+    # RPi OpenGL ES 2.0 Features Support
     if [ "${OPENGLES}" = "bcm2835-driver" ]; then
       PKG_CONFIGURE_OPTS_TARGET+=" --disable-opengl_core \
                                    --enable-dispmanx \
                                    --disable-kms"
 
-    # Mali OpenGLES Features Support
+    # Mali OpenGL ES 2.0/3.0 Features Support
     elif [ "${OPENGLES}" = "libmali" ]; then
-      PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles3 \
-                                   --enable-kms"
+      if listcontains "${MALI_FAMILY}" "4[0-9]+"; then
+        PKG_CONFIGURE_OPTS_TARGET+=" --disable-opengl_core \
+                                     --disable-opengles3"
+      else
+        PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles3"
+      fi
+      PKG_CONFIGURE_OPTS_TARGET+=" --enable-kms"
     fi
   fi
 
