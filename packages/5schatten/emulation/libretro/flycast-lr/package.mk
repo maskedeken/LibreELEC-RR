@@ -46,6 +46,7 @@ pre_configure_target() {
         PKG_MAKE_OPTS_TARGET+=" platform=odroid-n2"
       else
         PKG_MAKE_OPTS_TARGET+=" platform=armv-gles-neon"
+        LDFLAGS+=" -lrt"
       fi
       ;;
     Generic)
