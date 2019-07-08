@@ -53,7 +53,11 @@ pre_configure_target() {
     # OpenGLES 2.0/3.0 Support
     if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
       if [ "${OPENGLES}" = "libmali" ]; then
-        PKG_MAKE_OPTS_TARGET+=" FORCE_GLES3=1"
+        if listcontains "${MALI_FAMILY}" "4[0-9]+"; then
+          PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
+        else
+          PKG_MAKE_OPTS_TARGET+=" FORCE_GLES3=1"
+        fi
       else
         PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
       fi
