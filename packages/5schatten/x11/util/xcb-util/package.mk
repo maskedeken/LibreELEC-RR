@@ -8,6 +8,6 @@ PKG_LICENSE="GPL"
 PKG_SITE="https://xcb.freedesktop.org/XcbUtil/"
 PKG_URL="https://xcb.freedesktop.org/dist/xcb-util-$PKG_VERSION.tar.bz2"
 PKG_DEPENDS_TARGET="toolchain libxcb"
-PKG_LONGDESC="he xcb-util package provides additional extensions to the XCB library, many that were previously found in Xlib, but are not part of core X protocol."
+PKG_LONGDESC="The xcb-util package provides additional extensions to the XCB library, many that were previously found in Xlib, but are not part of core X protocol."
 
 
