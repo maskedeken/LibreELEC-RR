@@ -1,0 +1,94 @@
+From 3b1a0f78d03ae126b78ee52a7c434809115e5993 Mon Sep 17 00:00:00 2001
+From: Alexandros Frantzis <alexandros.frantzis@collabora.com>
+Date: Mon, 4 Mar 2019 17:18:33 +0200
+Subject: [PATCH] NativeStateDispmanx: Make EGL dependencies internal
+
+Fixes #80
+---
+ src/native-state-dispmanx.cpp | 22 +++++++++++++++++-----
+ src/native-state-dispmanx.h   |  7 +++----
+ 2 files changed, 20 insertions(+), 9 deletions(-)
+
+diff --git a/src/native-state-dispmanx.cpp b/src/native-state-dispmanx.cpp
+index 2117386..49f74e7 100644
+--- a/src/native-state-dispmanx.cpp
++++ b/src/native-state-dispmanx.cpp
+@@ -23,13 +23,25 @@
+ #include "native-state-dispmanx.h"
+ #include "log.h"
+ 
++#include "EGL/egl.h"
++
+ #include <cstring>
+ #include <csignal>
+ 
++struct NativeStateDispmanx::Private
++{
++    Private()
++    {
++	memset(&egl_dispmanx_window, 0, sizeof(egl_dispmanx_window));
++    }
++
++    EGL_DISPMANX_WINDOW_T egl_dispmanx_window;
++};
++
+ NativeStateDispmanx::NativeStateDispmanx()
++    : priv{std::make_unique<Private>()}
+ {
+     memset(&properties_, 0, sizeof(properties_));
+-    memset(&egl_dispmanx_window, 0, sizeof(egl_dispmanx_window));
+ }
+ 
+ NativeStateDispmanx::~NativeStateDispmanx()
+@@ -99,9 +111,9 @@ NativeStateDispmanx::create_window(WindowProperties const& properties)
+ 					       0 /*clamp*/,
+ 					       DISPMANX_NO_ROTATE);
+ 
+-    egl_dispmanx_window.element = dispmanx_element;
+-    egl_dispmanx_window.width = dst_rect.width;
+-    egl_dispmanx_window.height = dst_rect.height;
++    priv->egl_dispmanx_window.element = dispmanx_element;
++    priv->egl_dispmanx_window.width = dst_rect.width;
++    priv->egl_dispmanx_window.height = dst_rect.height;
+     vc_dispmanx_update_submit_sync(dispmanx_update);
+ 
+     return true;
+@@ -111,7 +123,7 @@ void*
+ NativeStateDispmanx::window(WindowProperties &properties)
+ {
+     properties = properties_;
+-    return &egl_dispmanx_window;
++    return &priv->egl_dispmanx_window;
+ }
+ 
+ void
+diff --git a/src/native-state-dispmanx.h b/src/native-state-dispmanx.h
+index a6ed3d4..794b2d3 100644
+--- a/src/native-state-dispmanx.h
++++ b/src/native-state-dispmanx.h
+@@ -24,10 +24,8 @@
+ #define GLMARK2_NATIVE_STATE_DISPMANX_H_
+ 
+ #include <vector>
++#include <memory>
+ #include "bcm_host.h"
+-#include "GLES/gl.h"
+-#include "EGL/egl.h"
+-#include "EGL/eglext.h"
+ 
+ #include "native-state.h"
+ 
+@@ -46,11 +44,12 @@ class NativeStateDispmanx : public NativeState
+     void flip();
+ 
+ private:
++    struct Private;
+     DISPMANX_DISPLAY_HANDLE_T dispmanx_display;
+     DISPMANX_UPDATE_HANDLE_T dispmanx_update;
+     DISPMANX_ELEMENT_HANDLE_T dispmanx_element;
+-    EGL_DISPMANX_WINDOW_T egl_dispmanx_window;
+     WindowProperties properties_;
++    std::unique_ptr<Private> priv;
+ };
+ 
+ #endif /* GLMARK2_NATIVE_STATE_DISPMANX_H_ */
