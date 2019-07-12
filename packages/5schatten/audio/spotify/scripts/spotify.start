@@ -15,6 +15,7 @@ SPOTIFY_CACHE=/storage/.cache/spotify
 SPOTIFY_CONFIG_PATH=/storage/.config/spotify
 SPOTIFY_VERSION=$SPOTIFY_CONFIG_PATH/spotify.version
 SPOTIFY_LOG=/var/log/spotify
+SPOTIFY_TMP=/tmp/spotify
 SPOTIFY_BRANCH_STABLE=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=spotify
 SPOTIFY_BRANCH_DEV=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=spotify-dev
 
@@ -64,7 +65,7 @@ get_spotify_download_url() {
 # Install Spotify
 install_spotify() {
   kodi-send --action="Notification(Spotify,This is the first time you are starting Spotify. It is being downloaded in the background,13000,${ICON})"
-  mkdir -p /tmp/spotify ; cd /tmp/spotify
+  mkdir -p ${SPOTIFY_TMP} ; cd ${SPOTIFY_TMP}
   wget -q ${SPOTIFY_DOWNLOAD_URL} || exit 1
   kodi-send --action="Notification(Spotify,Download finished. Installing Spotify.,8000,${ICON})"
   ar -x *.deb && tar -zxf data.tar.gz
@@ -74,13 +75,13 @@ install_spotify() {
     mkdir ${SPOTIFY_CONFIG_PATH}
   fi
   echo ${SPOTIFY_PKGVER} > ${SPOTIFY_VERSION} 2>&1
-  cd ~ ; rm -rf /tmp/spotify
+  cd ~ ; rm -rf ${SPOTIFY_TMP}
 }
 
 # Update Spotify or switch branch
 update_spotify() {
   kodi-send --action="Notification(Spotify,Updating Spotify. It is being downloaded in the background.,8000,${ICON})"
-  mkdir -p /tmp/spotify ; cd /tmp/spotify
+  mkdir -p ${SPOTIFY_TMP} ; cd ${SPOTIFY_TMP}
   wget -q ${SPOTIFY_DOWNLOAD_URL} || exit 1
   kodi-send --action="Notification(Spotify,Download finished. Updating Spotify.,8000,${ICON})"
   ar -x *.deb && tar -zxf data.tar.gz
@@ -89,7 +90,7 @@ update_spotify() {
   rm ${SPOTIFY_VERSION}
   mv usr/share/spotify ${SPOTIFY_HOME}
   echo ${SPOTIFY_PKGVER} > ${SPOTIFY_VERSION} 2>&1
-  cd ~ ; rm -rf /tmp/spotify
+  cd ~ ; rm -rf ${SPOTIFY_TMP}
 }
 
 # Freeze Kodi / Stop PulseAudio / Run Spotify
@@ -106,7 +107,8 @@ run_spotify() {
 ################################################################################
 
 # Clean up
-rm -rf /tmp/spotify
+rm -rf ${SPOTIFY_TMP}
+rm -rf ${SPOTIFY_CACHE}
 rm -f ${SPOTIFY_LOG}*.log
 
 # Get the current download URL & version 
