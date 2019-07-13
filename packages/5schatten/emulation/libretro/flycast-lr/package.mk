@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="flycast-lr"
-PKG_VERSION="f318abe4272f1dfca78a3de574e0100da4049874"
-PKG_SHA256="422c5e73b6993dee4b41f0389649ac444a84e61265135ade73d918a150a027a1"
+PKG_VERSION="27c193ae80c5afb1289631d224af06388236b67c"
+PKG_SHA256="bfa594062bfc20af5daedd5a7f455b8f065046ac061ce64daa960a7d3a76f5f6"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/flycast"
 PKG_URL="https://github.com/libretro/flycast/archive/${PKG_VERSION}.tar.gz"
@@ -15,14 +15,9 @@ PKG_BUILD_FLAGS="+lto"
 PKG_LIBNAME="flycast_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
 
-PKG_MAKE_OPTS_TARGET="HAVE_OPENMP=0 GIT_VERSION=${PKG_VERSION:0:7} WITH_DYNAREC=${ARCH}"
+PKG_MAKE_OPTS_TARGET="HAVE_OPENMP=0 GIT_VERSION=${PKG_VERSION:0:7}"
 
 configure_package() {
-  # Apply project specific patches
-  if [ "${OPENGLES}" = "libmali" ]; then
-    PKG_PATCH_DIRS="libmali"
-  fi
-
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
     PKG_DEPENDS_TARGET+=" xorg-server"
@@ -49,9 +44,6 @@ pre_configure_target() {
         LDFLAGS+=" -lrt"
       fi
       ;;
-    Generic)
-      PKG_MAKE_OPTS_TARGET+=" HAVE_OIT=1"
-      ;;
     RPi)
       if [ "${DEVICE}" = "RPi2" ]; then
         PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
@@ -77,6 +69,11 @@ pre_configure_target() {
         if target_has_feature neon; then
           PKG_MAKE_OPTS_TARGET+="-neon"
         fi
+      else
+        if [ "${OPENGL_SUPPORT}" = "yes" ]; then
+          PKG_MAKE_OPTS_TARGET+=" HAVE_OIT=1"
+        fi
+        PKG_MAKE_OPTS_TARGET+=" WITH_DYNAREC=${ARCH}"
       fi
       ;;
   esac

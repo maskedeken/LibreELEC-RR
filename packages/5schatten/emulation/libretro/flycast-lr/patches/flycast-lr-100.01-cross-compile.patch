@@ -11,9 +11,9 @@ diff --git a/Makefile b/Makefile
 index de39c78c5..5f41802bf 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -21,25 +21,11 @@ HAVE_CLANG    := 0
+@@ -21,25 +21,11 @@
  
- TARGET_NAME   := beetle-dc
+ TARGET_NAME   := flycast
  
 -ifeq ($(HAVE_CLANG),1)
 -	CXX      = ${CC_PREFIX}clang++
@@ -37,7 +37,7 @@ index de39c78c5..5f41802bf 100644
  
  GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
  ifneq ($(GIT_VERSION)," unknown")
-@@ -857,7 +843,7 @@ LIBS     += -lm
+@@ -899,7 +885,7 @@
  PREFIX        ?= /usr/local
  
  ifneq (,$(findstring arm, $(ARCH)))
