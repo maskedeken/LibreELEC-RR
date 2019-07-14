@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="flycast-lr"
-PKG_VERSION="27c193ae80c5afb1289631d224af06388236b67c"
-PKG_SHA256="bfa594062bfc20af5daedd5a7f455b8f065046ac061ce64daa960a7d3a76f5f6"
+PKG_VERSION="41d4016fabae53146c4147fb1c63ddf7327920fe"
+PKG_SHA256="7cbd2f2aedc34a4a22123b9ed339ba6ef0f09168ac6b439fd0a7431afd2b8f11"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/flycast"
 PKG_URL="https://github.com/libretro/flycast/archive/${PKG_VERSION}.tar.gz"
@@ -37,19 +37,20 @@ configure_package() {
 pre_configure_target() {
   case ${PROJECT} in
     Amlogic)
-      if [ "${DEVICE}" = "AMLG12" ]; then
-        PKG_MAKE_OPTS_TARGET+=" platform=odroid-n2"
-      else
-        PKG_MAKE_OPTS_TARGET+=" platform=armv-gles-neon"
-        LDFLAGS+=" -lrt"
-      fi
+        PKG_MAKE_OPTS_TARGET+=" platform=${DEVICE}"
       ;;
     RPi)
-      if [ "${DEVICE}" = "RPi2" ]; then
-        PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
-      else
+      case ${DEVICE} in
+      RPi)
         PKG_MAKE_OPTS_TARGET+=" platform=rpi"
-      fi
+        ;;
+      RPi2)
+        PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
+        ;;
+      RPi4)
+        PKG_MAKE_OPTS_TARGET+=" platform=rpi4"
+        ;;
+      esac
       ;;
     Rockchip)
       if [ "${DEVICE}" = "RK3399" ]; then
