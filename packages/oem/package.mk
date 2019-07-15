@@ -33,32 +33,32 @@ OEM_FRONTENDS_EXTRA_COMMON=" \
 # Common libretro cores
 OEM_LIBRETRO_COMMON=" \
   retroarch \
-  2048-lr \
-  atari800-lr \
-  beetle-pce-fast-lr \
-  beetle-wswan-lr \
-  bluemsx-lr \
-  chailove-lr \
-  desmume-lr \
-  dosbox-lr \
-  fbneo-lr \
-  fceumm-lr \
-  flycast-lr \
-  fuse-lr \
-  gambatte-lr \
-  genesis-plus-gx-lr \
-  mame2003-plus-lr \
-  mgba-lr \
-  mrboom-lr \
-  mupen64plus-lr \
-  mupen64plus-nx-lr \
-  nestopia-lr \
-  pcsx_rearmed-lr \
-  prboom-lr \
-  scummvm-lr \
-  snes9x-lr \
-  stella2014-lr \
-  tyrquake-lr"
+  2048 \
+  atari800 \
+  beetle-pce-fast \
+  beetle-wswan \
+  bluemsx \
+  chailove \
+  desmume \
+  dosbox-libretro \
+  fbneo \
+  fceumm \
+  flycast \
+  fuse \
+  gambatte \
+  genesis-plus-gx \
+  mame2003-plus \
+  mgba \
+  mrboom \
+  mupen64plus-libretro \
+  mupen64plus-nx \
+  nestopia \
+  pcsx_rearmed \
+  prboom \
+  scummvm \
+  snes9x \
+  stella2014 \
+  tyrquake"
 
 # Common tools
 OEM_TOOLS_COMMON=" \
@@ -88,19 +88,19 @@ OEM_FRONTENDS_EXTRA_AMLOGIC=""
 
 # Libretro cores 
 OEM_LIBRETRO_AMLOGIC=" \
-  snes9x2010-lr \
-  vice-lr \
-  yabause-lr"
+  snes9x2010 \
+  vice-libretro \
+  yabause"
 
 # Libretro cores for AMLG12 devices
 OEM_LIBRETRO_AMLG12=" \
-  mame2016-lr \
-  mesen-lr \
-  yabasanshiro-lr"
+  mame2016 \
+  mesen \
+  yabasanshiro"
 
 # Libretro cores for AMLGXL devices
 OEM_LIBRETRO_AMLGXL=" \
-  mame2010-lr"
+  mame2010"
 
 # Tools
 OEM_TOOLS_AMLOGIC=""
@@ -130,19 +130,19 @@ OEM_FRONTENDS_EXTRA_GENERIC=""
 
 # Libretro cores
 OEM_LIBRETRO_GENERIC=" \
-  beetle-psx-lr \
-  beetle-saturn-lr \
-  bsnes-mercury-accuracy-lr \
-  bsnes-mercury-balanced-lr \
-  citra-lr \
-  dolphin-lr \
-  kronos-lr \
-  mame2016-lr \
-  mesen-lr \
-  nSide-lr \
-  parallel-n64-lr \
-  ppsspp-lr \
-  yabasanshiro-lr"
+  beetle-psx \
+  beetle-saturn \
+  bsnes-mercury-accuracy \
+  bsnes-mercury-balanced \
+  citra-libretro \
+  dolphin-libretro \
+  kronos \
+  mame2016 \
+  mesen \
+  nSide \
+  parallel-n64 \
+  ppsspp-libretro \
+  yabasanshiro"
 
 # Tools
 OEM_TOOLS_GENERIC=" \
@@ -168,15 +168,15 @@ OEM_EMULATORS_ROCKCHIP=" \
 
 # Libretro cores 
 OEM_LIBRETRO_ROCKCHIP=" \
-  snes9x2010-lr \
-  vice-lr \
-  yabause-lr"
+  snes9x2010 \
+  vice-libretro \
+  yabause"
 
 # Libretro cores for RK3399 devices
 OEM_LIBRETRO_RK3399=" \
-  mame2016-lr \
-  mesen-lr \
-  yabasanshiro-lr"
+  mame2016 \
+  mesen \
+  yabasanshiro"
 
 # Tools
 OEM_TOOLS_ROCKCHIP=""
@@ -193,10 +193,10 @@ OEM_FRONTENDS_EXTRA_RPI=""
 
 # Libretro cores
 OEM_LIBRETRO_RPI=" \
-  mame2010-lr \
-  snes9x2010-lr \
-  vice-lr \
-  yabause-lr"
+  mame2010 \
+  snes9x2010 \
+  vice-libretro \
+  yabause"
 
 # Standalone emulators
 OEM_EMULATORS_RPI=" \
