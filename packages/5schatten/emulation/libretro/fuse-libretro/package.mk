@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="fuse"
+PKG_NAME="fuse-libretro"
 PKG_VERSION="115f744b12aec6ec55207252fc1e267a1668ec0c"
 PKG_SHA256="667b103ed2ff8d8be22275acb27d4f2ff5fcf52d24843049a584e05ee4eeb9b3"
 PKG_LICENSE="GPLv3"

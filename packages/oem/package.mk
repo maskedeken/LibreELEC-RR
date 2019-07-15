@@ -44,7 +44,7 @@ OEM_LIBRETRO_COMMON=" \
   fbneo \
   fceumm \
   flycast \
-  fuse \
+  fuse-libretro \
   gambatte \
   genesis-plus-gx \
   mame2003-plus \
