@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="ppsspp-lr"
-PKG_VERSION="82119eda9a2879623487c502d6c4ce9b53a7c558" #v1.8.0+
+PKG_VERSION="27608349ee6dbc897f287473016d38d14149b28a" #v1.8.0+
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/hrydgard/ppsspp"
 PKG_URL="https://github.com/hrydgard/ppsspp.git"
