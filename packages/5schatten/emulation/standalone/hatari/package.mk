@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="hatari"
-PKG_VERSION="c42a730a8b20a0f6df15a2b244810eb1a71da895" #v2.2.1+
-PKG_SHA256="e5dcd1504074560b576012d2f18709ddd4ccb5c464167db01e2120fcd6a8c371"
+PKG_VERSION="c6979eb165d539e58b5adfbf7059d6d681fe1499" #v2.2.1+
+PKG_SHA256="33124aab9f9c1d39820596a5bf9bb89a6d5d7a7df5ed0a9f0c814bad7205ae58"
 PKG_LICENSE="GPL"
 PKG_SITE="https://hatari.tuxfamily.org/"
 PKG_URL="https://github.com/hatari/hatari/archive/${PKG_VERSION}.tar.gz"
