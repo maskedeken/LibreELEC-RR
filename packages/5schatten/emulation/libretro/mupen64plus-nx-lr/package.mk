@@ -17,11 +17,6 @@ PKG_LIBPATH="${PKG_LIBNAME}"
 PKG_MAKE_OPTS_TARGET="GIT_VERSION=${PKG_VERSION:0:7}"
 
 configure_package() {
-  # Apply project specific patches
-  if [ "${OPENGLES}" = "libmali" ]; then
-    PKG_PATCH_DIRS="${OPENGLES}"
-  fi
-
   # Displayserver Support
   if [ "${DISPLAYSERVER}" = "x11" ]; then
     PKG_DEPENDS_TARGET+=" xorg-server"
@@ -49,8 +44,10 @@ pre_configure_target() {
         PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
         ;;
     esac
-  elif [ "${DEVICE}" = "AMLGXL" ]; then
-    PKG_MAKE_OPTS_TARGET+=" platform=amlogic"
+  elif [ "${PROJECT}" = "Amlogic" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=${DEVICE}"
+  elif [ "${PROJECT}" = "Rockchip" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=${DEVICE}"
   else
     # OpenGLES 2.0/3.0 Support
     if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
