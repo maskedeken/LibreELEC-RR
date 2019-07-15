@@ -1,6 +1,43 @@
+From f71ad0ca626407ed64995669a8d62c96d0390c83 Mon Sep 17 00:00:00 2001
+From: 5schatten <supervisedthinking@gmail.com>
+Date: Mon, 15 Jul 2019 18:55:03 +0200
+Subject: [PATCH] Makefile: added platforms for AML & RK
+
+- Amlogic S905/S905X/S912/S922X/A311D
+- Rockchip RK3288/RK3328/RK3399
+- updated GLFunctions.cpp to define USE_GENERIC_GLESV2
+---
+ .../Graphics/OpenGLContext/GLFunctions.cpp    |  4 +-
+ Makefile                                      | 49 ++++++++++++++++---
+ 2 files changed, 45 insertions(+), 8 deletions(-)
+
+diff --git a/GLideN64/src/Graphics/OpenGLContext/GLFunctions.cpp b/GLideN64/src/Graphics/OpenGLContext/GLFunctions.cpp
+index 7dfe92a..ca96b98 100644
+--- a/GLideN64/src/Graphics/OpenGLContext/GLFunctions.cpp
++++ b/GLideN64/src/Graphics/OpenGLContext/GLFunctions.cpp
+@@ -12,7 +12,7 @@
+ #define glGetProcAddress wglGetProcAddress
+ #define GL_GET_PROC_ADR(proc_type, proc_name) ptr##proc_name = (proc_type) glGetProcAddress("gl"#proc_name)
+ 
+-#elif defined(VERO4K) || defined(ODROID) || defined(VC) || defined(AMLOGIC)
++#elif defined(VERO4K) || defined(ODROID) || defined(VC) || defined(USE_GENERIC_GLESV2)
+ 
+ #include <dlfcn.h>
+ #define GL_GET_PROC_ADR(proc_type, proc_name) ptr##proc_name = (proc_type) dlsym(gles2so, "gl"#proc_name);
+@@ -210,7 +210,7 @@ extern "C" void initGLFunctions()
+ 	void *gles2so = dlopen("/usr/lib/arm-linux-gnueabihf/libGLESv2.so", RTLD_NOW);
+ #elif defined(VERO4K)
+        void *gles2so = dlopen("/opt/vero3/lib/libGLESv2.so", RTLD_NOW);
+-#elif defined(AMLOGIC)
++#elif defined(USE_GENERIC_GLESV2)
+        void *gles2so = dlopen("/usr/lib/libGLESv2.so", RTLD_NOW);
+ #endif
+ 
+diff --git a/Makefile b/Makefile
+index 4cc7b90..1741f25 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -214,17 +214,49 @@
+@@ -214,17 +214,54 @@ else ifneq (,$(findstring odroid,$(platform)))
     COREFLAGS += -DOS_LINUX
     ASFLAGS = -f elf -d ELF_TYPE
  
@@ -34,18 +71,23 @@
 +   COREFLAGS += -DUSE_GENERIC_GLESV2 -DOS_LINUX -DUNDEF_GL_GLEXT_PROTOTYPES
 +   ASFLAGS = -f elf -d ELF_TYPE
 +
-+# Rockchip RK3328 / RK3399 - 32-bit userspace
-+else ifneq (,$(findstring RK33,$(platform)))
++# Rockchip RK3288 e.g. Tinker Board / RK3328 / RK3399 e.g. RockPro64 - 32-bit userspace
++else ifneq (,$(findstring RK,$(platform)))
 +   TARGET := $(TARGET_NAME)_libretro.so
 +   LDFLAGS += -shared -Wl,--version-script=$(LIBRETRO_DIR)/link.T -Wl,--no-undefined -ldl
-+   CPUFLAGS += -march=armv8-a+crc -mfloat-abi=hard -mfpu=neon-fp-armv8
 +
-+   ifneq (,$(findstring RK3399,$(platform)))
-+      CPUFLAGS += -mtune=cortex-a72.cortex-a53
++   ifneq (,$(findstring RK33,$(platform)))
++      CPUFLAGS += -march=armv8-a+crc -mfloat-abi=hard -mfpu=neon-fp-armv8
++      ifneq (,$(findstring RK3399,$(platform)))
++         CPUFLAGS += -mtune=cortex-a72.cortex-a53
++         GLES3 = 1
++      else ifneq (,$(findstring RK3328,$(platform)))
++         CPUFLAGS += -mtune=cortex-a53
++         GLES = 1
++      endif
++   else ifneq (,$(findstring RK3288,$(platform)))
++      CPUFLAGS += -march=armv7ve -mtune=cortex-a17 -mfloat-abi=hard -mfpu=neon-vfpv4
 +      GLES3 = 1
-+   else ifneq (,$(findstring RK3328,$(platform)))
-+      CPUFLAGS += -mtune=cortex-a53
-+      GLES = 1
 +   endif
 +
 +   GL_LIB := -lGLESv2
@@ -56,4 +98,3 @@
  
  # OS X
  else ifneq (,$(findstring osx,$(platform)))
-
