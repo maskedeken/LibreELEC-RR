@@ -31,24 +31,28 @@ configure_package() {
   # OpenGLES Support
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
     PKG_DEPENDS_TARGET+=" ${OPENGLES}"
-    PKG_PATCH_DIRS="OpenGLES"
   fi
 }
 
 pre_configure_target() {
-  if [ "${ARCH}" = "arm" ]; then
-    if [ "${DEVICE}" = "RK3399" ]; then
-      PKG_MAKE_OPTS_TARGET+=" platform=rockpro64"
-    elif [ "${DEVICE}" = "AMLG12" ]; then
-      PKG_MAKE_OPTS_TARGET+=" platform=amlg12"
-    else
-      PKG_MAKE_OPTS_TARGET+=" platform=armv"
-      # ARM NEON support
-      if target_has_feature neon; then
-        PKG_MAKE_OPTS_TARGET+="-neon"
-      fi
-      PKG_MAKE_OPTS_TARGET+="-${TARGET_FLOAT}float-${TARGET_CPU}"
+  if [ "${PROJECT}" = "Amlogic" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=AMLG12"
+  elif [ "${PROJECT}" = "Rockchip" ]; then
+    case ${DEVICE} in
+      RK3399)
+        PKG_MAKE_OPTS_TARGET+=" platform=RK3399"
+        ;;
+      TinkerBoard|MiQi)
+        PKG_MAKE_OPTS_TARGET+=" platform=RK3288"
+        ;;
+    esac
+  elif [ "${ARCH}" = "arm" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=armv"
+    # ARM NEON support
+    if target_has_feature neon; then
+      PKG_MAKE_OPTS_TARGET+="-neon"
     fi
+    PKG_MAKE_OPTS_TARGET+="-${TARGET_FLOAT}float-${TARGET_CPU}"
   fi
 }
 

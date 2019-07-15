@@ -1,0 +1,63 @@
+From 701c9e535fa36e9cf2a2000d5853c1e58fcc8482 Mon Sep 17 00:00:00 2001
+From: 5schatten <supervisedthinking@gmail.com>
+Date: Mon, 15 Jul 2019 23:08:07 +0200
+Subject: [PATCH] Makefile: added Amlogic & Rockchip platforms - added Amlogic
+ S922X Odroid-N2 / A311D Khadas VIM3 (AMLG12B) - 32-bit userspace - added
+ Rockchip RK3288 e.g. Tinker Board / RK3399 e.g. RockPro64 - 32-bit userspace
+ - dropped -lGL for Rockchip
+
+---
+ yabause/src/libretro/Makefile | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/yabause/src/libretro/Makefile b/yabause/src/libretro/Makefile
+index 0de75a998..74f3a68f1 100644
+--- a/yabause/src/libretro/Makefile
++++ b/yabause/src/libretro/Makefile
+@@ -104,13 +104,28 @@ else ifeq ($(platform), arm64)
+ 	DYNAREC_DEVMIYAX = 1
+ 	ALLOW_POLYGON_MODE = 0
+ 
+-# RockPro64
+-else ifneq (,$(findstring rockpro64,$(platform)))
++# Amlogic S922X Odroid-N2 / A311D Khadas VIM3 (AMLG12B) - 32-bit userspace
++else ifneq (,$(findstring AMLG12,$(platform)))
+ 	override platform += unix
+ 	TARGET := $(TARGET_NAME)_libretro.so
+ 	fpic := -fPIC
+ 	SHARED := -shared -Wl,--no-undefined -Wl,--version-script=link.T
+-	LDFLAGS += -lpthread -lGL
++	LDFLAGS += -lpthread
++	ARCH_IS_LINUX = 1
++	HAVE_SSE = 0
++	FORCE_GLES = 1
++	USE_ARM_DRC = 1
++	DYNAREC_DEVMIYAX = 1
++	ALLOW_POLYGON_MODE = 0
++	FLAGS += -march=armv8-a+crc -mtune=cortex-a73.cortex-a53 -mfloat-abi=hard -mfpu=neon-fp-armv8 -mvectorize-with-neon-quad
++
++# Rockchip RK3288 e.g. Tinker Board / RK3399 e.g. RockPro64 - 32-bit userspace
++else ifneq (,$(findstring RK,$(platform)))
++	override platform += unix
++	TARGET := $(TARGET_NAME)_libretro.so
++	fpic := -fPIC
++	SHARED := -shared -Wl,--no-undefined -Wl,--version-script=link.T
++	LDFLAGS += -lpthread
+ 	ARCH_IS_LINUX = 1
+ 	HAVE_SSE = 0
+ 	FORCE_GLES = 1
+@@ -118,7 +133,13 @@ else ifneq (,$(findstring rockpro64,$(platform)))
+ 	DYNAREC_DEVMIYAX = 1
+ 	LOW_END = 1
+ 	ALLOW_POLYGON_MODE = 0
+-	FLAGS += -march=armv8-a+crc -mcpu=cortex-a72 -mtune=cortex-a72.cortex-a53 -mfloat-abi=hard -mfpu=neon-vfpv4 -mvectorize-with-neon-quad
++	
++	ifneq (,$(findstring RK3399,$(platform)))
++		FLAGS += -march=armv8-a+crc -mtune=cortex-a72.cortex-a53 -mfpu=neon-fp-armv8 
++	else ifneq (,$(findstring RK3288,$(platform)))
++		FLAGS += -march=armv7ve -mtune=cortex-a17 -mfpu=neon-vfpv4
++	endif
++	FLAGS += -mfloat-abi=hard -mvectorize-with-neon-quad
+ 
+ # ODROIDs
+ else ifeq ($(platform), odroid-n2)
