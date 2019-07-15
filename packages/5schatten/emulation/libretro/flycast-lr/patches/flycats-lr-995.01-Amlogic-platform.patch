@@ -4,7 +4,7 @@
  	HAVE_GENERIC_JIT = 0
  	HAVE_LTCG = 0
  
-+# Amlogic S905/S905X (AMLGX/AMLGXB/AMLGXL) & S922X/A311D (AMLG12B) - 32-bit userspace
++# Amlogic S905/S905X/S912 (AMLGXBB/AMLGXL/AMLGXM) & S922X/A311D (AMLG12B) - 32-bit userspace
 +else ifneq (,$(findstring AMLG,$(platform)))
 +	EXT ?= so
 +	TARGET := $(TARGET_NAME)_libretro.$(EXT)
