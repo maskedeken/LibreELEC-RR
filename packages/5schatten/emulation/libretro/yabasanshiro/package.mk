@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="yabasanshiro"
-PKG_VERSION="91a2494f52653b9b07a9b890c632ddb786340c52"
-PKG_SHA256="e225bf59814601ed516a0ecb15be8a866d919ae1b51e963f97a1f5012e7cf70c"
+PKG_VERSION="ba40402a6f4ce68de029eb49d64891502960351f"
+PKG_SHA256="41f3367feb41d78d64fb8d5caa351c0861e21a2802477891b337740efb57560d"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/yabause"
 PKG_URL="https://github.com/libretro/yabause/archive/${PKG_VERSION}.tar.gz"
@@ -36,7 +36,7 @@ configure_package() {
 
 pre_configure_target() {
   if [ "${PROJECT}" = "Amlogic" ]; then
-    PKG_MAKE_OPTS_TARGET+=" platform=AMLG12"
+    PKG_MAKE_OPTS_TARGET+=" platform=AMLG12B"
   elif [ "${PROJECT}" = "Rockchip" ]; then
     case ${DEVICE} in
       RK3399)
