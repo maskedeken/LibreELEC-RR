@@ -8,49 +8,13 @@ msgid "Configuration"
 msgstr ""
 
 msgctxt "#30101"
-msgid "Output mode"
-msgstr ""
-
-msgctxt "#30102"
-msgid "ALSA"
-msgstr ""
-
-msgctxt "#30103"
-msgid "Kodi"
-msgstr ""
-
-msgctxt "#30104"
-msgid "Configure shared device"
-msgstr ""
-
-msgctxt "#30105"
-msgid "Bit rate"
-msgstr ""
-
-msgctxt "#30106"
-msgid "-"
-msgstr ""
-
-msgctxt "#30107"
-msgid "96"
-msgstr ""
-
-msgctxt "#30108"
-msgid "160"
-msgstr ""
-
-msgctxt "#30109"
-msgid "320"
-msgstr ""
-
-msgctxt "#30110"
 msgid "User mode"
 msgstr ""
 
-msgctxt "#30111"
+msgctxt "#30102"
 msgid "Username"
 msgstr ""
 
-msgctxt "#30112"
+msgctxt "#30103"
 msgid "Password"
 msgstr ""

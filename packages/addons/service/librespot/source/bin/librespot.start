@@ -3,42 +3,34 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
-f="/storage/.kodi/userdata/addon_data/service.librespot/settings.xml"
-[ -f "$f" ] && sed -i  "s/ls_O/ls_m/g" "$f"
-
 . /etc/profile
 oe_setup_addon service.librespot
 
-if ! pactl list short modules | grep -q "sink_name=$LS_SINK"; then
-  pactl load-module module-null-sink sink_name="$LS_SINK" &> /dev/null
-fi
-if ! pactl list short modules | grep -q "source=$LS_SINK.monitor"; then
-  pactl load-module module-rtp-send source="$LS_SINK.monitor" \
-    destination_ip="$LS_IP" port="$LS_PORT" source_ip="$LS_IP" &> /dev/null
-fi
-pactl suspend-sink "$LS_SINK" 1 &> /dev/null
+PORT="6666"
+SINK_NAME="librespot_sink"
 
-LIBRESPOT="librespot --cache \"$ADDON_HOME/cache\" \
-                     --disable-audio-cache \
-                     --name \"Librespot@$HOSTNAME\" \
-                     --notify-kodi"
-
-if [ -n "$ls_b" -a "$ls_b" != "-" ]; then
-  LIBRESPOT="$LIBRESPOT --bitrate $ls_b"
+if ! pactl list modules short | grep "sink_name=$SINK_NAME"; then
+  pactl load-module module-null-sink sink_name="$SINK_NAME" > /dev/null
 fi
+if ! pactl list modules short | grep "source=$SINK_NAME"; then
+  pactl load-module module-rtp-send source="$SINK_NAME.monitor" \
+    destination_ip=127.0.0.1 port="$PORT" source_ip=127.0.0.1 > /dev/null
+fi
+pactl suspend-sink "$SINK_NAME" 1
+
+LIBRESPOT="librespot \
+    --backend pulseaudio \
+    --cache \"$ADDON_HOME/cache\" \
+    --device-type TV \
+    --disable-audio-cache \
+    --name \"Kodi ($HOSTNAME)\" \
+    --notify-kodi"
 
 if [ "$ls_a" = "true" -a -n "$ls_p" -a -n "$ls_u" ]; then
-  LIBRESPOT="$LIBRESPOT --disable-discovery \
-                        --password \"$ls_p\" \
-                        --username \"$ls_u\""
-fi
-
-if [ "$ls_m" = "Kodi" ]; then
-  LIBRESPOT="$LIBRESPOT --backend pulseaudio \
-                        --device-type TV"
-else
-  LIBRESPOT="$LIBRESPOT --device shared \
-                        --device-type Speaker"
+  LIBRESPOT="$LIBRESPOT \
+    --disable-discovery \
+    --password \"$ls_p\" \
+    --username \"$ls_u\""
 fi
 
 eval $LIBRESPOT

@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
   <category  label="30100">
-    <setting label="30101" id="ls_m"     type="labelenum" lvalues="30102|30103" />
-    <setting label="30104" type="action" action="Addon.OpenSettings(service.audio-tools)" option="close" visible="eq(-1,ALSA) "/>
-    <setting label="30105" id="ls_b"     type="labelenum" lvalues="30106|30107|30108|30109" />
-    <setting label="30110" id="ls_a"     type="bool"      default="false" />
-    <setting label="30111" id="ls_u"     type="text"      subsetting="true" visible="eq(-1,true)" default="" />
-    <setting label="30112" id="ls_p"     type="text"      subsetting="true" visible="eq(-2,true)" default="" option="hidden" />
+    <setting label="30101" id="ls_a" type="bool"      default="false" />
+    <setting label="30102" id="ls_u" type="text"      default="" subsetting="true" visible="eq(-1,true)" />
+    <setting label="30103" id="ls_p" type="text"      default="" subsetting="true" visible="eq(-2,true)" option="hidden" />
   </category>
 </settings>
