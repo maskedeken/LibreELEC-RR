@@ -45,9 +45,26 @@ pre_configure_target() {
         ;;
     esac
   elif [ "${PROJECT}" = "Amlogic" ]; then
-    PKG_MAKE_OPTS_TARGET+=" platform=${DEVICE}"
+    case ${DEVICE} in
+      AMLG12)
+        PKG_MAKE_OPTS_TARGET+=" platform=AMLG12B"
+        ;;
+      AMLGXL)
+        PKG_MAKE_OPTS_TARGET+=" platform=AMLGX"
+        ;;
+    esac
   elif [ "${PROJECT}" = "Rockchip" ]; then
-    PKG_MAKE_OPTS_TARGET+=" platform=${DEVICE}"
+    case ${DEVICE} in
+      RK3328)
+        PKG_MAKE_OPTS_TARGET+=" platform=RK3328"
+        ;;
+      RK3399)
+        PKG_MAKE_OPTS_TARGET+=" platform=RK3399"
+        ;;
+      TinkerBoard|MiQi)
+        PKG_MAKE_OPTS_TARGET+=" platform=RK3288"
+        ;;
+    esac
   else
     # OpenGLES 2.0/3.0 Support
     if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
