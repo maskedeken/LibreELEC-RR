@@ -37,27 +37,40 @@ configure_package() {
 pre_configure_target() {
   case ${PROJECT} in
     Amlogic)
-        PKG_MAKE_OPTS_TARGET+=" platform=${DEVICE}"
+      case ${DEVICE} in
+        AMLG12)
+          PKG_MAKE_OPTS_TARGET+=" platform=AMLG12B"
+          ;;
+        AMLGXL)
+          PKG_MAKE_OPTS_TARGET+=" platform=AMLGX"
+          ;;
+      esac
       ;;
     RPi)
       case ${DEVICE} in
-      RPi)
-        PKG_MAKE_OPTS_TARGET+=" platform=rpi"
-        ;;
-      RPi2)
-        PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
-        ;;
-      RPi4)
-        PKG_MAKE_OPTS_TARGET+=" platform=rpi4"
-        ;;
+        RPi)
+          PKG_MAKE_OPTS_TARGET+=" platform=rpi"
+          ;;
+        RPi2)
+          PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
+          ;;
+        RPi4)
+          PKG_MAKE_OPTS_TARGET+=" platform=rpi4"
+          ;;
       esac
       ;;
     Rockchip)
-      if [ "${DEVICE}" = "RK3399" ]; then
-        PKG_MAKE_OPTS_TARGET+=" platform=rockpro64"
-      else
-        PKG_MAKE_OPTS_TARGET+=" platform=tinkerboard"
-      fi
+      case ${DEVICE} in
+        RK3328)
+          PKG_MAKE_OPTS_TARGET+=" platform=RK3328"
+          ;;
+        RK3399)
+          PKG_MAKE_OPTS_TARGET+=" platform=RK3399"
+          ;;
+        TinkerBoard|MiQi)
+          PKG_MAKE_OPTS_TARGET+=" platform=RK3288"
+          ;;
+      esac
       ;;
     *)
       if [ "${ARCH}" = "arm" ]; then
