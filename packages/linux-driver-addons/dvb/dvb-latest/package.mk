@@ -19,6 +19,10 @@ PKG_ADDON_NAME="DVB drivers from the latest kernel"
 PKG_ADDON_TYPE="xbmc.service"
 PKG_ADDON_VERSION="${ADDON_VERSION}.${PKG_REV}"
 
+if [ "$PROJECT" != "Generic" ]; then
+  PKG_PATCH_DIRS="usb"
+fi
+
 pre_make_target() {
   export KERNEL_VER=$(get_module_dir)
   export LDFLAGS=""
