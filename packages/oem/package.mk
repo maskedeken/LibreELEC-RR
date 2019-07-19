@@ -55,6 +55,7 @@ OEM_LIBRETRO_COMMON=" \
   nestopia \
   pcsx_rearmed \
   prboom \
+  sameboy \
   scummvm \
   snes9x \
   stella2014 \
