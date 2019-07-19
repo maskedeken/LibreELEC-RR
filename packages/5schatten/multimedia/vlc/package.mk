@@ -2,20 +2,20 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="vlc"
-PKG_VERSION="3.0.7"
-PKG_SHA256="5cb5fe140f0f4bae3e0a613fb5f516270f62e2dbde6de27fa78ea9f43cd73916"
-PKG_LICENSE="GPL"
+PKG_VERSION="3.0.7.1"
+PKG_SHA256="0655804371096772f06104b75c21cde8a76e3b6c8a2fdadc97914f082c6264f5"
+PKG_LICENSE="GPL-2"
 PKG_SITE="http://www.videolan.org"
 PKG_URL="http://get.videolan.org/vlc/${PKG_VERSION}/vlc-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain dbus gnutls ffmpeg libmpeg2 zlib flac libvorbis"
 PKG_LONGDESC="VideoLAN multimedia player and streamer"
 
-# MMAL (Multimedia Abstraction Layer) support patches
-if [ "${OPENGLES}" = "bcm2835-driver" ]; then
-  PKG_PATCH_DIRS="MMAL"
-fi
-
 configure_package() {
+  # MMAL (Multimedia Abstraction Layer) support patches
+  if [ "${OPENGLES}" = "bcm2835-driver" ]; then
+    PKG_PATCH_DIRS="MMAL"
+  fi
+
   if target_has_feature "(neon|sse)"; then
     PKG_DEPENDS_TARGET+=" dav1d libvpx"
   fi
@@ -115,6 +115,7 @@ pre_configure_target() {
                              --disable-crystalhd \
                              --disable-dxva2 \
                              --disable-aom \
+                             --disable-gst-decode \
                              --disable-vlc"
 
   # X11 Support
