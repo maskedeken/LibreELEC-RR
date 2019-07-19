@@ -1,23 +1,23 @@
-From c2248cc2b895c35986020607d0abe59da96a5090 Mon Sep 17 00:00:00 2001
+From 84d3e57b9b8234e83abe21cfeecfb63340c6e2d5 Mon Sep 17 00:00:00 2001
 From: 5schatten <supervisedthinking@gmail.com>
-Date: Tue, 16 Jul 2019 23:40:40 +0200
+Date: Fri, 19 Jul 2019 14:17:52 +0200
 Subject: [PATCH] Makefile: added platforms for AML & RK
 
 - Amlogic S905/S905X/S912/S905X2/S922X/A311D
 - Rockchip RK3288/RK3328/RK3399
 ---
- Makefile | 76 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
+ Makefile | 78 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 78 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 72038c9c1..55a0a514c 100644
+index 72038c9c1..45f00da8a 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -366,6 +366,82 @@ else ifeq ($(platform), odroid-n2)
+@@ -366,6 +366,84 @@ else ifeq ($(platform), odroid-n2)
  	HAVE_GENERIC_JIT = 0
  	HAVE_LTCG = 0
  
-+# Amlogic S905/S905X/S912 (AMLGXBB/AMLGXL/AMLGXM) / S905X2 (AMLG12A) & S922X/A311D (AMLG12B) - 32-bit userspace
++# Amlogic S905/S905X/S912 (AMLGXBB/AMLGXL/AMLGXM) e.g. Khadas VIM1/2 / S905X2 (AMLG12A) & S922X/A311D (AMLG12B) e.g. Khadas VIM3 - 32-bit userspace
 +else ifneq (,$(findstring AMLG,$(platform)))
 +  EXT ?= so
 +  TARGET := $(TARGET_NAME)_libretro.$(EXT)
@@ -33,17 +33,19 @@ index 72038c9c1..55a0a514c 100644
 +  CFLAGS += -march=armv8-a+crc -mfloat-abi=hard -mfpu=neon-fp-armv8 $(CPUFLAGS)
 +  CXXFLAGS += -march=armv8-a+crc -mfloat-abi=hard -mfpu=neon-fp-armv8 $(CPUFLAGS)
 +
-+  ifneq (,$(findstring AMLG12B,$(platform)))
-+    CFLAGS += -mtune=cortex-a73.cortex-a53
-+    CXXFLAGS += -mtune=cortex-a73.cortex-a53
-+  else ifneq (,$(findstring AMLG12A,$(platform)))
-+    CFLAGS += -mtune=cortex-a53
-+    CXXFLAGS += -mtune=cortex-a53
++  ifneq (,$(findstring AMLG12,$(platform)))
++    ifneq (,$(findstring AMLG12B,$(platform)))
++      CFLAGS += -mtune=cortex-a73.cortex-a53
++      CXXFLAGS += -mtune=cortex-a73.cortex-a53
++    else
++      CFLAGS += -mtune=cortex-a53
++      CXXFLAGS += -mtune=cortex-a53
++    endif
 +  else ifneq (,$(findstring AMLGX,$(platform)))
 +    CFLAGS += -mtune=cortex-a53
 +    CXXFLAGS += -mtune=cortex-a53
 +    CORE_DEFINES += -DLOW_END
-+  endif 
++  endif
 +
 +  ASFLAGS += $(CFLAGS) -c -frename-registers -fno-strict-aliasing -ffast-math -ftree-vectorize
 +
@@ -51,17 +53,17 @@ index 72038c9c1..55a0a514c 100644
 +  WITH_DYNAREC=arm
 +  HAVE_GENERIC_JIT = 0
 +
-+# Rockchip RK3288 e.g. Tinker Board / RK3328 / RK3399 e.g. RockPro64 - 32-bit userspace
++# Rockchip RK3288 e.g. Asus Tinker Board / RK3328 e.g. PINE64 Rock64 / RK3399 e.g. PINE64 RockPro64 - 32-bit userspace
 +else ifneq (,$(findstring RK,$(platform)))
-+	EXT ?= so
-+	TARGET := $(TARGET_NAME)_libretro.$(EXT)
-+	SHARED += -shared -Wl,--version-script=link.T
-+	fpic = -fPIC
-+	LIBS += -lrt
-+	ARM_FLOAT_ABI_HARD = 1
-+	FORCE_GLES = 1
-+	SINGLE_PREC_FLAGS = 1
-+	CPUFLAGS += -DNO_ASM -DARM_ASM -frename-registers -ftree-vectorize
++  EXT ?= so
++  TARGET := $(TARGET_NAME)_libretro.$(EXT)
++  SHARED += -shared -Wl,--version-script=link.T
++  fpic = -fPIC
++  LIBS += -lrt
++  ARM_FLOAT_ABI_HARD = 1
++  FORCE_GLES = 1
++  SINGLE_PREC_FLAGS = 1
++  CPUFLAGS += -DNO_ASM -DARM_ASM -frename-registers -ftree-vectorize
 +
 +  ifneq (,$(findstring RK33,$(platform)))
 +    CFLAGS += -march=armv8-a+crc -mfpu=neon-fp-armv8
@@ -80,7 +82,7 @@ index 72038c9c1..55a0a514c 100644
 +      CFLAGS += -mvectorize-with-neon-quad
 +      CXXFLAGS += -mvectorize-with-neon-quad
 +    endif
-+	else ifneq (,$(findstring RK3288,$(platform)))
++  else ifneq (,$(findstring RK3288,$(platform)))
 +    CFLAGS += -march=armv7ve -mtune=cortex-a17 -mfpu=neon-vfpv4
 +    CXXFLAGS += -march=armv7ve -mtune=cortex-a17 -mfpu=neon-vfpv4
 +  endif
