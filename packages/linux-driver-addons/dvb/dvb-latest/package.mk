@@ -19,8 +19,10 @@ PKG_ADDON_NAME="DVB drivers from the latest kernel"
 PKG_ADDON_TYPE="xbmc.service"
 PKG_ADDON_VERSION="${ADDON_VERSION}.${PKG_REV}"
 
-if [ "$PROJECT" != "Generic" ]; then
-  PKG_PATCH_DIRS="usb"
+PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
+
+if ! grep -q ^CONFIG_USB_PCI= ${PKG_KERNEL_CFG_FILE} ; then
+  PKG_PATCH_DIRS="disable-pci"
 fi
 
 pre_make_target() {
