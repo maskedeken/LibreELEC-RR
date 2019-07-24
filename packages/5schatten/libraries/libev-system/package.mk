@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2019-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="libev-git"
+PKG_NAME="libev-system"
 PKG_VERSION="4.27"
 PKG_SHA256="4c91eaffcf2dde23aa7b459bd9905fea81df7547106a47cfd6eba342c5ce3503"
 PKG_LICENSE="GPL"
