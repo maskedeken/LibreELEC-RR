@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
-PKG_NAME="fluidsynth-git"
+PKG_NAME="fluidsynth-system"
 PKG_VERSION="2.0.5"
 PKG_SHA256="69b244512883491e7e66b4d0151c61a0d6d867d4d2828c732563be0f78abcc51"
 PKG_LICENSE="LGPL"
