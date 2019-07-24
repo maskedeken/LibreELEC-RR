@@ -7,7 +7,7 @@ PKG_SHA256="2d57f2549d4d0a827059f5bbb4be6403c7596056067b072e883bfeaf3ef90ba4"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/m64p/mupen64plus-gui"
 PKG_URL="https://github.com/m64p/mupen64plus-gui/archive/$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain linux glibc SDL2-git qt-everywhere p7zip-system libpng zlib"
+PKG_DEPENDS_TARGET="toolchain linux glibc SDL2-system qt-everywhere p7zip-system libpng zlib"
 PKG_LONGDESC="mupen64plus GUI written in Qt5"
 PKG_TOOLCHAIN="manual"
 

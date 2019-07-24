@@ -7,7 +7,7 @@ PKG_SHA256="241b9391616288f6914d16826fbd94f990ab7ac8c217999b8cf19cf3a03f1afb"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/mupen64plus/mupen64plus-input-sdl"
 PKG_URL="https://github.com/mupen64plus/mupen64plus-input-sdl/archive/$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain linux glibc SDL2-git mupen64plus-core"
+PKG_DEPENDS_TARGET="toolchain linux glibc SDL2-system mupen64plus-core"
 PKG_LONGDESC="Input plugin for Mupen64Plus v2.0 project using SDL. This is derived from the original Mupen64 blight_input plugin."
 PKG_TOOLCHAIN="make"
 

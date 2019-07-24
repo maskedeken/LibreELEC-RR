@@ -7,7 +7,7 @@ PKG_SHA256="adda693b4343d9305174520027fa0b33a2311a815df48bdf19a08f228d0e2a41"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/m64p/mupen64plus-audio-sdl2"
 PKG_URL="https://github.com/m64p/mupen64plus-audio-sdl2/archive/$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain linux glibc mupen64plus-core libsamplerate SDL2-git"
+PKG_DEPENDS_TARGET="toolchain linux glibc mupen64plus-core libsamplerate SDL2-system"
 PKG_LONGDESC="A low-level N64 video emulation plugin, based on the pixel-perfect angrylion RDP plugin with some improvements."
 PKG_TOOLCHAIN="make"
 

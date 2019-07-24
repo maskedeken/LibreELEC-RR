@@ -7,7 +7,7 @@ PKG_SHA256="5d3348b8bd44474e71297769e96aa70fdcc1c5e022519a3f8b1e5173e74a145a"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/mupen64plus/mupen64plus-core"
 PKG_URL="https://github.com/mupen64plus/mupen64plus-core/archive/$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain SDL2-git freetype libpng zlib"
+PKG_DEPENDS_TARGET="toolchain SDL2-system freetype libpng zlib"
 PKG_LONGDESC="Core module of the Mupen64Plus project"
 PKG_TOOLCHAIN="make"
 
