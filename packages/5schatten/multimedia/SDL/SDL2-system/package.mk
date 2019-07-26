@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="SDL2-system"
-PKG_VERSION="4cd4ad8df6db00989dad155d43a3f13f9ba22f10" # 2.0.9+
-PKG_SHA256="b91987e4bd2a3797a842c8a1ee00bd7a7040f419f6e8c0f888689102e8c44930"
+PKG_VERSION="b71dec57ab6898d319951bba8ed83816b69b3cae" #2.0.10
+PKG_SHA256="5493e819ebbb138af68b188dbe16f1e92924eeaa3daf45551cd0b0797a87e80d"
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.libsdl.org/"
 PKG_URL="https://github.com/spurious/SDL-mirror/archive/${PKG_VERSION}.tar.gz"
@@ -123,13 +123,6 @@ pre_configure_target(){
                              -DVIDEO_KMSDRM=OFF"
   else
     PKG_CMAKE_OPTS_TARGET+=" -DVIDEO_RPI=OFF"
-  fi
-
-  # AML Mali Video Support
-  if [ "${OPENGLES}" = "opengl-meson" ]; then
-    PKG_CMAKE_OPTS_TARGET+=" -DVIDEO_MALI=ON \
-                             -DVIDEO_VULKAN=OFF \
-                             -DVIDEO_KMSDRM=OFF"
   fi
 
   # Pulseaudio Support
