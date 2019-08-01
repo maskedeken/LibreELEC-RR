@@ -51,6 +51,11 @@ configure_package() {
   if [ "${VULKAN_SUPPORT}" = "yes" ]; then
     PKG_DEPENDS_TARGET+=" vulkan-loader slang-shaders-lr"
   fi
+
+  # RPi4 Support
+  if [ "${DEVICE}" = "RPi4" ]; then
+    PKG_DEPENDS_TARGET+=" libX11"
+  fi
 }
 
 pre_configure_target() {
@@ -100,6 +105,12 @@ pre_configure_target() {
       PKG_CONFIGURE_OPTS_TARGET+=" --disable-opengl_core \
                                    --enable-dispmanx \
                                    --disable-kms"
+
+    # RPi 4 OpenGL ES
+    elif [ "${OPENGLES}" = "mesa" ]; then
+      PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles3 \
+                                   --enable-kms \
+                                   --disable-videocore"
 
     # Mali OpenGL ES 2.0/3.0 Features Support
     elif [ "${OPENGLES}" = "libmali" ]; then
@@ -190,8 +201,18 @@ makeinstall_target() {
   sed -e "s/# video_gpu_screenshot = true/video_gpu_screenshot = false/"                          -i ${INSTALL}/etc/retroarch.cfg
 
   # Audio
-  sed -e "s/# audio_driver =/audio_driver = \"alsathread\"/"                                      -i ${INSTALL}/etc/retroarch.cfg
-  sed -e "s/# audio_filter_dir =/audio_filter_dir = \"\/usr\/share\/retroarch\/filters\/audio\"/" -i ${INSTALL}/etc/retroarch.cfg
+  if [ "$DEVICE" = "RPi4" ]; then
+    sed -i -e "s/# audio_driver =/audio_driver = \"alsa\"/" $INSTALL/etc/retroarch.cfg
+  else
+    sed -i -e "s/# audio_driver =/audio_driver = \"alsathread\"/" $INSTALL/etc/retroarch.cfg
+  fi
+  sed -i -e "s/# audio_filter_dir =/audio_filter_dir =\/usr\/share\/audio_filters/" $INSTALL/etc/retroarch.cfg
+  if [ "$PROJECT" = "OdroidXU3" -o "$DEVICE" = "RPi4" ]; then # workaround the 55fps bug + fix no audio for RPi4
+    sed -i -e "s/# audio_out_rate = 48000/audio_out_rate = 44100/" $INSTALL/etc/retroarch.cfg
+  fi
+  if [ "$DEVICE" = "RPi4" ]; then
+    sed -i -e "s/# audio_device =/audio_device = \"hw:0,1\"/" $INSTALL/etc/retroarch.cfg
+  fi
 
   # Input
   sed -e "s/# input_driver = sdl/input_driver = udev/"                                                            -i ${INSTALL}/etc/retroarch.cfg
