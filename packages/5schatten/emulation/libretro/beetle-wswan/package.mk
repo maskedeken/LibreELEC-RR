@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="beetle-wswan"
-PKG_VERSION="b231cff853da4bf221189df8aaed8bc275459db2"
-PKG_SHA256="631063c8f562bb2830abb8d4e1501222f7423c47d33db982ba8aa20ab926ec81"
+PKG_VERSION="f8643a3199deab589ac820dacb3af6da3091967d"
+PKG_SHA256="975743684a320183400755137fc73bf4d4495935911443c57112c449669ee08c"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/beetle-wswan-libretro"
 PKG_URL="https://github.com/libretro/beetle-wswan-libretro/archive/${PKG_VERSION}.tar.gz"
