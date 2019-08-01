@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="scummvm"
-PKG_VERSION="602a26cedd55677942648cbf488f52bd951a95d8"
-PKG_SHA256="683d1fc76ccc78603c02a5c51bc6f633bae33d6f0ce1a4ffd8d4753de47f1edf"
+PKG_VERSION="9b1220886385b41a6f86b96faa3b9cfc77dcc57c"
+PKG_SHA256="0e831775438a29c550e6e2595eca429ad1d62c12e92ca7182ab3775390c0c244"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/libretro/scummvm"
 PKG_URL="https://github.com/libretro/scummvm/archive/${PKG_VERSION}.tar.gz"
