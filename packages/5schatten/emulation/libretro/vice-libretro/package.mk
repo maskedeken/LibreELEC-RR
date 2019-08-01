@@ -2,13 +2,13 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="vice-libretro"
-PKG_VERSION="d1775a47e1602dd071049555375d94b95a98dc3f"
-PKG_SHA256="4db91a653122a6bed6b2c7c9de98bd135703e5ea0a6ee2db72bf78c668f937cd"
+PKG_VERSION="60f7b05389a0d71b17a3e0535a9016d1f71137d0"
+PKG_SHA256="3c5535e66f44bdae65bdc34db63efe5382719688159eb4da9ad26429a3bf2162"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/vice-libretro"
 PKG_URL="https://github.com/libretro/vice-libretro/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc"
-PKG_LONGDESC="Versatile Commodore 8-bit Emulator version 3.0 LIBRETRO WIP"
+PKG_LONGDESC="Versatile Commodore 8-bit Emulator version 3.3 LIBRETRO WIP"
 PKG_TOOLCHAIN="make"
 PKG_BUILD_FLAGS="+lto"
 
