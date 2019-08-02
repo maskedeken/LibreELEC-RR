@@ -11,7 +11,7 @@ GET_HANDLER_SUPPORT="git"
 PKG_BUILD_FLAGS="+lto"
 
 if [ "${PROJECT}" = "Generic" ]; then
-  PKG_VERSION="163f54e4c5e84c46bd9f8e072e7c0b01cce29ebb" #v1.8.0+
+  PKG_VERSION="492df41b7480a476d5bcb7de275e046be36354aa" #v1.8.0+
 else
   PKG_VERSION="74d87fa2b4a3c943c1df09cc26a8c70b1335fd30" #v1.7.5
 fi
