@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="vice-libretro"
-PKG_VERSION="60f7b05389a0d71b17a3e0535a9016d1f71137d0"
-PKG_SHA256="3c5535e66f44bdae65bdc34db63efe5382719688159eb4da9ad26429a3bf2162"
+PKG_VERSION="46b23851b1f7b67f8011b3684a173fcf2256d461"
+PKG_SHA256="f303e6f29fcdb7fcdfcf71717fed17fcca9bd135941ae5306fc61a1034c9fed7"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/vice-libretro"
 PKG_URL="https://github.com/libretro/vice-libretro/archive/${PKG_VERSION}.tar.gz"
@@ -16,6 +16,16 @@ PKG_LIBNAME="vice_x64_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
 
 PKG_MAKE_OPTS_TARGET="GIT_VERSION=${PKG_VERSION:0:7}"
+
+pre_configure_target() {
+  if [ "${ARCH}" = "arm" ]; then
+    PKG_MAKE_OPTS_TARGET+=" platform=armv"
+
+    if target_has_feature neon; then
+      PKG_MAKE_OPTS_TARGET+="-neon"
+    fi
+  fi
+}
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/lib/libretro
