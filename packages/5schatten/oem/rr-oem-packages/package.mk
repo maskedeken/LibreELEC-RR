@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (C) 2019-present Frank Hartung (supervisedthinking@gmail.com)
+# Copyright (C) 2019-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="rr-oem-packages"
 PKG_VERSION="1.0"
