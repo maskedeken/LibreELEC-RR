@@ -10,7 +10,7 @@ PKG_URL="https://github.com/libretro/mame2016-libretro/archive/${PKG_VERSION}.ta
 PKG_DEPENDS_TARGET="toolchain linux glibc"
 PKG_LONGDESC="Late 2016 version of MAME (0.174) for libretro. Compatible with MAME 0.174 romsets."
 PKG_TOOLCHAIN="make"
-PKG_BUILD_FLAGS="lto"
+PKG_BUILD_FLAGS="+lto"
 
 PKG_LIBNAME="mamearcade2016_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
