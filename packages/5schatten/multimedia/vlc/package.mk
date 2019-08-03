@@ -17,7 +17,7 @@ configure_package() {
   fi
 
   if target_has_feature "(neon|sse)"; then
-    PKG_DEPENDS_TARGET+=" dav1d libvpx"
+    PKG_DEPENDS_TARGET+=" dav1d libvpx-system"
   fi
 }
 
