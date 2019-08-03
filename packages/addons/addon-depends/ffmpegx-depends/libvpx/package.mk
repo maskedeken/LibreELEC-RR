@@ -10,15 +10,13 @@ PKG_URL="https://github.com/webmproject/libvpx/archive/v${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="WebM VP8/VP9 Codec"
 
-if [ "${TARGET_ARCH}" = "x86_64" ]; then
+if [ "$TARGET_ARCH" = "x86_64" ]; then
   PKG_DEPENDS_TARGET+=" nasm:host"
 fi
 
 configure_target() {
-  # Fix linking shared lib at v1.8.0
-  LDFLAGS+=" -lpthread"
 
-  case ${ARCH} in
+  case $ARCH in
     aarch64)
       PKG_TARGET_NAME_LIBVPX="arm64-linux-gcc"
       ;;
@@ -31,12 +29,12 @@ configure_target() {
   esac
 
   $PKG_CONFIGURE_SCRIPT --prefix=/usr \
-                        --extra-cflags="${CFLAGS}" \
+                        --extra-cflags="$CFLAGS" \
                         --as=nasm \
-                        --target=${PKG_TARGET_NAME_LIBVPX} \
+                        --target=$PKG_TARGET_NAME_LIBVPX \
                         --disable-docs \
                         --disable-examples \
-                        --enable-shared \
+                        --disable-shared \
                         --disable-tools \
                         --disable-unit-tests \
                         --disable-vp8-decoder \
