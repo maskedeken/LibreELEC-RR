@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="dav1d"
-PKG_VERSION="0.3.1"
-PKG_SHA256="be511d465223cc74aab507fe3a6e4e764501662ebf1a5e233854ed064a7ae204"
+PKG_VERSION="0.4.0"
+PKG_SHA256="18bf96c5168b8c704422387620fefaa953e8dbd4eacb0f0796c03d6e741f8924"
 PKG_LICENSE="BSD"
 PKG_SITE="http://www.jbkempf.com/blog/post/2018/Introducing-dav1d"
 PKG_URL="https://code.videolan.org/videolan/dav1d/-/archive/${PKG_VERSION}/dav1d-${PKG_VERSION}.tar.bz2"
@@ -17,6 +17,6 @@ configure_package() {
 }
 
 pre_configure_target(){
-  PKG_MESON_OPTS_TARGET="-Dbuild_tools=false \
-                         -Dbuild_tests=false"
+  PKG_MESON_OPTS_TARGET="-Denable_tools=false \
+                         -Denable_tests=false"
 }
