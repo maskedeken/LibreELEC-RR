@@ -10,13 +10,9 @@ PKG_URL="https://code.videolan.org/videolan/dav1d/-/archive/${PKG_VERSION}/dav1d
 PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="dav1d is an AV1 decoder :)"
 
-configure_package() {
-  if [ "${TARGET_ARCH}" = "x86_64" ]; then
-    PKG_DEPENDS_TARGET+=" nasm:host"
-  fi
-}
+if [ "${TARGET_ARCH}" = "x86_64" ]; then
+  PKG_DEPENDS_TARGET+=" nasm:host"
+fi
 
-pre_configure_target(){
-  PKG_MESON_OPTS_TARGET="-Denable_tools=false \
-                         -Denable_tests=false"
-}
+PKG_MESON_OPTS_TARGET="-Denable_tools=false \
+                       -Denable_tests=false"
