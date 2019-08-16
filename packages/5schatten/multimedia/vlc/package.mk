@@ -16,6 +16,11 @@ configure_package() {
     PKG_PATCH_DIRS="MMAL"
   fi
 
+  # RPi4 support patches
+  if [ "${DEVICE}" = "RPi4" ]; then
+    PKG_PATCH_DIRS="RPi4"
+  fi
+
   if target_has_feature "(neon|sse)"; then
     PKG_DEPENDS_TARGET+=" dav1d libvpx-system"
   fi
@@ -128,6 +133,11 @@ pre_configure_target() {
   # MMAL Support for RPi
   if [ "${OPENGLES}" = "bcm2835-driver" ]; then
     PKG_CONFIGURE_OPTS_TARGET+=" --enable-mmal"
+  fi
+
+  # GLES2 Support for RPi4
+  if [ "${DEVICE}" = "RPi4" ]; then
+    PKG_CONFIGURE_OPTS_TARGET+=" --enable-gles2"
   fi
 
   # NEON Support
