@@ -8,7 +8,7 @@ PKG_LICENSE="MIT"
 PKG_SITE="http://curl.haxx.se"
 PKG_URL="http://curl.haxx.se/download/curl-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain glibc zlib gnutls rtmpdump nettle libidn2 nghttp2"
-PKG_LONGDESC="An URL retrieval library (linked against gnutls)"
+PKG_LONGDESC="An URL retrieval library linked against gnutls without versioned symbols"
 PKG_TOOLCHAIN="configure"
 PKG_BUILD_FLAGS="-gold"
 
