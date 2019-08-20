@@ -1,0 +1,329 @@
+From dc6d26580336b80f6c249cde53e198b4238cea56 Mon Sep 17 00:00:00 2001
+From: Fabrice CARUSO <fabrice.caruso@free.fr>
+Date: Fri, 16 Aug 2019 10:05:40 +0200
+Subject: [PATCH 1/2] Fix Reloadables : Don't reload useless textures that were
+ not loaded at unload time.
+
+---
+ es-core/src/resources/Font.cpp            | 20 ++++++++---
+ es-core/src/resources/Font.h              |  6 ++--
+ es-core/src/resources/ResourceManager.cpp | 41 ++++++++++++++++-------
+ es-core/src/resources/ResourceManager.h   | 14 ++++++--
+ es-core/src/resources/TextureResource.cpp | 23 ++++++++++---
+ es-core/src/resources/TextureResource.h   |  4 +--
+ 6 files changed, 80 insertions(+), 28 deletions(-)
+
+diff --git a/es-core/src/resources/Font.cpp b/es-core/src/resources/Font.cpp
+index f0e93e61c..631f7ee9e 100644
+--- a/es-core/src/resources/Font.cpp
++++ b/es-core/src/resources/Font.cpp
+@@ -72,6 +72,7 @@ Font::Font(int size, const std::string& path) : mSize(size), mPath(path)
+ {
+ 	assert(mSize > 0);
+ 	
++	mLoaded = true;
+ 	mMaxGlyphHeight = 0;
+ 
+ 	if(!sLibrary)
+@@ -86,17 +87,28 @@ Font::Font(int size, const std::string& path) : mSize(size), mPath(path)
+ 
+ Font::~Font()
+ {
+-	unload(ResourceManager::getInstance());
++	unload();
+ }
+ 
+-void Font::reload(std::shared_ptr<ResourceManager>& /*rm*/)
++void Font::reload()
+ {
++	if (mLoaded)
++		return;
++
+ 	rebuildTextures();
++	mLoaded = true;
+ }
+ 
+-void Font::unload(std::shared_ptr<ResourceManager>& /*rm*/)
++bool Font::unload()
+ {
+-	unloadTextures();
++	if (mLoaded)
++	{
++		unloadTextures();
++		mLoaded = false;
++		return true;
++	}
++
++	return false;
+ }
+ 
+ std::shared_ptr<Font> Font::get(int size, const std::string& path)
+diff --git a/es-core/src/resources/Font.h b/es-core/src/resources/Font.h
+index 585c89246..a858d15db 100644
+--- a/es-core/src/resources/Font.h
++++ b/es-core/src/resources/Font.h
+@@ -53,8 +53,8 @@ class Font : public IReloadable
+ 	float getHeight(float lineSpacing = 1.5f) const;
+ 	float getLetterHeight();
+ 
+-	void unload(std::shared_ptr<ResourceManager>& rm) override;
+-	void reload(std::shared_ptr<ResourceManager>& rm) override;
++	bool unload() override;
++	void reload() override;
+ 
+ 	int getSize() const;
+ 	inline const std::string& getPath() const { return mPath; }
+@@ -131,6 +131,8 @@ class Font : public IReloadable
+ 
+ 	float getNewlineStartOffset(const std::string& text, const unsigned int& charStart, const float& xLen, const Alignment& alignment);
+ 
++	bool mLoaded;
++
+ 	friend TextCache;
+ };
+ 
+diff --git a/es-core/src/resources/ResourceManager.cpp b/es-core/src/resources/ResourceManager.cpp
+index 9f5014e43..1b31a9588 100644
+--- a/es-core/src/resources/ResourceManager.cpp
++++ b/es-core/src/resources/ResourceManager.cpp
+@@ -92,34 +92,51 @@ bool ResourceManager::fileExists(const std::string& path) const
+ void ResourceManager::unloadAll()
+ {
+ 	auto iter = mReloadables.cbegin();
+-	while(iter != mReloadables.cend())
++	while (iter != mReloadables.cend())
+ 	{
+-		if(!iter->expired())
++		std::shared_ptr<ReloadableInfo> info = *iter;
++
++		if (!info->data.expired())
+ 		{
+-			iter->lock()->unload(sInstance);
++			if (!info->locked)
++				info->reload = info->data.lock()->unload();
++			else
++				info->locked = false;
++
+ 			iter++;
+-		}else{
+-			iter = mReloadables.erase(iter);
+ 		}
++		else
++			iter = mReloadables.erase(iter);
+ 	}
+ }
+ 
+ void ResourceManager::reloadAll()
+ {
+ 	auto iter = mReloadables.cbegin();
+-	while(iter != mReloadables.cend())
++	while (iter != mReloadables.cend())
+ 	{
+-		if(!iter->expired())
++		std::shared_ptr<ReloadableInfo> info = *iter;
++
++		if (!info->data.expired())
+ 		{
+-			iter->lock()->reload(sInstance);
++			if (info->reload)
++			{
++				info->data.lock()->reload();
++				info->reload = false;
++			}
++
+ 			iter++;
+-		}else{
+-			iter = mReloadables.erase(iter);
+ 		}
++		else
++			iter = mReloadables.erase(iter);
+ 	}
+ }
+ 
+ void ResourceManager::addReloadable(std::weak_ptr<IReloadable> reloadable)
+ {
+-	mReloadables.push_back(reloadable);
+-}
++	std::shared_ptr<ReloadableInfo> info = std::make_shared<ReloadableInfo>();
++	info->data = reloadable;
++	info->reload = false;
++	info->locked = false;
++	mReloadables.push_back(info);
++}
+\ No newline at end of file
+diff --git a/es-core/src/resources/ResourceManager.h b/es-core/src/resources/ResourceManager.h
+index 96eab6455..2ff06a887 100644
+--- a/es-core/src/resources/ResourceManager.h
++++ b/es-core/src/resources/ResourceManager.h
+@@ -20,8 +20,8 @@ class ResourceManager;
+ class IReloadable
+ {
+ public:
+-	virtual void unload(std::shared_ptr<ResourceManager>& rm) = 0;
+-	virtual void reload(std::shared_ptr<ResourceManager>& rm) = 0;
++	virtual bool unload() = 0;
++	virtual void reload() = 0;
+ };
+ 
+ class ResourceManager
+@@ -45,7 +45,15 @@ class ResourceManager
+ 
+ 	ResourceData loadFile(const std::string& path) const;
+ 
+-	std::list< std::weak_ptr<IReloadable> > mReloadables;
++	class ReloadableInfo
++	{
++	public:
++		std::weak_ptr<IReloadable> data;
++		bool reload;
++		bool locked;
++	};
++
++	std::list<std::shared_ptr<ReloadableInfo>> mReloadables; //  std::weak_ptr<IReloadable> 
+ };
+ 
+ #endif // ES_CORE_RESOURCES_RESOURCE_MANAGER_H
+diff --git a/es-core/src/resources/TextureResource.cpp b/es-core/src/resources/TextureResource.cpp
+index c3d9eff0b..70d9a4090 100644
+--- a/es-core/src/resources/TextureResource.cpp
++++ b/es-core/src/resources/TextureResource.cpp
+@@ -199,7 +199,7 @@ size_t TextureResource::getTotalTextureSize()
+ 	return total;
+ }
+ 
+-void TextureResource::unload(std::shared_ptr<ResourceManager>& /*rm*/)
++bool TextureResource::unload()
+ {
+ 	// Release the texture's resources
+ 	std::shared_ptr<TextureData> data;
+@@ -208,14 +208,27 @@ void TextureResource::unload(std::shared_ptr<ResourceManager>& /*rm*/)
+ 	else
+ 		data = mTextureData;
+ 
+-	data->releaseVRAM();
+-	data->releaseRAM();
++	if (data != nullptr && data->isLoaded())
++	{
++		data->releaseVRAM();
++		data->releaseRAM();
++
++		return true;
++	}
++
++	return false;
+ }
+ 
+-void TextureResource::reload(std::shared_ptr<ResourceManager>& /*rm*/)
++void TextureResource::reload()
+ {
+ 	// For dynamically loaded textures the texture manager will load them on demand.
+ 	// For manually loaded textures we have to reload them here
+-	if (mTextureData)
++	if (mTextureData && !mTextureData->isLoaded())
+ 		mTextureData->load();
++
++	// Uncomment this 2 lines in future release in order to reload texture VRAM exactly as it was before
++	// This is commented because it needs true images async loading, or it will be very long
++
++	// else if (mTextureData == nullptr)
++	//	 sTextureDataManager.get(this);
+ }
+diff --git a/es-core/src/resources/TextureResource.h b/es-core/src/resources/TextureResource.h
+index c2be59f1d..c3c7e9dd2 100644
+--- a/es-core/src/resources/TextureResource.h
++++ b/es-core/src/resources/TextureResource.h
+@@ -37,8 +37,8 @@ class TextureResource : public IReloadable
+ 
+ protected:
+ 	TextureResource(const std::string& path, bool tile, bool dynamic);
+-	virtual void unload(std::shared_ptr<ResourceManager>& rm);
+-	virtual void reload(std::shared_ptr<ResourceManager>& rm);
++	virtual bool unload();
++	virtual void reload();
+ 
+ private:
+ 	// mTextureData is used for textures that are not loaded from a file - these ones
+
+From 98dd8f6ee82ba9a687a1942f02b05654b6d0c935 Mon Sep 17 00:00:00 2001
+From: Fabrice CARUSO <fabrice.caruso@free.fr>
+Date: Fri, 16 Aug 2019 10:12:00 +0200
+Subject: [PATCH 2/2] Removed useless locked flag ( it will need a future
+ "lockReloadable" method in order to avoid unloading )
+
+---
+ es-core/src/resources/ResourceManager.cpp | 21 ++++++++-------------
+ es-core/src/resources/ResourceManager.h   |  3 +--
+ 2 files changed, 9 insertions(+), 15 deletions(-)
+
+diff --git a/es-core/src/resources/ResourceManager.cpp b/es-core/src/resources/ResourceManager.cpp
+index 1b31a9588..b0c8f89de 100644
+--- a/es-core/src/resources/ResourceManager.cpp
++++ b/es-core/src/resources/ResourceManager.cpp
+@@ -92,28 +92,24 @@ bool ResourceManager::fileExists(const std::string& path) const
+ void ResourceManager::unloadAll()
+ {
+ 	auto iter = mReloadables.cbegin();
+-	while (iter != mReloadables.cend())
+-	{
++	while(iter != mReloadables.cend())
++	{					
+ 		std::shared_ptr<ReloadableInfo> info = *iter;
+ 
+ 		if (!info->data.expired())
+-		{
+-			if (!info->locked)
+-				info->reload = info->data.lock()->unload();
+-			else
+-				info->locked = false;
+-
++		{		
++			info->reload = info->data.lock()->unload();
+ 			iter++;
+ 		}
+ 		else
+-			iter = mReloadables.erase(iter);
++			iter = mReloadables.erase(iter);		
+ 	}
+ }
+ 
+ void ResourceManager::reloadAll()
+ {
+ 	auto iter = mReloadables.cbegin();
+-	while (iter != mReloadables.cend())
++	while(iter != mReloadables.cend())
+ 	{
+ 		std::shared_ptr<ReloadableInfo> info = *iter;
+ 
+@@ -128,7 +124,7 @@ void ResourceManager::reloadAll()
+ 			iter++;
+ 		}
+ 		else
+-			iter = mReloadables.erase(iter);
++			iter = mReloadables.erase(iter);		
+ 	}
+ }
+ 
+@@ -136,7 +132,6 @@ void ResourceManager::addReloadable(std::weak_ptr<IReloadable> reloadable)
+ {
+ 	std::shared_ptr<ReloadableInfo> info = std::make_shared<ReloadableInfo>();
+ 	info->data = reloadable;
+-	info->reload = false;
+-	info->locked = false;
++	info->reload = false;	
+ 	mReloadables.push_back(info);
+ }
+\ No newline at end of file
+diff --git a/es-core/src/resources/ResourceManager.h b/es-core/src/resources/ResourceManager.h
+index 2ff06a887..5eaf62239 100644
+--- a/es-core/src/resources/ResourceManager.h
++++ b/es-core/src/resources/ResourceManager.h
+@@ -49,8 +49,7 @@ class ResourceManager
+ 	{
+ 	public:
+ 		std::weak_ptr<IReloadable> data;
+-		bool reload;
+-		bool locked;
++		bool reload;		
+ 	};
+ 
+ 	std::list<std::shared_ptr<ReloadableInfo>> mReloadables; //  std::weak_ptr<IReloadable> 
