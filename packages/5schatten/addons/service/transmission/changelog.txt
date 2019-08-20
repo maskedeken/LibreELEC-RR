@@ -1,3 +1,7 @@
+101
+- reworked build opts
+- updated to transmission 3.0.0 nightly
+
 100
 - reworked build opts
 - updated to transmission 2.94
