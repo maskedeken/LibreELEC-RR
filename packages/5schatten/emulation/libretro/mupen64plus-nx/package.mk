@@ -43,6 +43,12 @@ pre_configure_target() {
       RPi2)
         PKG_MAKE_OPTS_TARGET+=" platform=rpi2"
         ;;
+      RPi3)
+        PKG_MAKE_OPTS_TARGET+=" platform=rpi3"
+        ;;
+      RPi4)
+        PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1 WITH_DYNAREC=arm HAVE_NEON=1"
+        ;;
     esac
   elif [ "${PROJECT}" = "Amlogic" ]; then
     case ${DEVICE} in
