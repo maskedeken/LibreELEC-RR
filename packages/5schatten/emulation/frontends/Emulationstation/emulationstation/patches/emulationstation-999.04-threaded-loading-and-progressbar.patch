@@ -1,4 +1,4 @@
-From 05cc0c35fdb156959a0eada5e1473420cbc86ab4 Mon Sep 17 00:00:00 2001
+From 380f38ea3c478d0274afbc6ebd09a22465159d95 Mon Sep 17 00:00:00 2001
 From: Fabrice CARUSO <fabrice.caruso@free.fr>
 Date: Sat, 17 Aug 2019 10:56:59 +0200
 Subject: [PATCH] Added a progressbar during loading + threaded loading when
@@ -402,7 +402,7 @@ index ad0456b3c..e0625b341 100644
  
  	FileData* mRootFolder;
 diff --git a/es-app/src/main.cpp b/es-app/src/main.cpp
-index 6c1fe80ef..be909564f 100644
+index 6c1fe80ef..15c395a83 100644
 --- a/es-app/src/main.cpp
 +++ b/es-app/src/main.cpp
 @@ -197,11 +197,11 @@ bool verifyHomeFolderExists()
@@ -436,7 +436,7 @@ index 6c1fe80ef..be909564f 100644
  
  	const char* errorMsg = NULL;
 -	if(!loadSystemConfigFile(&errorMsg))
-+	if(!loadSystemConfigFile(&window, &errorMsg))
++	if(!loadSystemConfigFile(splashScreen && splashScreenProgress ? &window : nullptr, &errorMsg))
  	{
  		// something went terribly wrong
  		if(errorMsg == NULL)
