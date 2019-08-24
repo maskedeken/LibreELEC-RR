@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="citra"
-PKG_VERSION="a3fca5b17099142d4a04b428def7622bf5858404"
+PKG_VERSION="8fa6be5b1516f7b8b5447a3fb88f677212da28d2"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv2+"
 PKG_SITE="https://github.com/citra-emu/citra"
