@@ -1,17 +1,17 @@
-From 361f3a3523bbbd684f14798365120cfc68907c2d Mon Sep 17 00:00:00 2001
+From 1fd6101799eefc7f3b89daf67e71c42dc73560c0 Mon Sep 17 00:00:00 2001
 From: 5schatten <supervisedthinking@gmail.com>
-Date: Tue, 28 May 2019 14:38:52 +0200
-Subject: [PATCH] [Makefile] fix cross compile
+Date: Sat, 24 Aug 2019 14:22:38 +0200
+Subject: [PATCH] Makefile: fix cross-compile
 
 ---
  Makefile | 16 +---------------
  1 file changed, 1 insertion(+), 15 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index de39c78c5..5f41802bf 100644
+index f64cb0599..990ea8768 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -21,25 +21,11 @@
+@@ -23,25 +23,11 @@ THREADED_RENDERING_DEFAULT := 0
  
  TARGET_NAME   := flycast
  
@@ -20,11 +20,11 @@ index de39c78c5..5f41802bf 100644
 -	CC       = ${CC_PREFIX}clang
 -	SHARED   := -fuse-ld=lld
 -else
--	CXX      = ${CC_PREFIX}g++
--	CC       = ${CC_PREFIX}gcc
+-	CXX      ?= ${CC_PREFIX}g++
+-	CC       ?= ${CC_PREFIX}gcc
 -	SHARED   :=
 -endif
--CC_AS    = ${CC_PREFIX}as
+-CC_AS    ?= ${CC_PREFIX}as
 -
  MFLAGS   := 
  ASFLAGS  := 
@@ -37,7 +37,7 @@ index de39c78c5..5f41802bf 100644
  
  GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
  ifneq ($(GIT_VERSION)," unknown")
-@@ -899,7 +885,7 @@
+@@ -984,7 +970,7 @@ LIBS     += -lm
  PREFIX        ?= /usr/local
  
  ifneq (,$(findstring arm, $(ARCH)))
