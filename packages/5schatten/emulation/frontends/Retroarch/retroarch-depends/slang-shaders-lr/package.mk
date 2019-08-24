@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="slang-shaders-lr"
-PKG_VERSION="6e6db3e9d18079daec8edda5f61ac7bb91c2d140"
-PKG_SHA256="9f60bac677f51e68e84797568061e9056ab9822f91bc49fce61fe9d7dc6a51cc"
+PKG_VERSION="bf0dfe41cb561a5743fb352e75ef38ef954e5f88"
+PKG_SHA256="450514e0ae65787772da898d9f6926f79a493936d26a9201ac3a5af2e1412e3d"
 PKG_LICENSE="MIT"
 PKG_SITE="https://github.com/libretro/slang-shaders"
 PKG_URL="https://github.com/libretro/slang-shaders/archive/${PKG_VERSION}.tar.gz"
