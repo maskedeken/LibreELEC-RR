@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="SDL2-system"
-PKG_VERSION="b71dec57ab6898d319951bba8ed83816b69b3cae" #2.0.10
-PKG_SHA256="5493e819ebbb138af68b188dbe16f1e92924eeaa3daf45551cd0b0797a87e80d"
+PKG_VERSION="ace57ce610fbe1d0602012264101157c964f6b33" #2.0.10+
+PKG_SHA256="dfe3fa0174a7522218c521501c2f10999e86769c1d6625e17a9eb4dabefcae3e"
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.libsdl.org/"
 PKG_URL="https://github.com/spurious/SDL-mirror/archive/${PKG_VERSION}.tar.gz"
