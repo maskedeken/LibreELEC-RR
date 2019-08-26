@@ -1,9 +1,10 @@
-From d8bcfcb7c813d67db56511e3deb30c7cc82f1998 Mon Sep 17 00:00:00 2001
-From: PixelGordo <webpixelgordo@gmail.com>
-Date: Thu, 9 May 2019 09:54:46 +0100
+From f8a45a4459df25a53a526b42d1fae6a87ecd4cf6 Mon Sep 17 00:00:00 2001
+From: 5schatten <supervisedthinking@gmail.com>
+Date: Mon, 26 Aug 2019 15:53:14 +0200
 Subject: [PATCH] Changed pageup/pagedown to leftshoulder/rightshoulder for
- consistency and also to fix a controls configuration bug.
+ consistency
 
+https://github.com/RetroPie/EmulationStation/pull/562
 ---
  es-app/src/components/TextListComponent.h        | 6 +++---
  es-app/src/views/gamelist/GridGameListView.cpp   | 4 ++--
@@ -13,7 +14,7 @@ Subject: [PATCH] Changed pageup/pagedown to leftshoulder/rightshoulder for
  5 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/es-app/src/components/TextListComponent.h b/es-app/src/components/TextListComponent.h
-index c90329883..f6cdbd474 100644
+index 5e4c26b8e..639fa8307 100644
 --- a/es-app/src/components/TextListComponent.h
 +++ b/es-app/src/components/TextListComponent.h
 @@ -262,20 +262,20 @@ bool TextListComponent<T>::input(InputConfig* config, Input input)
@@ -34,14 +35,14 @@ index c90329883..f6cdbd474 100644
  				return true;
  			}
  		}else{
- 			if(config->isMappedLike("down", input) || config->isMappedLike("up", input) || 
+ 			if(config->isMappedLike("down", input) || config->isMappedLike("up", input) ||
 -				config->isMappedTo("pagedown", input) || config->isMappedTo("pageup", input))
 +				config->isMappedTo("rightshoulder", input) || config->isMappedTo("leftshoulder", input))
  			{
  				stopScrolling();
  			}
 diff --git a/es-app/src/views/gamelist/GridGameListView.cpp b/es-app/src/views/gamelist/GridGameListView.cpp
-index 91f9c08b0..74676221d 100644
+index 91f9c08b0..3c87e49fc 100644
 --- a/es-app/src/views/gamelist/GridGameListView.cpp
 +++ b/es-app/src/views/gamelist/GridGameListView.cpp
 @@ -94,12 +94,12 @@ void GridGameListView::setCursor(FileData* file)
@@ -49,18 +50,18 @@ index 91f9c08b0..74676221d 100644
  std::string GridGameListView::getQuickSystemSelectRightButton()
  {
 -	return "pagedown"; //rightshoulder
-+	return "rightshoulder"; //rightshoulder
++	return "rightshoulder";
  }
  
  std::string GridGameListView::getQuickSystemSelectLeftButton()
  {
 -	return "pageup"; //leftshoulder
-+	return "leftshoulder"; //leftshoulder
++	return "leftshoulder";
  }
  
  bool GridGameListView::input(InputConfig* config, Input input)
 diff --git a/es-core/src/InputManager.cpp b/es-core/src/InputManager.cpp
-index d074367eb..dd0be6a17 100644
+index 441812ca9..08f54f2f6 100644
 --- a/es-core/src/InputManager.cpp
 +++ b/es-core/src/InputManager.cpp
 @@ -328,8 +328,8 @@ void InputManager::loadDefaultKBConfig()
@@ -75,10 +76,10 @@ index d074367eb..dd0be6a17 100644
  
  void InputManager::writeDeviceConfig(InputConfig* config)
 diff --git a/es-core/src/components/ComponentList.cpp b/es-core/src/components/ComponentList.cpp
-index c2c42d8f3..32af39600 100644
+index 74b6dfde6..358f07b8e 100644
 --- a/es-core/src/components/ComponentList.cpp
 +++ b/es-core/src/components/ComponentList.cpp
-@@ -82,10 +82,10 @@ bool ComponentList::input(InputConfig* config, Input input)
+@@ -80,10 +80,10 @@ bool ComponentList::input(InputConfig* config, Input input)
  	{
  		return listInput(input.value != 0 ? 1 : 0);
  
@@ -92,10 +93,10 @@ index c2c42d8f3..32af39600 100644
  	}
  
 diff --git a/es-core/src/components/DateTimeEditComponent.cpp b/es-core/src/components/DateTimeEditComponent.cpp
-index d4b6636a3..ccb2c3da3 100644
+index fef38aa47..21df1c797 100644
 --- a/es-core/src/components/DateTimeEditComponent.cpp
 +++ b/es-core/src/components/DateTimeEditComponent.cpp
-@@ -54,9 +54,9 @@ bool DateTimeEditComponent::input(InputConfig* config, Input input)
+@@ -53,9 +53,9 @@ bool DateTimeEditComponent::input(InputConfig* config, Input input)
  		}
  
  		int incDir = 0;
