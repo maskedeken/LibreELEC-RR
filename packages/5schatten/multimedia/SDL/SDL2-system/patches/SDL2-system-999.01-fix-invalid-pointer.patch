@@ -1,0 +1,12 @@
+diff --git a/src/video/raspberry/SDL_rpimouse.c b/src/video/raspberry/SDL_rpimouse.c
+--- a/src/video/raspberry/SDL_rpimouse.c
++++ b/src/video/raspberry/SDL_rpimouse.c
+@@ -226,6 +226,9 @@ RPI_FreeCursor(SDL_Cursor * cursor)
+             SDL_free(cursor->driverdata);
+         }
+         SDL_free(cursor);
++        if (cursor == global_cursor) {
++            global_cursor = NULL;
++        }
+     }
+ }

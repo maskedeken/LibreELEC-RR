@@ -2,25 +2,13 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="SDL2-system"
+PKG_VERSION="b71dec57ab6898d319951bba8ed83816b69b3cae" #2.0.10
+PKG_SHA256="5493e819ebbb138af68b188dbe16f1e92924eeaa3daf45551cd0b0797a87e80d"
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.libsdl.org/"
+PKG_URL="https://github.com/spurious/SDL-mirror/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain alsa-lib systemd dbus"
-PKG_LONGDESC="Simple DirectMedia Layer is a cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware."
-
-if [ "${PROJECT}" = "RPi" ]; then
-  # fix me:
-  # https://bugzilla.libsdl.org/show_bug.cgi?id=4769
-  # https://github.com/RetroPie/EmulationStation/issues/591
-  PKG_VERSION="06b24e43f66aa81f679b2ab4989a64eeb0fb5546" #2.0.9+
-  PKG_SHA256="4c147733ddb83e028962fbb9254eb569ff894d90c56f41df50328690a8f45884"
-  PKG_URL="https://github.com/spurious/SDL-mirror/archive/${PKG_VERSION}.tar.gz"
-  PKG_PATCH_DIRS="2.0.9"
-else
-  PKG_VERSION="b71dec57ab6898d319951bba8ed83816b69b3cae" #2.0.10
-  PKG_SHA256="5493e819ebbb138af68b188dbe16f1e92924eeaa3daf45551cd0b0797a87e80d"
-  PKG_URL="https://github.com/spurious/SDL-mirror/archive/${PKG_VERSION}.tar.gz"
-  PKG_PATCH_DIRS="2.0.10"
-fi
+PKG_LONGDESC="Simple DirectMedia Layer is a cross-platform development library for portable low-level access to a video framebuffer, audio output, mouse, and keyboard."
 
 configure_package() {
   # Apply project specific patches
