@@ -11,6 +11,10 @@ PKG_DEPENDS_TARGET="toolchain linux glibc zlib libpng"
 PKG_LONGDESC="Mupen64Plus is mupen64plus + GLideN64 + libretro"
 PKG_TOOLCHAIN="make"
 
+if [ "${ARCH}" = "arm" ]; then
+  PKG_BUILD_FLAGS="+lto"
+fi
+
 PKG_LIBNAME="mupen64plus_next_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
 
