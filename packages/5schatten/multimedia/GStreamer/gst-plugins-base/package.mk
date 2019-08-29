@@ -19,7 +19,7 @@ pre_configure_target() {
 
   # Fix undefined symbol glPointSizePointerOES
   if [ "${OPENGLES}" = "bcm2835-driver" ]; then
-    LDFLAGS+=" -lEGL -lGLESv2"
+    TARGET_LDFLAGS+=" -lEGL -lGLESv2"
   fi
 }
 
