@@ -29,10 +29,6 @@ configure_package() {
   fi
 }
 
-pre_configure_target() {
-  PKG_CMAKE_OPTS_TARGET="-DUSE_LIBCEC=OFF"
-}
-
 post_makeinstall_target() {
   # Create directories
   mkdir -p $INSTALL/etc/emulationstation
