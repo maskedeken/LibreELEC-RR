@@ -14,76 +14,75 @@ PKG_TOOLCHAIN="meson"
 
 get_graphicdrivers
 
-PKG_MESON_OPTS_TARGET="-Ddri-drivers=${DRI_DRIVERS// /,} \
-                       -Dgallium-drivers=${GALLIUM_DRIVERS// /,} \
-                       -Dgallium-extra-hud=false \
-                       -Dgallium-xvmc=false \
-                       -Dgallium-omx=disabled \
-                       -Dgallium-nine=false \
-                       -Dgallium-opencl=disabled \
-                       -Dshader-cache=true \
-                       -Dshared-glapi=true \
-                       -Dopengl=true \
-                       -Dgbm=true \
-                       -Degl=true \
-                       -Dglvnd=false \
-                       -Dvalgrind=false \
-                       -Dlibunwind=false \
-                       -Dlmsensors=false \
-                       -Dbuild-tests=false \
-                       -Dselinux=false \
-                       -Dosmesa=none"
+PKG_MESON_OPTS_TARGET="-D dri-drivers=${DRI_DRIVERS// /,} \
+                       -D gallium-drivers=${GALLIUM_DRIVERS// /,} \
+                       -D gallium-extra-hud=false \
+                       -D gallium-xvmc=false \
+                       -D gallium-omx=disabled \
+                       -D gallium-nine=false \
+                       -D gallium-opencl=disabled \
+                       -D shader-cache=true \
+                       -D shared-glapi=true \
+                       -D opengl=true \
+                       -D gbm=true \
+                       -D egl=true \
+                       -D valgrind=false \
+                       -D libunwind=false \
+                       -D lmsensors=false \
+                       -D build-tests=false \
+                       -D selinux=false \
+                       -D osmesa=none"
 
 if [ "${DISPLAYSERVER}" = "x11" ]; then
-  PKG_DEPENDS_TARGET+=" xorgproto libXext libXdamage libXfixes libXxf86vm libxcb libX11 libxshmfence libXrandr"
+  PKG_DEPENDS_TARGET+=" xorgproto libXext libXdamage libXfixes libXxf86vm libxcb libX11 libxshmfence libXrandr libglvnd"
   export X11_INCLUDES=
-  PKG_MESON_OPTS_TARGET+=" -Dplatforms=x11,drm -Ddri3=true -Dglx=dri"
+  PKG_MESON_OPTS_TARGET+=" -D platforms=x11,drm -D dri3=true -D glx=dri -D glvnd=true"
 elif [ "${DISPLAYSERVER}" = "weston" ]; then
   PKG_DEPENDS_TARGET+=" wayland wayland-protocols"
-  PKG_MESON_OPTS_TARGET+=" -Dplatforms=wayland,drm -Ddri3=false -Dglx=disabled"
+  PKG_MESON_OPTS_TARGET+=" -D platforms=wayland,drm -D dri3=false -D glx=disabled"
 else
-  PKG_MESON_OPTS_TARGET+=" -Dplatforms=drm -Ddri3=false -Dglx=disabled"
+  PKG_MESON_OPTS_TARGET+=" -D platforms=drm -D dri3=false -D glx=disabled"
 fi
 
 if [ "${LLVM_SUPPORT}" = "yes" ]; then
   PKG_DEPENDS_TARGET+=" elfutils llvm"
   export LLVM_CONFIG="${SYSROOT_PREFIX}/usr/bin/llvm-config-host"
-  PKG_MESON_OPTS_TARGET+=" -Dllvm=true"
+  PKG_MESON_OPTS_TARGET+=" -D llvm=true"
 else
-  PKG_MESON_OPTS_TARGET+=" -Dllvm=false"
+  PKG_MESON_OPTS_TARGET+=" -D llvm=false"
 fi
 
 if [ "${VDPAU_SUPPORT}" = "yes" -a "${DISPLAYSERVER}" = "x11" ]; then
   PKG_DEPENDS_TARGET+=" libvdpau"
-  PKG_MESON_OPTS_TARGET+=" -Dgallium-vdpau=true"
+  PKG_MESON_OPTS_TARGET+=" -D gallium-vdpau=true"
 else
-  PKG_MESON_OPTS_TARGET+=" -Dgallium-vdpau=false"
+  PKG_MESON_OPTS_TARGET+=" -D gallium-vdpau=false"
 fi
 
 if [ "${VAAPI_SUPPORT}" = "yes" ] && listcontains "${GRAPHIC_DRIVERS}" "(r600|radeonsi)"; then
   PKG_DEPENDS_TARGET+=" libva"
-  PKG_MESON_OPTS_TARGET+=" -Dgallium-va=true"
+  PKG_MESON_OPTS_TARGET+=" -D gallium-va=true"
 else
-  PKG_MESON_OPTS_TARGET+=" -Dgallium-va=false"
+  PKG_MESON_OPTS_TARGET+=" -D gallium-va=false"
 fi
 
 if listcontains "${GRAPHIC_DRIVERS}" "vmware"; then
-  PKG_MESON_OPTS_TARGET+=" -Dgallium-xa=true"
+  PKG_MESON_OPTS_TARGET+=" -D gallium-xa=true"
 else
-  PKG_MESON_OPTS_TARGET+=" -Dgallium-xa=false"
+  PKG_MESON_OPTS_TARGET+=" -D gallium-xa=false"
 fi
 
 if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
-  PKG_MESON_OPTS_TARGET+=" -Dgles1=true -Dgles2=true"
+  PKG_MESON_OPTS_TARGET+=" -D gles1=true -D gles2=true"
 else
-  PKG_MESON_OPTS_TARGET+=" -Dgles1=false -Dgles2=false"
+  PKG_MESON_OPTS_TARGET+=" -D gles1=false -D gles2=false"
 fi
 
 if [ "${VULKAN_SUPPORT}" = "yes" ]; then
   PKG_DEPENDS_TARGET+=" vulkan-loader"
-  PKG_MESON_OPTS_TARGET+=" -Dvulkan-drivers=amd,intel"
+  PKG_MESON_OPTS_TARGET+=" -D vulkan-drivers=amd,intel"
 else
-  PKG_MESON_OPTS_TARGET+=" -Dvulkan-drivers="
+  PKG_MESON_OPTS_TARGET+=" -D vulkan-drivers="
 fi
 
 pre_configure_target() {
@@ -100,17 +99,5 @@ pre_configure_target() {
 
       find -type f -exec sed -i 's/ndef __LP64__/ 0/g; s/def __LP64__/ 1/g' {} +;
     )
-  fi
-}
-
-post_makeinstall_target() {
-  # Similar hack is needed on EGL, GLES* front. Might as well drop it and test the GLVND?
-  if [ "${DISPLAYSERVER}" = "x11" ]; then
-    # rename and relink for cooperate with nvidia drivers
-    safe_remove ${INSTALL}/usr/lib/libGL.so
-    safe_remove ${INSTALL}/usr/lib/libGL.so.1
-    ln -sf libGL.so.1 ${INSTALL}/usr/lib/libGL.so
-    ln -sf /var/lib/libGL.so ${INSTALL}/usr/lib/libGL.so.1
-    mv ${INSTALL}/usr/lib/libGL.so.1.2.0 ${INSTALL}/usr/lib/libGL_mesa.so.1
   fi
 }
