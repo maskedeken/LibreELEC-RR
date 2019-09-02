@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="retroarch-joypad-autoconfig"
-PKG_VERSION="4f80e58b2b34bd3107e12cf615f955a87e0a83a4"
-PKG_SHA256="437abd88c0f97643d0677a5b88c50b95514bf939cfd8a964cb0bd9200838945c"
+PKG_VERSION="a344f16ca04101ffc826e2046d716edf51711a09"
+PKG_SHA256="8f4b9c032e7562ed7cafbedd0e37cf88aceb1d3bfed84cdd7938df7a9a86f438"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/libretro/retroarch-joypad-autoconfig"
 PKG_URL="https://github.com/libretro/retroarch-joypad-autoconfig/archive/${PKG_VERSION}.tar.gz"
