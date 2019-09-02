@@ -14,3 +14,16 @@ PKG_TOOLCHAIN="autotools"
 if [ "$OPENGLES_SUPPORT" = "no" ]; then
   PKG_CONFIGURE_OPTS_TARGET="--disable-gles"
 fi
+
+post_makeinstall_target() {
+  if [ "${DISPLAYSERVER}" = "x11" ]; then
+    # Remove old symlinks to GLVND libGL.so.1.7.0
+    safe_remove              ${INSTALL}/usr/lib/libGL.so
+    safe_remove              ${INSTALL}/usr/lib/libGL.so.1
+    # Create new symlinks to /var/lib/libGL.so
+    ln -sf libGL.so.1        ${INSTALL}/usr/lib/libGL.so
+    ln -sf /var/lib/libGL.so ${INSTALL}/usr/lib/libGL.so.1
+    # Rename the OpenGL lib provided by GLVND 
+    mv ${INSTALL}/usr/lib/libGL.so.1.7.0 ${INSTALL}/usr/lib/libGL_glvnd.so.1
+  fi
+}
