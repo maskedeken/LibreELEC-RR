@@ -23,7 +23,7 @@ post_makeinstall_target() {
     # Create new symlinks to /var/lib/libGL.so
     ln -sf libGL.so.1        ${INSTALL}/usr/lib/libGL.so
     ln -sf /var/lib/libGL.so ${INSTALL}/usr/lib/libGL.so.1
-    # Rename the OpenGL lib provided by GLVND 
-    mv ${INSTALL}/usr/lib/libGL.so.1.7.0 ${INSTALL}/usr/lib/libGL_glvnd.so.1
+    # Create new symlink to GLVND libGL.so.1.7.0
+    ln -sf libGL.so.1.7.0    ${INSTALL}/usr/lib/libGL_glvnd.so.1
   fi
 }
