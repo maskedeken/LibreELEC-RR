@@ -16,6 +16,9 @@ PKG_SHORTDESC="Docker is an open-source engine that automates the deployment of 
 PKG_LONGDESC="Docker containers can encapsulate any payload, and will run consistently on and between virtually any server. The same container that a developer builds and tests on a laptop will run at scale, in production*, on VMs, bare-metal servers, OpenStack clusters, public instances, or combinations of the above."
 PKG_TOOLCHAIN="manual"
 
+# Git commit of the matching release https://github.com/docker/docker-ce/releases
+export PKG_GIT_COMMIT="74b1e89e8ac68948be88fe0aa1e2767ae28659fe"
+
 PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Docker"
 PKG_ADDON_TYPE="xbmc.service"
@@ -103,7 +106,7 @@ configure_target() {
   fi
 
   # used for docker version
-  export GITCOMMIT=${PKG_VERSION}
+  export GITCOMMIT=${PKG_GIT_COMMIT}
   export VERSION=${PKG_VERSION}
   export BUILDTIME="$(date --utc)"
 
@@ -114,9 +117,9 @@ configure_target() {
 
 make_target() {
   mkdir -p bin
-  PKG_CLI_FLAGS="-X 'github.com/docker/cli/cli.Version=${VERSION}'"
-  PKG_CLI_FLAGS="${PKG_CLI_FLAGS} -X 'github.com/docker/cli/cli.GitCommit=${GITCOMMIT}'"
-  PKG_CLI_FLAGS="${PKG_CLI_FLAGS} -X 'github.com/docker/cli/cli.BuildTime=${BUILDTIME}'"
+  PKG_CLI_FLAGS="-X 'github.com/docker/cli/cli/version.Version=${VERSION}'"
+  PKG_CLI_FLAGS="${PKG_CLI_FLAGS} -X 'github.com/docker/cli/cli/version.GitCommit=${GITCOMMIT}'"
+  PKG_CLI_FLAGS="${PKG_CLI_FLAGS} -X 'github.com/docker/cli/cli/version.BuildTime=${BUILDTIME}'"
   ${GOLANG} build -v -o bin/docker -a -tags "${DOCKER_BUILDTAGS}" -ldflags "${LDFLAGS} ${PKG_CLI_FLAGS}" ./components/cli/cmd/docker
   ${GOLANG} build -v -o bin/dockerd -a -tags "${DOCKER_BUILDTAGS}" -ldflags "${LDFLAGS}" ./components/engine/cmd/dockerd
 }
