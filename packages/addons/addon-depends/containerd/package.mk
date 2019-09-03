@@ -41,7 +41,7 @@ pre_make_target() {
   export CGO_ENABLED=1
   export CGO_NO_EMULATION=1
   export CGO_CFLAGS=${CFLAGS}
-  export CONTAINERD_VERSION=v${PKG_VERSION}
+  export CONTAINERD_VERSION=${PKG_VERSION}
   export CONTAINERD_REVISION=${PKG_GIT_COMMIT}
   export CONTAINERD_PKG=github.com/containerd/containerd
   export LDFLAGS="-w -extldflags -static -X ${CONTAINERD_PKG}/version.Version=${CONTAINERD_VERSION} -X ${CONTAINERD_PKG}/version.Revision=${CONTAINERD_REVISION} -X ${CONTAINERD_PKG}/version.Package=${CONTAINERD_PKG} -extld $CC"
