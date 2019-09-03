@@ -1,5 +1,5 @@
 128
-- Update to docker 19.03.1
+- Update to docker 19.03.2
 
 127
 - Update to docker 18.09.8

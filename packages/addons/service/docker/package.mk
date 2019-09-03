@@ -3,8 +3,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="docker"
-PKG_VERSION="19.03.1"
-PKG_SHA256="dad9123e203751ce9981bc34773721593655231c32412e310e748b18f10f0053"
+PKG_VERSION="19.03.2"
+PKG_SHA256="46b52f92cb258e038e3f29624e75a52e4d2f91502f56edeac0f0b2661b3b9c3d"
 PKG_REV="128"
 PKG_ARCH="any"
 PKG_LICENSE="ASL"
@@ -17,7 +17,7 @@ PKG_LONGDESC="Docker containers can encapsulate any payload, and will run consis
 PKG_TOOLCHAIN="manual"
 
 # Git commit of the matching release https://github.com/docker/docker-ce/releases
-export PKG_GIT_COMMIT="74b1e89e8ac68948be88fe0aa1e2767ae28659fe"
+export PKG_GIT_COMMIT="6a30dfca03664a0b6bf0646a7d389ee7d0318e6e"
 
 PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Docker"
