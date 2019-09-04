@@ -48,7 +48,6 @@ OEM_LIBRETRO_COMMON=" \
   mame2003-plus \
   mgba \
   mrboom \
-  mupen64plus-libretro \
   mupen64plus-nx \
   nestopia \
   pcsx_rearmed \
@@ -135,12 +134,14 @@ OEM_LIBRETRO_GENERIC=" \
   bsnes-mercury-balanced \
   citra-libretro \
   dolphin-libretro \
+  fsuae-libretro \
   kronos \
   mame2016 \
   mesen \
   nSide \
   parallel-n64 \
   ppsspp-libretro \
+  uae \
   yabasanshiro"
 
 # Tools
