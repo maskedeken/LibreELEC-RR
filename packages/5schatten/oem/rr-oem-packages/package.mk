@@ -134,7 +134,6 @@ OEM_LIBRETRO_GENERIC=" \
   bsnes-mercury-balanced \
   citra-libretro \
   dolphin-libretro \
-  fsuae-libretro \
   kronos \
   mame2016 \
   mesen \
