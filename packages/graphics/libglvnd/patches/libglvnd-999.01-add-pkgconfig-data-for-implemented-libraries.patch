@@ -1,7 +1,7 @@
 From 0dfaea2bcb7cdcc785f95e244223bd004a2d7fba Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Tue, 3 Sep 2019 08:13:34 -0600
-Subject: [PATCH 1/7] Add pkg-config files for EGL, GL, GLES, and GLX.
+Subject: [PATCH 1/6] Add pkg-config files for EGL, GL, GLES, and GLX.
 
 This preserves the names from Mesa's gl, glesv1_cm, glesv2, and egl pkgconfig
 data, and for compatibility with that, gl.pc gives you libGL.
@@ -218,7 +218,7 @@ index 0000000..d560c06
 From e67d3241c31af65eef1b70a6a3f8636ef105caf3 Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Tue, 3 Sep 2019 08:22:03 -0600
-Subject: [PATCH 2/7] Update GL and GLX header and XML files.
+Subject: [PATCH 2/6] Update GL and GLX header and XML files.
 
 Updated the OpenGL and GLX header and XML files to the Khronos repository, from
 commit 08749e62826f34ba2e6e3733af545895f23e784b.
@@ -6469,15 +6469,13 @@ index 025e9f9..0ce9cba 100644
              <require>
                  <command name="glXJoinSwapGroupNV"/>
 
-From 9e75d559c092528418e9ebdd789c420f2a63555c Mon Sep 17 00:00:00 2001
+From 6476491d4d31f19090d19e578ca5ba7a12530458 Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Tue, 3 Sep 2019 08:29:47 -0600
-Subject: [PATCH 3/7] Update the EGL headers.
+Subject: [PATCH 3/6] Update the EGL headers.
 
 Updated the EGL headers and XML file to the Khronos repository, from commit
 598f20e3b7b7eec3e8d8a83e64b9592a21c55bb6.
-
-fixup: Update egl.xml
 ---
  include/EGL/egl.h         |  86 +++-
  include/EGL/eglext.h      | 486 ++++++++++++++++++-
@@ -8982,10 +8980,10 @@ index f6dbbc0..c27f172 100644
      </extensions>
  </registry>
 
-From 9b405b582bc3dd676d4a21987d894d343878bd2a Mon Sep 17 00:00:00 2001
+From e5a4edcf178570057fe0420dbb31ab3f985ab26c Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Tue, 3 Sep 2019 08:30:54 -0600
-Subject: [PATCH 4/7] Add the missing GL and GLES headers.
+Subject: [PATCH 4/6] Add the missing GL and GLES headers.
 
 Add copies of glcorearb.h, and of the GLES2 and GLES3 headers.
 ---
@@ -24155,10 +24153,10 @@ index 0000000..ca9d7a6
 +
 +#endif /* __gl3platform_h_ */
 
-From 4738bbb182040981b769768418eff9d29adbd640 Mon Sep 17 00:00:00 2001
+From ab9b5fcc3bf90064418f6915cf4259fa11ffe64b Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Tue, 3 Sep 2019 08:44:18 -0600
-Subject: [PATCH 5/7] Install the GL/GLES/GLX/EGL header files.
+Subject: [PATCH 5/6] Install the GL/GLES/GLX/EGL header files.
 
 Since we've got pkg-config files for the various libraries, we should also
 install the corresponding header files so that the include directory matches
@@ -24168,7 +24166,7 @@ up.
  1 file changed, 47 insertions(+), 7 deletions(-)
 
 diff --git a/include/Makefile.am b/include/Makefile.am
-index 374c496..73ec11a 100644
+index 374c496..995ec41 100644
 --- a/include/Makefile.am
 +++ b/include/Makefile.am
 @@ -9,17 +9,57 @@ noinst_HEADERS = \
@@ -24181,7 +24179,7 @@ index 374c496..73ec11a 100644
 -	EGL/eglplatform.h \
 +	lkdhash.h
 +
-+GL_HERADER_FILES = \
++GL_HEADER_FILES = \
  	GL/gl.h \
 +	GL/glcorearb.h \
  	GL/glext.h \
@@ -24189,7 +24187,7 @@ index 374c496..73ec11a 100644
 -	GL/glxext.h \
 +	KHR/khrplatform.h
 +
-+GLES_HERADER_FILES = \
++GLES_HEADER_FILES = \
  	GLES/egl.h \
  	GLES/gl.h \
  	GLES/glext.h \
@@ -24203,44 +24201,44 @@ index 374c496..73ec11a 100644
 +	GLES3/gl3.h \
 +	GLES3/gl3platform.h
 +
-+GLX_HERADER_FILES = \
++GLX_HEADER_FILES = \
 +	GL/glx.h \
 +	GL/glxext.h
 +
-+EGL_HERADER_FILES = \
++EGL_HEADER_FILES = \
 +	EGL/egl.h \
 +	EGL/eglext.h \
 +	EGL/eglplatform.h
 +
 +if ENABLE_EGL
-+nobase_include_HEADERS += $(GL_HERADER_FILES)
++nobase_include_HEADERS += $(GL_HEADER_FILES)
 +else
-+noinst_HEADERS += $(GL_HERADER_FILES)
++noinst_HEADERS += $(GL_HEADER_FILES)
 +endif
 +
 +if ENABLE_GLES
-+nobase_include_HEADERS += $(GLES_HERADER_FILES)
++nobase_include_HEADERS += $(GLES_HEADER_FILES)
 +else
-+noinst_HEADERS += $(GLES_HERADER_FILES)
++noinst_HEADERS += $(GLES_HEADER_FILES)
 +endif
 +
 +if ENABLE_GLX
-+nobase_include_HEADERS += $(GLX_HERADER_FILES)
++nobase_include_HEADERS += $(GLX_HEADER_FILES)
 +else
-+noinst_HEADERS += $(GLX_HERADER_FILES)
++noinst_HEADERS += $(GLX_HEADER_FILES)
 +endif
 +
 +if ENABLE_EGL
-+nobase_include_HEADERS += $(EGL_HERADER_FILES)
++nobase_include_HEADERS += $(EGL_HEADER_FILES)
 +else
-+noinst_HEADERS += $(EGL_HERADER_FILES)
++noinst_HEADERS += $(EGL_HEADER_FILES)
 +endif
  
 
-From 6b832defbdbc7439cd9230f57c1b4ec87863ef9f Mon Sep 17 00:00:00 2001
+From 6b8d76bf4e98a9632cdd21f0aaa1d7c689bff202 Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Tue, 3 Sep 2019 08:57:01 -0600
-Subject: [PATCH 6/7] Add a configure option for whether to install the GL
+Subject: [PATCH 6/6] Add a configure option for whether to install the GL
  headers.
 
 Add a --disable-headers option, which tells it not to install the
@@ -24273,113 +24271,36 @@ index 7feec30..1b6aaed 100644
  dnl Arch/platform-specific settings. Copied from mesa
  dnl
 diff --git a/include/Makefile.am b/include/Makefile.am
-index 73ec11a..541b0b3 100644
+index 995ec41..1e33d2d 100644
 --- a/include/Makefile.am
 +++ b/include/Makefile.am
-@@ -39,25 +39,25 @@ EGL_HERADER_FILES = \
+@@ -39,25 +39,25 @@ EGL_HEADER_FILES = \
  	EGL/eglext.h \
  	EGL/eglplatform.h
  
 -if ENABLE_EGL
 +if ENABLE_EGL_HEADERS
- nobase_include_HEADERS += $(GL_HERADER_FILES)
+ nobase_include_HEADERS += $(GL_HEADER_FILES)
  else
- noinst_HEADERS += $(GL_HERADER_FILES)
+ noinst_HEADERS += $(GL_HEADER_FILES)
  endif
  
 -if ENABLE_GLES
 +if ENABLE_GLES_HEADERS
- nobase_include_HEADERS += $(GLES_HERADER_FILES)
+ nobase_include_HEADERS += $(GLES_HEADER_FILES)
  else
- noinst_HEADERS += $(GLES_HERADER_FILES)
+ noinst_HEADERS += $(GLES_HEADER_FILES)
  endif
  
 -if ENABLE_GLX
 +if ENABLE_GLX_HEADERS
- nobase_include_HEADERS += $(GLX_HERADER_FILES)
+ nobase_include_HEADERS += $(GLX_HEADER_FILES)
  else
- noinst_HEADERS += $(GLX_HERADER_FILES)
+ noinst_HEADERS += $(GLX_HEADER_FILES)
  endif
  
 -if ENABLE_EGL
 +if ENABLE_EGL_HEADERS
- nobase_include_HEADERS += $(EGL_HERADER_FILES)
+ nobase_include_HEADERS += $(EGL_HEADER_FILES)
  else
- noinst_HEADERS += $(EGL_HERADER_FILES)
-
-From a018d82d0845d2118044185f8c5477d4a4aebde6 Mon Sep 17 00:00:00 2001
-From: Kyle Brenneman <kbrenneman@nvidia.com>
-Date: Tue, 3 Sep 2019 12:52:24 -0600
-Subject: [PATCH 7/7] Fix a typo in include/Makefile.am.
-
----
- include/Makefile.am | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/include/Makefile.am b/include/Makefile.am
-index 541b0b3..1e33d2d 100644
---- a/include/Makefile.am
-+++ b/include/Makefile.am
-@@ -11,13 +11,13 @@ noinst_HEADERS = \
- 	glvnd_list.h \
- 	lkdhash.h
- 
--GL_HERADER_FILES = \
-+GL_HEADER_FILES = \
- 	GL/gl.h \
- 	GL/glcorearb.h \
- 	GL/glext.h \
- 	KHR/khrplatform.h
- 
--GLES_HERADER_FILES = \
-+GLES_HEADER_FILES = \
- 	GLES/egl.h \
- 	GLES/gl.h \
- 	GLES/glext.h \
-@@ -30,36 +30,36 @@ GLES_HERADER_FILES = \
- 	GLES3/gl3.h \
- 	GLES3/gl3platform.h
- 
--GLX_HERADER_FILES = \
-+GLX_HEADER_FILES = \
- 	GL/glx.h \
- 	GL/glxext.h
- 
--EGL_HERADER_FILES = \
-+EGL_HEADER_FILES = \
- 	EGL/egl.h \
- 	EGL/eglext.h \
- 	EGL/eglplatform.h
- 
- if ENABLE_EGL_HEADERS
--nobase_include_HEADERS += $(GL_HERADER_FILES)
-+nobase_include_HEADERS += $(GL_HEADER_FILES)
- else
--noinst_HEADERS += $(GL_HERADER_FILES)
-+noinst_HEADERS += $(GL_HEADER_FILES)
- endif
- 
- if ENABLE_GLES_HEADERS
--nobase_include_HEADERS += $(GLES_HERADER_FILES)
-+nobase_include_HEADERS += $(GLES_HEADER_FILES)
- else
--noinst_HEADERS += $(GLES_HERADER_FILES)
-+noinst_HEADERS += $(GLES_HEADER_FILES)
- endif
- 
- if ENABLE_GLX_HEADERS
--nobase_include_HEADERS += $(GLX_HERADER_FILES)
-+nobase_include_HEADERS += $(GLX_HEADER_FILES)
- else
--noinst_HEADERS += $(GLX_HERADER_FILES)
-+noinst_HEADERS += $(GLX_HEADER_FILES)
- endif
- 
- if ENABLE_EGL_HEADERS
--nobase_include_HEADERS += $(EGL_HERADER_FILES)
-+nobase_include_HEADERS += $(EGL_HEADER_FILES)
- else
--noinst_HEADERS += $(EGL_HERADER_FILES)
-+noinst_HEADERS += $(EGL_HEADER_FILES)
- endif
- 
+ noinst_HEADERS += $(EGL_HEADER_FILES)
