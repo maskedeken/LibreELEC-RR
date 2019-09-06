@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="flycast"
-PKG_VERSION="446ec553de2d9f90a93220e7af5a8f595be3705e"
-PKG_SHA256="2228517ad27bcd0a6319e1f12e523a82a7b82ced630bf5bad9ae4adaaf7f703d"
+PKG_VERSION="a4b5ca175afcaa3051666453f56ff1f208c55a65"
+PKG_SHA256="ada3c328b26f1f10d92d4da1f4ae8eb054f5b7c3614d596dc5d52fbc4632bb40"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/flycast"
 PKG_URL="https://github.com/libretro/flycast/archive/${PKG_VERSION}.tar.gz"
