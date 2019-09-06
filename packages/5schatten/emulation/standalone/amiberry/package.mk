@@ -16,7 +16,7 @@ PKG_MAKE_OPTS_TARGET="all"
 
 pre_configure_target() {
   cd ${PKG_BUILD}
-  export SYSROOT_PREFIX=${SYSROOT_PREFIX}
+  export SDL2_CONFIG_PREFIX=${SYSROOT_PREFIX}/usr/bin
 
   case ${PROJECT} in
     Amlogic)
