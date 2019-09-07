@@ -1,0 +1,39 @@
+From a29dbc9671e2888e8de46528f3f288c0793cd8d0 Mon Sep 17 00:00:00 2001
+From: 5schatten <supervisedthinking@gmail.com>
+Date: Sat, 7 Sep 2019 13:44:51 +0200
+Subject: [PATCH] target-libretro/GNUMakefile: conditionally enable OpenMP
+
+---
+ bsnes/target-libretro/GNUmakefile | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/bsnes/target-libretro/GNUmakefile b/bsnes/target-libretro/GNUmakefile
+index 0d8b707c..0539a034 100644
+--- a/bsnes/target-libretro/GNUmakefile
++++ b/bsnes/target-libretro/GNUmakefile
+@@ -1,5 +1,14 @@
+ name := libretro.so
+-flags += -std=c++17 -fpermissive -Wno-narrowing -Wno-multichar -fopenmp -g -fPIC
++flags += -std=c++17 -fpermissive -Wno-narrowing -Wno-multichar -g -fPIC
++
++# openmp support
++ifeq ($(openmp),true)
++  # macOS Xcode does not ship with OpenMP support
++  ifneq ($(platform),macos)
++    flags   += -fopenmp
++    LDFLAGS += -lgomp
++  endif
++endif
+ 
+ objects := libretro $(objects)
+ objects := $(patsubst %,obj/%.o,$(objects))
+@@ -8,7 +17,7 @@ obj/libretro.o: target-libretro/libretro.cpp
+ 
+ all: $(objects)
+ ifeq ($(platform),linux)
+-	$(strip $(compiler) -o out/bsnes_libretro.so -shared $(objects) -Wl,--no-undefined -Wl,--version-script=target-libretro/link.T -Wl,-Bdynamic -lpthread -ldl -lgomp)
++	$(strip $(compiler) -o out/bsnes_libretro.so -shared $(objects) -Wl,--no-undefined -Wl,--version-script=target-libretro/link.T -Wl,-Bdynamic -lpthread -ldl $(LDFLAGS))
+ else ifeq ($(platform),windows)
+-	$(strip $(compiler) -o out/bsnes_libretro.dll -shared $(objects) -Wl,--no-undefined -Wl,--version-script=target-libretro/link.T -static-libgcc -static-libstdc++ -Wl,-Bstatic -lws2_32 -lpthread -lgomp -Wl,-Bdynamic)
++	$(strip $(compiler) -o out/bsnes_libretro.dll -shared $(objects) -Wl,--no-undefined -Wl,--version-script=target-libretro/link.T -static-libgcc -static-libstdc++ -Wl,-Bstatic -lws2_32 -lpthread $(LDFLAGS) -Wl,-Bdynamic)
+ endif
