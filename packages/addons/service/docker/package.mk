@@ -5,7 +5,7 @@
 PKG_NAME="docker"
 PKG_VERSION="19.03.2"
 PKG_SHA256="46b52f92cb258e038e3f29624e75a52e4d2f91502f56edeac0f0b2661b3b9c3d"
-PKG_REV="1"
+PKG_REV="128"
 PKG_ARCH="any"
 PKG_LICENSE="ASL"
 PKG_SITE="http://www.docker.com/"
@@ -22,7 +22,6 @@ export PKG_GIT_COMMIT="6a30dfca03664a0b6bf0646a7d389ee7d0318e6e"
 PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Docker"
 PKG_ADDON_TYPE="xbmc.service"
-PKG_ADDON_VERSION="${PKG_VERSION}.${PKG_REV}"
 
 configure_target() {
   export DOCKER_BUILDTAGS="daemon \
