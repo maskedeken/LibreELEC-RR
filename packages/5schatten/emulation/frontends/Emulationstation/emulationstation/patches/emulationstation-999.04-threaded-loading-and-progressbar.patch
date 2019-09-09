@@ -1,4 +1,4 @@
-From b1c23f8c376d6dda4b20988172da2b2309dceb1d Mon Sep 17 00:00:00 2001
+From d8fafdbd383589d2089e0a3c047abf26ac2ef0b4 Mon Sep 17 00:00:00 2001
 From: Fabrice CARUSO <fabrice.caruso@free.fr>
 Date: Sat, 17 Aug 2019 10:56:59 +0200
 Subject: [PATCH] Added a progressbar during loading + threaded loading when
@@ -438,10 +438,10 @@ index dd6538b8f..f6a938bfa 100644
  		// something went terribly wrong
  		if(errorMsg == NULL)
 diff --git a/es-app/src/views/ViewController.cpp b/es-app/src/views/ViewController.cpp
-index ada681e26..68939f131 100644
+index 3489628f6..f0865d2a1 100644
 --- a/es-app/src/views/ViewController.cpp
 +++ b/es-app/src/views/ViewController.cpp
-@@ -429,17 +429,19 @@ void ViewController::render(const Transform4x4f& parentTrans)
+@@ -430,17 +430,19 @@ void ViewController::render(const Transform4x4f& parentTrans)
  
  void ViewController::preload()
  {
@@ -502,10 +502,10 @@ index 3ad7f6586..42f622c9a 100644
  	mBoolMap["DebugGrid"] = false;
  	mBoolMap["DebugText"] = false;
 diff --git a/es-core/src/ThemeData.cpp b/es-core/src/ThemeData.cpp
-index ce55194b3..a87860262 100644
+index 32faf12bb..15edeb76b 100644
 --- a/es-core/src/ThemeData.cpp
 +++ b/es-core/src/ThemeData.cpp
-@@ -175,9 +175,7 @@ unsigned int getHexColor(const char* str)
+@@ -188,9 +188,7 @@ unsigned int getHexColor(const char* str)
  	return val;
  }
  
@@ -517,10 +517,10 @@ index ce55194b3..a87860262 100644
  	std::string inStr(in);
  
 diff --git a/es-core/src/ThemeData.h b/es-core/src/ThemeData.h
-index b6cc6fb90..02ff9418c 100644
+index 45c12d5e1..c6169b4b9 100644
 --- a/es-core/src/ThemeData.h
 +++ b/es-core/src/ThemeData.h
-@@ -175,6 +175,9 @@ class ThemeData
+@@ -176,6 +176,9 @@ class ThemeData
  	void parseElement(const pugi::xml_node& elementNode, const std::map<std::string, ElementPropertyType>& typeMap, ThemeElement& element);
  
  	std::map<std::string, ThemeView> mViews;
@@ -531,7 +531,7 @@ index b6cc6fb90..02ff9418c 100644
  
  #endif // ES_CORE_THEME_DATA_H
 diff --git a/es-core/src/Window.cpp b/es-core/src/Window.cpp
-index 0a510a5c1..72374050a 100644
+index c51bf9ff5..c1fde7c5b 100644
 --- a/es-core/src/Window.cpp
 +++ b/es-core/src/Window.cpp
 @@ -9,6 +9,7 @@
@@ -551,7 +551,7 @@ index 0a510a5c1..72374050a 100644
  {
  	Transform4x4f trans = Transform4x4f::Identity();
  	Renderer::setMatrix(trans);
- 	Renderer::drawRect(0, 0, Renderer::getScreenWidth(), Renderer::getScreenHeight(), 0x000000FF);
+ 	Renderer::drawRect(0.0f, 0.0f, Renderer::getScreenWidth(), Renderer::getScreenHeight(), 0x000000FF, 0x000000FF);
  
 +	if (percent >= 0)
 +	{
@@ -563,8 +563,8 @@ index 0a510a5c1..72374050a 100644
 +		float x = Renderer::getScreenWidth() / 2 - w / 2;
 +		float y = Renderer::getScreenHeight() - (Renderer::getScreenHeight() * 3 * baseHeight);
 +
-+		Renderer::drawRect(x, y, w, h, 0x25252500 | opacity);
-+		Renderer::drawRect(x, y, (w*percent), h, 0x006C9E00 | opacity); // 0xFFFFFFFF
++		Renderer::drawRect(x, y, w, h, 0x25252500 | opacity, 0x25252500 | opacity);
++		Renderer::drawRect(x, y, (w*percent), h, 0x006C9E00 | opacity, 0x006C9E00 | opacity); // 0xFFFFFFFF
 +	}
 +
  	ImageComponent splash(this, true);
