@@ -130,6 +130,7 @@ OEM_FRONTENDS_EXTRA_GENERIC=""
 OEM_LIBRETRO_GENERIC=" \
   beetle-psx \
   beetle-saturn \
+  bsnes \
   bsnes-mercury-accuracy \
   bsnes-mercury-balanced \
   citra-libretro \
