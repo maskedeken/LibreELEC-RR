@@ -68,6 +68,7 @@ make_target() {
   make -C bfd
   make -C binutils ar
   make -C opcodes
+  make -C binutils strings
 }
 
 makeinstall_target() {
@@ -77,4 +78,7 @@ makeinstall_target() {
   mkdir -p $INSTALL/usr/bin
   cp binutils/ar $INSTALL/usr/bin/ar
   make DESTDIR="$SYSROOT_PREFIX" -C opcodes install
+
+  mkdir -p ${INSTALL}/usr/bin
+    cp binutils/strings ${INSTALL}/usr/bin
 }
