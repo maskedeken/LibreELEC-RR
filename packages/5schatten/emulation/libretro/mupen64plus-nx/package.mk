@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="mupen64plus-nx"
-PKG_VERSION="f5627a54a21c3ffb7b4297456867e7e500b3dd85"
-PKG_SHA256="f3ee0b2eb92b0f6c778dbcb0fe2771d6117214cfd101dd0ed12dc54daa5e4cf9"
+PKG_VERSION="98b135cc99fdcc53e1fbfadfcc241d45cd02cc8f"
+PKG_SHA256="6b75dfa35ebf4b0b59e582a09107645887c6dac1a4f847198d0363f3b2d72a33"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mupen64plus-libretro-nx"
 PKG_URL="https://github.com/libretro/mupen64plus-libretro-nx/archive/${PKG_VERSION}.tar.gz"
@@ -51,7 +51,7 @@ pre_configure_target() {
         PKG_MAKE_OPTS_TARGET+=" platform=rpi3"
         ;;
       RPi4)
-        PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1 WITH_DYNAREC=arm HAVE_NEON=1"
+        PKG_MAKE_OPTS_TARGET+=" platform=rpi4"
         ;;
     esac
   elif [ "${PROJECT}" = "Amlogic" ]; then
