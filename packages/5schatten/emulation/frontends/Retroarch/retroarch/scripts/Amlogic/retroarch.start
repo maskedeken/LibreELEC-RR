@@ -21,9 +21,6 @@ else
   # Change refresh rate to 60Hz
   set_refresh_rate_60
 
-  # Set fbdev geometry
-  set_fbdev_mode
-
   # Set audio & midi driver
   set_RA_audiodriver
 
