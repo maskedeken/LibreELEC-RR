@@ -12,6 +12,12 @@ PKG_DEPENDS_TARGET="toolchain expat libdrm Mako:host"
 PKG_LONGDESC="The Mesa 3D Graphics Library, is an open source software implementation of OpenGL, Vulkan, and other graphics API specifications."
 PKG_TOOLCHAIN="meson"
 
+if listcontains "${GRAPHIC_DRIVERS}" "(lima|panfrost)"; then
+  PKG_VERSION="c9bebae2877e55cdcd94f9f9f3f6805238caeb28" # master-19.3
+  PKG_SHA256="edccc9d9e06a161a38c361651275c136b3dc9475bd37f11c68d148ba0e782941"
+  PKG_URL="https://gitlab.freedesktop.org/mesa/mesa/-/archive/$PKG_VERSION/mesa-$PKG_VERSION.tar.gz"
+fi
+
 get_graphicdrivers
 
 PKG_MESON_OPTS_TARGET="-D dri-drivers=${DRI_DRIVERS// /,} \
@@ -84,20 +90,3 @@ if [ "${VULKAN_SUPPORT}" = "yes" ]; then
 else
   PKG_MESON_OPTS_TARGET+=" -D vulkan-drivers="
 fi
-
-pre_configure_target() {
-  # Temporary hack (until panfrost evolves) to use 64-bit pointers in structs passed to GPU
-  # even if userspace is 32-bit. This is required for Mali-T8xx to work with mesa built for
-  # arm userspace. The hack does not affect building for aarch64.
-  if [[ "${MALI_FAMILY}" = *t8* ]]; then
-    (
-      cd "${PKG_BUILD}/src/gallium/drivers/panfrost"
-      sed -i 's/uintptr_t/uint64_t/g' include/panfrost-job.h \
-                                      include/panfrost-misc.h \
-                                      pan_context.c \
-                                      pandecode/decode.c
-
-      find -type f -exec sed -i 's/ndef __LP64__/ 0/g; s/def __LP64__/ 1/g' {} +;
-    )
-  fi
-}
