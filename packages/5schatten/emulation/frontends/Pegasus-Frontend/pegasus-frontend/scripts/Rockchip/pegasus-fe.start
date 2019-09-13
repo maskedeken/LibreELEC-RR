@@ -25,9 +25,6 @@ else
   # Change refresh rate to 50Hz
   set_refresh_rate_50
 
-  # Set fbdev geometry
-  set_fbdev_mode
-
   # Set SDL audio driver to Pulseaudio or ALSA
   set_SDL_audiodriver
 
