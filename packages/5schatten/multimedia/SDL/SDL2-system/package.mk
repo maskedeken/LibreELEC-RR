@@ -125,6 +125,11 @@ pre_configure_target(){
     PKG_CMAKE_OPTS_TARGET+=" -DVIDEO_RPI=OFF"
   fi
 
+  # Mali Video Support
+  if [ "${OPENGLES}" = "libmali" ]; then
+    PKG_CMAKE_OPTS_TARGET+=" -DVIDEO_VULKAN=OFF"
+  fi
+
   # Pulseaudio Support
   if [ "${PULSEAUDIO_SUPPORT}" = yes ]; then
     PKG_CMAKE_OPTS_TARGET+=" -DPULSEAUDIO=ON \
