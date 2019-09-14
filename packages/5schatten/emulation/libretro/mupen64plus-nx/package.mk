@@ -57,7 +57,7 @@ pre_configure_target() {
   elif [ "${PROJECT}" = "Amlogic" ]; then
     case ${DEVICE} in
       AMLG12)
-        PKG_MAKE_OPTS_TARGET+=" platform=AMLG12B"
+        PKG_MAKE_OPTS_TARGET+=" platform=AMLG12B GLES=1"
         ;;
       AMLGXL)
         PKG_MAKE_OPTS_TARGET+=" platform=AMLGX"
