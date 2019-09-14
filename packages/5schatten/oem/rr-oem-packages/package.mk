@@ -61,6 +61,7 @@ OEM_LIBRETRO_COMMON=" \
 
 # Common tools
 OEM_TOOLS_COMMON=" \
+  dhrystone-benchmark \
   ds4drv \
   htop \
   lm-sensors \
