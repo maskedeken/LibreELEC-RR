@@ -51,7 +51,7 @@ post_makeinstall_target() {
   cp ${PKG_DIR}/config/es_input.cfg          ${INSTALL}/usr/config/emulationstation/
   cp ${PKG_DIR}/config/es_settings.cfg       ${INSTALL}/usr/config/emulationstation/
 
-  if [ -d ${PKG_DIR}/config/device/${DEVICE} -a ! -z ${DEVICE} ]; then
+  if [ ! -z ${DEVICE} ] && [ -d ${PKG_DIR}/config/device/${DEVICE} ]; then
     cp -v ${PKG_DIR}/config/device/${DEVICE}/es_systems.cfg                 ${INSTALL}/usr/config/emulationstation/
     cp -v ${PKG_DIR}/config/device/${DEVICE}/userdirs-emulationstation.conf ${INSTALL}/usr/lib/tmpfiles.d/
   else
