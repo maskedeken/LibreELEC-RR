@@ -13,9 +13,9 @@ PKG_LONGDESC="The Mesa 3D Graphics Library, is an open source software implement
 PKG_TOOLCHAIN="meson"
 
 if listcontains "${GRAPHIC_DRIVERS}" "(lima|panfrost)"; then
-  PKG_VERSION="c9bebae2877e55cdcd94f9f9f3f6805238caeb28" # master-19.3
-  PKG_SHA256="edccc9d9e06a161a38c361651275c136b3dc9475bd37f11c68d148ba0e782941"
-  PKG_URL="https://gitlab.freedesktop.org/mesa/mesa/-/archive/$PKG_VERSION/mesa-$PKG_VERSION.tar.gz"
+  PKG_VERSION="ef919d8dcb9272ad7b23f5dbd8b7fb2f83393b42" # master-19.3
+  PKG_SHA256="9b881e5c7617941ae89876cbb2c31982f19c7289353a5fdca4101f8b01ade69d"
+  PKG_URL="https://gitlab.freedesktop.org/mesa/mesa/-/archive/${PKG_VERSION}/mesa-${PKG_VERSION}.tar.gz"
 fi
 
 get_graphicdrivers
