@@ -51,11 +51,6 @@ configure_package() {
   if [ "${VULKAN_SUPPORT}" = "yes" ]; then
     PKG_DEPENDS_TARGET+=" vulkan-loader slang-shaders-lr"
   fi
-
-  # RPi4 Support
-  if [ "${DEVICE}" = "RPi4" ]; then
-    PKG_DEPENDS_TARGET+=" libX11"
-  fi
 }
 
 pre_configure_target() {
@@ -106,11 +101,16 @@ pre_configure_target() {
                                    --enable-dispmanx \
                                    --disable-kms"
 
-    # RPi 4 OpenGL ES
+    # Mesa 3D OpenGL ES
     elif [ "${OPENGLES}" = "mesa" ]; then
-      PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles3 \
-                                   --enable-kms \
-                                   --disable-videocore"
+      PKG_CONFIGURE_OPTS_TARGET+=" --enable-kms"
+      CFLAGS+=" -DMESA_EGL_NO_X11_HEADERS"
+      CXXFLAGS+=" -DMESA_EGL_NO_X11_HEADERS"
+
+      if [ "${DEVICE}" = "RPi4" ]; then
+        PKG_CONFIGURE_OPTS_TARGET+=" --enable-opengles3 \
+                                     --disable-videocore"
+      fi
 
     # Mali OpenGL ES 2.0/3.0 Features Support
     elif [ "${OPENGLES}" = "libmali" ]; then
