@@ -97,6 +97,10 @@ OEM_LIBRETRO_AMLG12=" \
   mesen \
   yabasanshiro"
 
+# Libretro cores for AMLGX devices
+OEM_LIBRETRO_AMLGX=" \
+  mame2010"
+
 # Libretro cores for AMLGXL devices
 OEM_LIBRETRO_AMLGXL=" \
   mame2010"
@@ -277,6 +281,9 @@ configure_package() {
           case ${DEVICE} in
             AMLG12)
               PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLG12}"
+            ;;
+            AMLGX)
+              PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLGX}"
             ;;
             AMLGXL)
               PKG_DEPENDS_TARGET+=" ${OEM_LIBRETRO_AMLGXL}"
