@@ -145,9 +145,9 @@ configure_target() {
   elif [ "${OPENGLES}" = "libmali" ]; then
     echo "QMAKE_LIBS_EGL += -lMali"               >> ${QMAKE_CONF}
     echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms"   >> ${QMAKE_CONF}
-  elif [ "${OPENGLES}" = "opengl-meson" ]; then
-    echo "QMAKE_LIBS_EGL += -lMali"               >> ${QMAKE_CONF}
-    echo "EGLFS_DEVICE_INTEGRATION = eglfs_mali"  >> ${QMAKE_CONF}
+  elif [ "${OPENGLES}" = "mesa" ]; then
+    echo "QMAKE_LIBS_EGL += -lEGL -lGLESv2"       >> ${QMAKE_CONF}
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms"   >> ${QMAKE_CONF}
   fi
   echo "load(qt_config)"                            >> ${QMAKE_CONF}
   echo '#include "../../linux-g++/qplatformdefs.h"' >> ${QMAKE_CONF_DIR}/qplatformdefs.h
