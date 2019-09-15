@@ -16,9 +16,9 @@ configure_package() {
     PKG_PATCH_DIRS="MMAL"
   fi
 
-  # RPi4 support patches
-  if [ "${DEVICE}" = "RPi4" ]; then
-    PKG_PATCH_DIRS="RPi4"
+  # Mesa 3D support patch
+  if [ "${OPENGLES}" = "mesa" ]; then
+    PKG_PATCH_DIRS="OpenGL"
   fi
 
   if target_has_feature "(neon|sse)"; then
