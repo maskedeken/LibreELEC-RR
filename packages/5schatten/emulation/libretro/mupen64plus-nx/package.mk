@@ -59,8 +59,11 @@ pre_configure_target() {
       AMLG12)
         PKG_MAKE_OPTS_TARGET+=" platform=AMLG12B GLES=1"
         ;;
-      AMLGXL)
+      AMLGX*)
         PKG_MAKE_OPTS_TARGET+=" platform=AMLGX"
+        if [ "${OPENGLES}" = "mesa" ]; then
+          PKG_MAKE_OPTS_TARGET+="-mesa"
+        fi
         ;;
     esac
   elif [ "${PROJECT}" = "Rockchip" ]; then
