@@ -26,11 +26,6 @@ configure_package() {
   if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
     PKG_DEPENDS_TARGET+=" ${OPENGLES}"
   fi
-
-  # RPi4 Support
-  if [ "${DEVICE}" = "RPi4" ]; then
-    PKG_DEPENDS_TARGET+=" libX11"
-  fi
 }
 
 pre_configure_target() {
@@ -53,6 +48,11 @@ pre_configure_target() {
     else
       PKG_CMAKE_OPTS_TARGET+=" -DUSING_FBDEV=ON \
                                -DUSING_EGL=ON"
+    fi
+
+    if [ "${OPENGLES}" = "mesa" ]; then
+      CFLAGS+=" -DMESA_EGL_NO_X11_HEADERS"
+      CXXFLAGS+=" -DMESA_EGL_NO_X11_HEADERS"
     fi
   fi
 
