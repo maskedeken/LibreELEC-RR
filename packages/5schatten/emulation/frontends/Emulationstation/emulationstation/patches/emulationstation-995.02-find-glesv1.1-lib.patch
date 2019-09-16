@@ -1,0 +1,29 @@
+From 0c54c9f69a5e79dd37df309df58abc2ebd345cad Mon Sep 17 00:00:00 2001
+From: 5schatten <supervisedthinking@gmail.com>
+Date: Mon, 16 Sep 2019 10:37:10 +0200
+Subject: [PATCH] CMakeLists.txt: detect common OpenGL ES 1.1 library
+ libGLESv1_CM.so
+
+---
+ CMakeLists.txt | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a167a808f..8bc9f90d6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -41,6 +41,14 @@ elseif(EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/libMali.so" OR
+     EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/libmali.so")
+     MESSAGE("libMali.so found")
+     set(GLSystem "Embedded OpenGL" CACHE STRING "The OpenGL system to be used")
++#-------------------------------------------------------------------------------
++#check if we're running on a system which provides a library for OpenGL ES 1.1
++elseif(EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/libGLESv1_CM.so" OR
++    EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/aarch64-linux-gnu/libGLESv1_CM.so" OR
++    EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabi/libGLESv1_CM.so" OR
++    EXISTS "${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/libGLESv1_CM.so")
++    MESSAGE("libGLESv1_CM.so found")
++    set(GLSystem "Embedded OpenGL" CACHE STRING "The OpenGL system to be used")
+ else()
+     set(GLSystem "Desktop OpenGL" CACHE STRING "The OpenGL system to be used")
+ endif(GLES)
