@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="mgba"
-PKG_VERSION="0.7.2"
-PKG_SHA256="ed635e05798d3fa0d55e5abb439f6d1708d519e4ecd5ed10b9bc6e319ed9dba7"
+PKG_VERSION="0.7.3"
+PKG_SHA256="6d5e8ab6f87d3d9fa85af2543db838568dbdfcecd6797f8153f1b3a10b4a8bdd"
 PKG_LICENSE="MPL 2.0"
 PKG_SITE="https://github.com/mgba-emu/mgba"
 PKG_URL="https://github.com/mgba-emu/mgba/archive/${PKG_VERSION}.tar.gz"
