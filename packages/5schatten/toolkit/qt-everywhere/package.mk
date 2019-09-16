@@ -199,7 +199,7 @@ post_makeinstall_target() {
   fi
 
   # Install EGLFS_KMS lib
-  if [ "${OPENGLES}" = "libmali" ]; then
+  if [ "${OPENGLES}" = "libmali" ] || [ "${OPENGLES}" = "mesa" ]; then
     cp -PR ${PKG_ORIG_SYSROOT_PREFIX:-${SYSROOT_PREFIX}}/usr/lib/libQt5EglFsKmsSupport.so* ${INSTALL}/usr/lib
   fi
 }

@@ -1,0 +1,47 @@
+From 5733dfbd90fd059e7310786faefb022b00289592 Mon Sep 17 00:00:00 2001
+From: Oswald Buddenhagen <oswald.buddenhagen@qt.io>
+Date: Thu, 20 Dec 2018 16:30:51 +0100
+Subject: [PATCH] qmake: make CONFIG+=egl work again
+
+while it's legacy and should not be used (use QMAKE_USE+=egl instead),
+it shouldn't be broken nonetheless.
+
+amends 310bf3f57c.
+
+Fixes: QTBUG-72564
+Change-Id: Id6a070a4653dc1182a6b4d75af027a6ee6cbacae
+Reviewed-by: Joerg Bornemann <joerg.bornemann@qt.io>
+Reviewed-by: Laszlo Agocs <laszlo.agocs@qt.io>
+Reviewed-by: Rolf Eike Beer <eb@emlix.com>
+---
+ mkspecs/features/egl.prf                      | 1 +
+ src/platformsupport/eglconvenience/qt_egl_p.h | 4 +++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/qtbase/mkspecs/features/egl.prf b/qtbase/mkspecs/features/egl.prf
+index 9fa0c9e219b..45777855768 100644
+--- a/qtbase/mkspecs/features/egl.prf
++++ b/qtbase/mkspecs/features/egl.prf
+@@ -2,6 +2,7 @@ INCLUDEPATH += $$QMAKE_INCDIR_EGL
+ LIBS_PRIVATE += $$QMAKE_LIBS_EGL
+ QMAKE_CFLAGS += $$QMAKE_CFLAGS_EGL
+ QMAKE_CXXFLAGS += $$QMAKE_CFLAGS_EGL
++DEFINES += $$QMAKE_DEFINES_EGL
+ LIBS += $$QMAKE_LFLAGS_EGL
+ for(p, QMAKE_LIBDIR_EGL) {
+     LIBS_PRIVATE += -L$$p
+diff --git a/qtbase/src/platformsupport/eglconvenience/qt_egl_p.h b/qtbase/src/platformsupport/eglconvenience/qt_egl_p.h
+index e2c6b0ceb63..ea554927de9 100644
+--- a/qtbase/src/platformsupport/eglconvenience/qt_egl_p.h
++++ b/qtbase/src/platformsupport/eglconvenience/qt_egl_p.h
+@@ -52,7 +52,9 @@
+ //
+ 
+ #ifdef QT_EGL_NO_X11
+-# define MESA_EGL_NO_X11_HEADERS // MESA
++# ifndef MESA_EGL_NO_X11_HEADERS
++#  define MESA_EGL_NO_X11_HEADERS // MESA
++# endif
+ # if !defined(Q_OS_INTEGRITY)
+ #  define WIN_INTERFACE_CUSTOM   // NV
+ # endif // Q_OS_INTEGRITY
