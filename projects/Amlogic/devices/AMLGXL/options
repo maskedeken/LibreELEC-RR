@@ -47,3 +47,11 @@
 
   # Mali GPU family
     MALI_FAMILY="450"
+
+  # Addon Server Url
+    ADDON_SERVER_URL="https://amlgx.libreelec.tv"
+
+  # set the addon dirs
+    ADDON_PATH="$ADDON_VERSION/AMLGX/$TARGET_ARCH"
+    ADDON_URL="$ADDON_SERVER_URL/$ADDON_PATH"
+
