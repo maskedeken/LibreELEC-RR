@@ -125,8 +125,7 @@ OEM_EMULATORS_GENERIC=" \
   fs-uae \
   mupen64plus \
   PCSX2 \
-  vice \
-  yquake2"
+  vice"
 
 # Frontends
 OEM_FRONTENDS_EXTRA_GENERIC=""
