@@ -1,14 +1,14 @@
-From 78a132df1423cc6df8af5b982c4162253bc9ad20 Mon Sep 17 00:00:00 2001
+From 4b90138ea1c28246e6a2b8d9b7568836cc4f3782 Mon Sep 17 00:00:00 2001
 From: 5schatten <supervisedthinking@gmail.com>
-Date: Wed, 18 Sep 2019 14:26:44 +0200
-Subject: [PATCH] test
+Date: Wed, 18 Sep 2019 20:24:48 +0200
+Subject: [PATCH] loader/CMakeList.txt: fix execution of asm_offset
 
 ---
  loader/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/loader/CMakeLists.txt b/loader/CMakeLists.txt
-index ed78054a1..90f6688f6 100644
+index ed78054a1..0af792501 100644
 --- a/loader/CMakeLists.txt
 +++ b/loader/CMakeLists.txt
 @@ -164,7 +164,7 @@ else(UNIX AND NOT APPLE) # i.e.: Linux
@@ -16,7 +16,7 @@ index ed78054a1..90f6688f6 100644
          add_executable(asm_offset asm_offset.c)
          target_link_libraries(asm_offset Vulkan::Headers)
 -        add_custom_command(OUTPUT gen_defines.asm DEPENDS asm_offset COMMAND asm_offset GAS)
-+        add_custom_command(OUTPUT gen_defines.asm DEPENDS ./asm_offset COMMAND ./asm_offset GAS)
++        add_custom_command(OUTPUT gen_defines.asm DEPENDS asm_offset COMMAND ./asm_offset GAS)
          add_custom_target(loader_asm_gen_files DEPENDS gen_defines.asm)
      else()
          message(WARNING "Could not find working x86 GAS assembler\n${ASM_FAILURE_MSG}")
