@@ -1,3 +1,3 @@
 #!/usr/bin/python
 import subprocess
-subprocess.call("systemd-run /usr/bin/emulationstation.start", shell=True)
+subprocess.call("systemctl start emulationstation.service", shell=True)
