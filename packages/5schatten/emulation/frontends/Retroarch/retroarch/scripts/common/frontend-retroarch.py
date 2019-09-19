@@ -1,3 +1,3 @@
 #!/usr/bin/python
 import subprocess
-subprocess.call("systemd-run /usr/bin/retroarch.start", shell=True)
+subprocess.call("systemctl start retroarch.service", shell=True)
