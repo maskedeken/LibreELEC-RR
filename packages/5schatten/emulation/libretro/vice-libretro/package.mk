@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="vice-libretro"
-PKG_VERSION="df01b118effc8d00f769327ac4837c0ef5fb6272"
-PKG_SHA256="0952ac7951e3c9d34ba426d03090b8613929e1eb9686ee25ff6aa4fdb1ee9a31"
+PKG_VERSION="f3e7249b8b3e436b1387c2f3876ae5525c67ac21"
+PKG_SHA256="dd7396254e26fc21713f3d5c20196edc3f624517730d05e114a91ea753531ef5"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/vice-libretro"
 PKG_URL="https://github.com/libretro/vice-libretro/archive/${PKG_VERSION}.tar.gz"
