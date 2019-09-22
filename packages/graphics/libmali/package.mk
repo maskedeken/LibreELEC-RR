@@ -8,6 +8,7 @@ PKG_ARCH="arm aarch64"
 PKG_LICENSE="nonfree"
 PKG_SITE="https://github.com/LibreELEC/libmali"
 PKG_URL="https://github.com/LibreELEC/libmali/archive/$PKG_VERSION.tar.gz"
+PKG_DEPENDS_TARGET="patchelf:host"
 PKG_LONGDESC="OpenGL ES user-space binary for the ARM Mali GPU family"
 PKG_STAMP="$MALI_FAMILY"
 
@@ -36,6 +37,10 @@ post_makeinstall_target() {
   if [ $(ls -1q $INSTALL/usr/lib/libmali-*.so | wc -l) -gt 1 ]; then
     ln -sfv /var/lib/libmali/libmali.so $INSTALL/usr/lib/libmali.so
   fi
+
+  # Add missing DT_SONAME libMali.so
+  patchelf --debug --set-soname libMali.so ${INSTALL}/usr/lib/libmali-*.so
+  patchelf --debug --set-soname libMali.so ${SYSROOT_PREFIX}/usr/lib/libmali-*.so
 }
 
 post_install() {
