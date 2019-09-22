@@ -1,14 +1,15 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
+# Copyright (C) 2018-present Frank Hartung (supervisedthinking @ gmail.com)
 
 PKG_NAME="qt-everywhere"
-PKG_VERSION="5.12.0"
-PKG_SHA256="356f42d9087718f22f03d13d0c2cdfb308f91dc3cf0c6318bed33f2094cd9d6c"
+PKG_VERSION="5.12.5"
+PKG_SHA256="a2299e21db7767caf98242767bffb18a2a88a42fee2d6a393bedd234f8c91298"
 PKG_LICENSE="GPL"
 PKG_SITE="http://qt-project.org"
 PKG_URL="http://download.qt.io/archive/qt/${PKG_VERSION%.*}/${PKG_VERSION}/single/${PKG_NAME}-src-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain libjpeg-turbo libpng pcre2 sqlite zlib freetype libxkbcommon gstreamer gst-plugins-base gst-plugins-good gst-libav"
 PKG_LONGDESC="A cross-platform application and UI framework"
+PKG_BUILD_FLAGS="-gold"
 
 configure_package() {
   # Build OpenMAX plugins
@@ -28,9 +29,6 @@ configure_package() {
 }
 
 pre_configure_target() {
-  # Fix cross compiling
-  sed -e "s#QMAKE_CFLAGS_ISYSTEM        = -isystem#QMAKE_CFLAGS_ISYSTEM        = -I#" -i ${PKG_BUILD}/qtbase/mkspecs/common/gcc-base.conf
-
   PKG_CONFIGURE_OPTS_TARGET="-prefix /usr
                              -sysroot ${SYSROOT_PREFIX}
                              -hostprefix ${TOOLCHAIN}
@@ -41,12 +39,14 @@ pre_configure_target() {
                              -release
                              -shared
                              -make libs
-                             -nomake examples
+                             -nomake examples -no-compile-examples
                              -nomake tests
                              -ccache
                              -gstreamer 1.0
                              -force-pkg-config
                              -silent
+                             -no-use-gold-linker
+                             -no-rpath
                              -system-libjpeg
                              -system-libpng
                              -system-pcre
@@ -65,8 +65,10 @@ pre_configure_target() {
                              -no-mtdev
                              -no-sql-mysql
                              -no-strip
+                             -no-tiff
                              -no-tslib
                              -no-feature-linuxfb
+                             -no-feature-vulkan
                              -no-feature-openal
                              -no-feature-qml-debug
                              -no-feature-printer
@@ -114,10 +116,16 @@ pre_configure_target() {
 }
 
 configure_target() {
-  QMAKE_CONF_DIR="qtbase/mkspecs/devices/linux-libreelec-g++"
-  QMAKE_CONF="${QMAKE_CONF_DIR}/qmake.conf"
+  # Create working dir
+  mkdir -p ${PKG_BUILD}/.${TARGET_NAME}
+  cd ${PKG_BUILD}/.${TARGET_NAME}
 
-  cd ..
+  # Fix cross compiling
+  sed -e "s#QMAKE_CFLAGS_ISYSTEM        = -isystem#QMAKE_CFLAGS_ISYSTEM        = -I#" -i ${PKG_BUILD}/qtbase/mkspecs/common/gcc-base.conf
+
+  # Create mkspecs file
+  QMAKE_CONF_DIR="${PKG_BUILD}/qtbase/mkspecs/devices/linux-libreelec-g++"
+  QMAKE_CONF="${QMAKE_CONF_DIR}/qmake.conf"
   mkdir -p ${QMAKE_CONF_DIR}
 
   # Set QMake Platform Flags
@@ -139,25 +147,56 @@ configure_target() {
   echo "QMAKE_CFLAGS            = ${CFLAGS}"      >> ${QMAKE_CONF}
   echo "QMAKE_CXXFLAGS          = ${CXXFLAGS}"    >> ${QMAKE_CONF}
   echo "QMAKE_LFLAGS            = ${LDFLAGS}"     >> ${QMAKE_CONF}
+  # Set project RPi flags
   if [ "${OPENGLES}" = "bcm2835-driver" ]; then
-    echo "QMAKE_LIBS_EGL += -lEGL -lGLESv2"       >> ${QMAKE_CONF}
-    echo "EGLFS_DEVICE_INTEGRATION = eglfs_brcm"  >> ${QMAKE_CONF}
+    echo "QMAKE_LIBDIR_OPENGL_ES2  = ${SYSROOT_PREFIX}/usr/lib"                                >> ${QMAKE_CONF}
+    echo "QMAKE_LIBDIR_EGL         = ${SYSROOT_PREFIX}/usr/lib"                                >> ${QMAKE_CONF}
+    echo "QMAKE_LIBDIR_OPENVG      = ${SYSROOT_PREFIX}/usr/lib"                                >> ${QMAKE_CONF}
+    echo "QMAKE_INCDIR_EGL         = ${SYSROOT_PREFIX}/usr/include \\"                         >> ${QMAKE_CONF}
+    echo "                           ${SYSROOT_PREFIX}/usr/include/interface/vcos/pthreads \\" >> ${QMAKE_CONF}
+    echo "                           ${SYSROOT_PREFIX}/usr/include/interface/vmcs_host/linux"  >> ${QMAKE_CONF}
+    echo "QMAKE_INCDIR_OPENGL_ES2  = ${SYSROOT_PREFIX}/usr/include"                            >> ${QMAKE_CONF}
+    echo "QMAKE_INCDIR_OPENVG      = ${SYSROOT_PREFIX}/usr/include"                            >> ${QMAKE_CONF}
+    echo "QMAKE_LIBS_EGL           = -lEGL -lGLESv2"                                           >> ${QMAKE_CONF}
+    echo "QMAKE_LIBS_OPENVG        = -lEGL -lOpenVG -lGLESv2"                                  >> ${QMAKE_CONF}
+    echo "QMAKE_INCDIR_BCM_HOST    = ${SYSROOT_PREFIX}/usr/include"                            >> ${QMAKE_CONF}
+    echo "QMAKE_LIBDIR_BCM_HOST    = ${SYSROOT_PREFIX}/usr/lib"                                >> ${QMAKE_CONF}
+    echo "QMAKE_LIBS_BCM_HOST      = -lbcm_host"                                               >> ${QMAKE_CONF}
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_brcm"                                               >> ${QMAKE_CONF}
+  # Set Mali based project flags
   elif [ "${OPENGLES}" = "libmali" ]; then
-    echo "QMAKE_LIBS_EGL += -lMali"               >> ${QMAKE_CONF}
-    echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms"   >> ${QMAKE_CONF}
+    echo "QMAKE_INCDIR_EGL         = ${SYSROOT_PREFIX}/usr/include" >> ${QMAKE_CONF}
+    echo "QMAKE_INCDIR_OPENGL_ES2  = ${SYSROOT_PREFIX}/usr/include" >> ${QMAKE_CONF}
+    echo "QMAKE_LIBDIR_EGL         = ${SYSROOT_PREFIX}/usr/lib"     >> ${QMAKE_CONF}
+    echo "QMAKE_LIBDIR_OPENGL_ES2  = ${SYSROOT_PREFIX}/usr/lib"     >> ${QMAKE_CONF}
+    echo "QMAKE_LIBS_EGL           = -lMali"                        >> ${QMAKE_CONF}
+    echo "QMAKE_LIBS_OPENGL_ES2    = -lMali"                        >> ${QMAKE_CONF}
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms"                     >> ${QMAKE_CONF}
+  # Set Mesa 3D OpenGL ES based project flags
   elif [ "${OPENGLES}" = "mesa" ]; then
-    echo "QMAKE_LIBS_EGL += -lEGL -lGLESv2"       >> ${QMAKE_CONF}
-    echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms"   >> ${QMAKE_CONF}
+    echo "QMAKE_LIBS_EGL += -lEGL"              >> ${QMAKE_CONF}
+    echo "EGLFS_DEVICE_INTEGRATION = eglfs_kms" >> ${QMAKE_CONF}
   fi
   echo "load(qt_config)"                            >> ${QMAKE_CONF}
   echo '#include "../../linux-g++/qplatformdefs.h"' >> ${QMAKE_CONF_DIR}/qplatformdefs.h
 
   unset CC CXX LD RANLIB AR AS CPPFLAGS CFLAGS LDFLAGS CXXFLAGS
   export QT_FORCE_PKGCONFIG=yes
-  ./configure ${PKG_CONFIGURE_OPTS_TARGET}
+  ${PKG_BUILD}/configure ${PKG_CONFIGURE_OPTS_TARGET}
 }
 
 post_makeinstall_target() {
+  # Remove references to the build directory from installed library dependencies
+  find ${PKG_ORIG_SYSROOT_PREFIX}/usr/lib/ -name \*.prl -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+  for PKG_CONFIGS in $(find "${PKG_ORIG_SYSROOT_PREFIX}/usr/lib" -type f -name "Qt*.pc" 2>/dev/null); do
+    sed -e "s#prefix=.*#prefix=/usr#g" -i "${PKG_CONFIGS}"
+  done
+
+  for PKG_PRI in $(find "${TOOLCHAIN}/mkspecs" -type f -name "*.pri" 2>/dev/null); do
+    sed -E "s#${PKG_ORIG_SYSROOT_PREFIX}/usr/lib/lib([^.]+)\.(so|a)# -l\1#g" -i "${PKG_PRI}"
+  done
+
   # Create directories
   mkdir -p ${INSTALL}/usr/lib
   mkdir -p ${INSTALL}/usr/plugins
