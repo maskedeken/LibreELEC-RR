@@ -46,6 +46,7 @@ pre_configure_target() {
                              -force-pkg-config
                              -silent
                              -no-use-gold-linker
+                             -reduce-relocations -ltcg
                              -no-rpath
                              -system-libjpeg
                              -system-libpng
