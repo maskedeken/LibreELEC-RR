@@ -8,11 +8,10 @@ PKG_ARCH="arm aarch64"
 PKG_LICENSE="nonfree"
 PKG_SITE="https://github.com/LibreELEC/libmali"
 PKG_URL="https://github.com/LibreELEC/libmali/archive/$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="patchelf:host"
 PKG_LONGDESC="OpenGL ES user-space binary for the ARM Mali GPU family"
 PKG_STAMP="$MALI_FAMILY"
 
-PKG_DEPENDS_TARGET="libdrm"
+PKG_DEPENDS_TARGET="libdrm patchelf:host"
 
 if listcontains "$MALI_FAMILY" "(t620|t720)"; then
   PKG_DEPENDS_TARGET+=" wayland"
