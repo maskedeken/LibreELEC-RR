@@ -19,7 +19,7 @@ configure_package() {
   fi
 
   if [ "${OPENGL_SUPPORT}" = "yes" ]; then
-    PKG_DEPENDS_TARGET+="  ${OPENGL} dosbox-sdl2-shaders glew"
+    PKG_DEPENDS_TARGET+="  ${OPENGL} dosbox-sdl2-shaders glew-cmake"
   fi
 }
 
