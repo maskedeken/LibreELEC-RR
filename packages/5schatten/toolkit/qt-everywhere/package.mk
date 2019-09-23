@@ -46,7 +46,7 @@ pre_configure_target() {
                              -force-pkg-config
                              -silent
                              -no-use-gold-linker
-                             -reduce-relocations -ltcg
+                             -ltcg
                              -no-rpath
                              -system-libjpeg
                              -system-libpng
@@ -55,7 +55,6 @@ pre_configure_target() {
                              -system-zlib
                              -no-accessibility
                              -no-cups
-                             -no-dbus
                              -no-evdev
                              -no-gif
                              -no-glib
@@ -113,6 +112,11 @@ pre_configure_target() {
   # Build with XCB support for X11
   if [ ${DISPLAYSERVER} = "x11" ]; then
     PKG_CONFIGURE_OPTS_TARGET+=" -system-xcb"
+  fi
+
+  # Build only Generic with reduced relocations https://bugreports.qt.io/browse/QTBUG-36129
+  if [ ${ARCH} = "x86_64" ]; then
+    PKG_CONFIGURE_OPTS_TARGET+=" -reduce-relocations"
   fi
 }
 
@@ -205,7 +209,7 @@ post_makeinstall_target() {
 
   # Install Qt5 libs
   for PKG_QT5_LIBS in \
-    libQt5Concurrent libQt5Core libQt5Gamepad libQt5Gui libQt5Multimedia libQt5MultimediaGstTools libQt5MultimediaQuick \
+    libQt5Concurrent libQt5Core libQt5DBus libQt5Gamepad libQt5Gui libQt5Multimedia libQt5MultimediaGstTools libQt5MultimediaQuick \
     libQt5MultimediaWidgets libQt5Network libQt5OpenGL libQt5Qml libQt5Quick libQt5QuickControls2 libQt5QuickParticles \
     libQt5QuickTemplates2 libQt5QuickTest libQt5Sql libQt5Svg libQt5Test libQt5Widgets libQt5Xml
   do
