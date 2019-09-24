@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="fbneo"
-PKG_VERSION="68b4284a5942912589ab3bd9011c93f1851f9577"
-PKG_SHA256="a03ab8df7b03eb2abc6c7cb2fa9be1c6e92ff6882ca52c241b1ef2ad85b852ce"
+PKG_VERSION="e33f59c88ae9b7cc121a73ef06fa286f3db674b2"
+PKG_SHA256="9e1162f43f1da6dbde3b16b1db5d196079efc0b851810a8828359e1d4251d543"
 PKG_LICENSE="OSS"
 PKG_SITE="https://github.com/libretro/FBNeo"
 PKG_URL="https://github.com/libretro/FBNeo/archive/${PKG_VERSION}.tar.gz"
