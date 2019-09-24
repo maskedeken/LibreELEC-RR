@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="nestopia"
-PKG_VERSION="e56a04ae23d928bb50b213642e4729608f69efb8"
-PKG_SHA256="668b765ee2697f43acfbc058ec48ea30aa9a4a3ddf7dc66377a0ae1402b8d0ac"
+PKG_VERSION="7f48c211c281880d122981da119a4455a9bebbde"
+PKG_SHA256="7aca36ee87a52f9cc18d0e397ccada1cfd732364164e273fc947091026066e97"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/nestopia"
 PKG_URL="https://github.com/libretro/nestopia/archive/${PKG_VERSION}.tar.gz"
