@@ -14,8 +14,13 @@ PKG_TOOLCHAIN="autotools"
 
 PKG_CONFIGURE_OPTS_TARGET="--without-glut"
 
+pre_configure_target() {
+  export GLEW_CFLAGS="-I${SYSROOT_PREFIX}/usr/include ${CFLAGS}"
+  export GLEW_LIBS="-L${SYSROOT_PREFIX}/usr/lib ${LDFLAGS}"
+}
+
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/bin
-  cp -v src/xdemos/glxinfo  ${INSTALL}/usr/bin
-  cp -v src/xdemos/glxgears ${INSTALL}/usr/bin
+   cp -v src/xdemos/glxinfo  ${INSTALL}/usr/bin
+   cp -v src/xdemos/glxgears ${INSTALL}/usr/bin
 }
