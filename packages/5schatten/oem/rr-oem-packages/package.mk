@@ -125,6 +125,7 @@ OEM_EMULATORS_GENERIC=" \
   fs-uae \
   mupen64plus \
   PCSX2 \
+  RPCS3 \
   vice"
 
 # Frontends
