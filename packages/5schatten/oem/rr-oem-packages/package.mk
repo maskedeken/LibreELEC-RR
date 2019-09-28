@@ -21,7 +21,6 @@ OEM_EMULATORS_COMMON=" \
   emulationstation \
   dosbox-sdl2 \
   hatari \
-  moonlight-embedded \
   ppsspp"
 
 # Extra frontends
@@ -81,7 +80,8 @@ OEM_APPLICATIONS_AMLOGIC=""
 
 # Standalone emulators
 OEM_EMULATORS_AMLOGIC=" \
-  amiberry"
+  amiberry \
+  moonlight-embedded"
 
 # Frontends
 OEM_FRONTENDS_EXTRA_AMLOGIC=""
@@ -164,12 +164,13 @@ OEM_TOOLS_GENERIC=" \
 # Applications
 OEM_APPLICATIONS_ROCKCHIP=""
 
-# Frontends
-OEM_FRONTENDS_EXTRA_ROCKCHIP=""
-
 # Standalone emulators
 OEM_EMULATORS_ROCKCHIP=" \
-  amiberry"
+  amiberry \
+  moonlight-embedded"
+
+# Frontends
+OEM_FRONTENDS_EXTRA_ROCKCHIP=""
 
 # Libretro cores 
 OEM_LIBRETRO_ROCKCHIP=" \
@@ -192,6 +193,11 @@ OEM_TOOLS_ROCKCHIP=""
 # Applications
 OEM_APPLICATIONS_RPI=""
 
+# Standalone emulators
+OEM_EMULATORS_RPI=" \
+  amiberry \
+  moonlight-embedded"
+
 # Frontends
 OEM_FRONTENDS_EXTRA_RPI=""
 
@@ -200,10 +206,6 @@ OEM_LIBRETRO_RPI=" \
   mame2010 \
   snes9x2010 \
   yabause"
-
-# Standalone emulators
-OEM_EMULATORS_RPI=" \
-  amiberry"
 
 # Tools
 OEM_TOOLS_RPI=""
