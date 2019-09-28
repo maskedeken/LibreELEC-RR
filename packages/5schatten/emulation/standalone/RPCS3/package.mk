@@ -7,7 +7,7 @@ PKG_ARCH="x86_64"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://rpcs3.net"
 PKG_URL="https://github.com/RPCS3/rpcs3.git"
-PKG_DEPENDS_TARGET="toolchain linux glibc systemd pulseaudio llvm mesa openal-soft libevdev curl ffmpeg libpng zlib vulkan-loader glew-cmake libSM enet qt-everywhere unclutter-xfixes"
+PKG_DEPENDS_TARGET="toolchain linux glibc systemd pulseaudio llvm mesa openal-soft-system libevdev curl ffmpeg libpng zlib vulkan-loader glew-cmake libSM enet qt-everywhere unclutter-xfixes"
 PKG_LONGDESC="RPCS3 is an experimental open-source Sony PlayStation 3 emulator and debugger."
 GET_HANDLER_SUPPORT="git"
 
