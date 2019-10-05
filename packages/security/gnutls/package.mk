@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="gnutls"
-PKG_VERSION="3.6.8"
-PKG_SHA256="aa81944e5635de981171772857e72be231a7e0f559ae0292d2737de475383e83"
+PKG_VERSION="3.6.10"
+PKG_SHA256="b1f3ca67673b05b746a961acf2243eaae0ffe658b6a6494265c648e7c7812293"
 PKG_LICENSE="LGPL2.1"
 PKG_SITE="https://gnutls.org"
 PKG_URL="https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-${PKG_VERSION}.tar.xz"
