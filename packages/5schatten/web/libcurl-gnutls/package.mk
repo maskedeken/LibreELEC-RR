@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="libcurl-gnutls"
-PKG_VERSION="7.65.3"
-PKG_SHA256="f2d98854813948d157f6a91236ae34ca4a1b4cb302617cebad263d79b0235fea"
+PKG_VERSION="7.66.0"
+PKG_SHA256="dbb48088193016d079b97c5c3efde8efa56ada2ebf336e8a97d04eb8e2ed98c1"
 PKG_LICENSE="MIT"
 PKG_SITE="http://curl.haxx.se"
 PKG_URL="http://curl.haxx.se/download/curl-${PKG_VERSION}.tar.xz"
@@ -72,10 +72,10 @@ pre_configure_target() {
 makeinstall_target() {
   # Create lib directory & install lib as libcurl-gnutls.so.*
   mkdir -p ${INSTALL}/usr/lib
-  cp -f ${PKG_BUILD}/.${TARGET_NAME}/lib/.libs/libcurl.so.4.5.0 ${INSTALL}/usr/lib/libcurl-gnutls.so.4.5.0
+  cp -f ${PKG_BUILD}/.${TARGET_NAME}/lib/.libs/libcurl.so.4.6.0 ${INSTALL}/usr/lib/libcurl-gnutls.so.4.6.0
 
-  # Create symlinks to libcurl-gnutls.so.4.5.0
+  # Create symlinks to libcurl-gnutls.so.4.6.0
   for version in 3 4 4.0.0 4.1.0 4.2.0 4.3.0 4.4.0; do
-    ln -s libcurl-gnutls.so.4.5.0 ${INSTALL}/usr/lib/libcurl-gnutls.so.${version}
+    ln -s libcurl-gnutls.so.4.6.0 ${INSTALL}/usr/lib/libcurl-gnutls.so.${version}
   done
 }
