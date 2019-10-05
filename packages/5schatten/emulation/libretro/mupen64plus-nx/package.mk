@@ -2,8 +2,11 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="mupen64plus-nx"
+PKG_VERSION="f77c16f9f1dd911fd2254becc8a28adcdafe8aa1"
+PKG_SHA256="a6972d0a423778a8447cbe69c2c7d4179fdd1bbef3a3d37ea823ba554ff8f4d8"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mupen64plus-libretro-nx"
+PKG_URL="https://github.com/libretro/mupen64plus-libretro-nx/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain linux glibc zlib libpng"
 PKG_LONGDESC="Mupen64Plus is mupen64plus + GLideN64 + libretro"
 PKG_TOOLCHAIN="make"
@@ -11,16 +14,6 @@ PKG_TOOLCHAIN="make"
 if [ "${ARCH}" = "arm" ]; then
   PKG_BUILD_FLAGS="+lto"
 fi
-
-# Fix me: https://github.com/libretro/mupen64plus-libretro-nx/issues/99
-if [ "${OPENGLES}" = "libmali" ]; then
-  PKG_VERSION="b785150465048fa88f812e23462f318e66af0be0"
-  PKG_SHA256="456c433f45b0e2ba15a587978234e3e1300301d431b6823747ad0e779331c97e"
-else
-  PKG_VERSION="16d96924d8a31483bfd0b2d1bc39dc6e319d4352"
-  PKG_SHA256="116553083e1e0280b9e96b451988112c23e021193be963057afe57dfb3d55f2b"
-fi
-PKG_URL="https://github.com/libretro/mupen64plus-libretro-nx/archive/${PKG_VERSION}.tar.gz"
 
 PKG_LIBNAME="mupen64plus_next_libretro.so"
 PKG_LIBPATH="${PKG_LIBNAME}"
