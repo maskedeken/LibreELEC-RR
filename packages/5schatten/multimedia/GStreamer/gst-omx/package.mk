@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="gst-omx"
-PKG_VERSION="1.16.0"
-PKG_SHA256="fef77cddc02784608451c46b9def880b63230a246decf8900f2da2ed54a8af4a"
+PKG_VERSION="1.16.1"
+PKG_SHA256="cbf54121a2cba575d460833e8132265781252ce32cf5b8f9fa8753e42ab24bb2"
 PKG_LICENSE="LGPL-2.1"
 PKG_SITE="https://gstreamer.freedesktop.org/modules/gst-omx.html"
 PKG_URL="https://gstreamer.freedesktop.org/src/gst-omx/${PKG_NAME}-${PKG_VERSION}.tar.xz"
