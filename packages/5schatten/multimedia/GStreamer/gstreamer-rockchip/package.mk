@@ -2,7 +2,7 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="gstreamer-rockchip"
-PKG_VERSION="c766879e0b750233b197a2dd495e562d64498244"
+PKG_VERSION="bb40fc6e71c324f902136b95dfd2727ef4203b81"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/rockchip-linux/gstreamer-rockchip"
 PKG_URL="https://github.com/rockchip-linux/gstreamer-rockchip.git"
