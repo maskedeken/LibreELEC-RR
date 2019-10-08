@@ -3,9 +3,9 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="docker"
-PKG_VERSION="19.03.2"
-PKG_SHA256="46b52f92cb258e038e3f29624e75a52e4d2f91502f56edeac0f0b2661b3b9c3d"
-PKG_REV="128"
+PKG_VERSION="19.03.3"
+PKG_SHA256="63b0d28608f32573b9c03fa46247c6f959e9c08133ddf30a71276919de0194c0"
+PKG_REV="129"
 PKG_ARCH="any"
 PKG_LICENSE="ASL"
 PKG_SITE="http://www.docker.com/"
@@ -17,7 +17,7 @@ PKG_LONGDESC="Docker containers can encapsulate any payload, and will run consis
 PKG_TOOLCHAIN="manual"
 
 # Git commit of the matching release https://github.com/docker/docker-ce/releases
-export PKG_GIT_COMMIT="6a30dfca03664a0b6bf0646a7d389ee7d0318e6e"
+export PKG_GIT_COMMIT="a872fc2f86c042e6992e17db6cdd9826c9c4232b"
 
 PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Docker"
@@ -83,7 +83,7 @@ configure_target() {
   cp -rf ${PKG_BUILD}/.gopath/src/github.com/moby/buildkit/util/progress/*          ${PKG_BUILD}/.gopath_cli/src/github.com/moby/buildkit/util/progress
   cp -rf ${PKG_BUILD}/.gopath/src/github.com/docker/swarmkit/manager/*              ${PKG_BUILD}/.gopath_cli/src/github.com/docker/swarmkit/manager
   cp -rf ${PKG_BUILD}/.gopath/src/github.com/coreos/etcd/raft/*                     ${PKG_BUILD}/.gopath_cli/src/github.com/coreos/etcd/raft
-  cp -rf ${PKG_BUILD}/.gopath/src/golang.org/x/*                                    ${PKG_BUILD}/.gopath_cli/src/golang.org/x
+  cp -rf ${PKG_BUILD}/.gopath/src/golang.org/x/crypto/*                             ${PKG_BUILD}/.gopath_cli/src/golang.org/x/crypto
   cp -rf ${PKG_BUILD}/.gopath/src/github.com/opencontainers/runtime-spec/specs-go/* ${PKG_BUILD}/.gopath_cli/src/github.com/opencontainers/runtime-spec/specs-go
 
   rm -rf   ${PKG_BUILD}/.gopath_cli/src/github.com/containerd/containerd
