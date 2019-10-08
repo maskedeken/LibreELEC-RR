@@ -2,8 +2,8 @@
 # Copyright (C) 2019-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="bsnes"
-PKG_VERSION="68a71a84a016aa479dce3a3493411191090a208e"
-PKG_SHA256="78b9b996dcdeed918f3b43e094e823170cf045ae7d0b25a5502f5b91491c808e"
+PKG_VERSION="e71da4d8c86d561445781cc00b6ac83de12e7d2d"
+PKG_SHA256="a0677b9359304b8840f16813572897c8e733008de07d9628311c54226bb7092c"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/bsnes"
 PKG_URL="https://github.com/libretro/bsnes/archive/${PKG_VERSION}.tar.gz"
@@ -12,7 +12,7 @@ PKG_LONGDESC="bsnes is a multi-platform Super Nintendo (Super Famicom) emulator 
 PKG_TOOLCHAIN="make"
 PKG_BUILD_FLAGS="+lto"
 
-PKG_LIBNAME="bsnes_hd_libretro.so"
+PKG_LIBNAME="bsnes_libretro.so"
 PKG_LIBPATH="bsnes/out/${PKG_LIBNAME}"
 
 PKG_MAKE_OPTS_TARGET="-C bsnes \
