@@ -2,8 +2,8 @@
 # Copyright (C) 2019-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="glew-cmake"
-PKG_VERSION="36ec731e27e040bd7b5d4a6a4e1bffea75520128" #2.2.0 RC2
-PKG_SHA256="756d207712263f33f9a719998bd60dc829e17f48431a53fec6f75a58d6e4f931"
+PKG_VERSION="6f770a5b5b9a904972b9c6974e40106bc3a27b5a" #2.2.0 RC2
+PKG_SHA256="2e4bc128bc8fe0cfacf7dcb466fe101083f9901f80b731415a5318bf76e7f789"
 PKG_LICENSE="BSD"
 PKG_SITE="https://github.com/Perlmint/glew-cmake"
 PKG_URL="https://github.com/Perlmint/glew-cmake/archive/${PKG_VERSION}.tar.gz"
