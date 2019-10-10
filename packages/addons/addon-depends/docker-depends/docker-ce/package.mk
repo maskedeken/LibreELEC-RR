@@ -89,7 +89,7 @@ configure_target() {
     mv ${PKG_CLI_COMPONENTS_PATH}/vendor/* ${PKG_CLI_GOPATH_SRC}
   fi
 
-  if [ ! -L ${PKG_CLI_GOPATH_SRC}/github.com/docker/cli ];then
+  if [ ! -L ${PKG_CLI_GOPATH_SRC}/github.com/docker/cli ]; then
     ln -fs ${PKG_CLI_COMPONENTS_PATH} ${PKG_CLI_GOPATH_SRC}/github.com/docker/cli
   fi
 
@@ -99,7 +99,7 @@ configure_target() {
     mv ${PKG_ENGINE_COMPONENTS_PATH}/vendor/* ${PKG_ENGINE_GOPATH_SRC}
   fi
 
-  if [ ! -L ${PKG_ENGINE_GOPATH_SRC}/github.com/docker/docker ];then
+  if [ ! -L ${PKG_ENGINE_GOPATH_SRC}/github.com/docker/docker ]; then
     ln -fs  ${PKG_ENGINE_COMPONENTS_PATH} ${PKG_ENGINE_GOPATH_SRC}/github.com/docker/docker
   fi
 }
