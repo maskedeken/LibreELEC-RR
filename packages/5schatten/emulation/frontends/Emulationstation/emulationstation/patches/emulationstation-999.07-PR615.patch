@@ -1,0 +1,50 @@
+From 8d759c7c5dd32ddb6f811b28abbe352e98a6923c Mon Sep 17 00:00:00 2001
+From: John Rassa <john@rassaonline.net>
+Date: Wed, 9 Oct 2019 18:51:33 -0400
+Subject: [PATCH] add 'animate' to theme properties for imagegrid; fix
+ blurriness on image upscaling
+
+---
+ es-core/src/ThemeData.cpp                 | 1 +
+ es-core/src/renderers/Renderer_GL21.cpp   | 2 +-
+ es-core/src/renderers/Renderer_GLES10.cpp | 2 +-
+ 3 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/es-core/src/ThemeData.cpp b/es-core/src/ThemeData.cpp
+index 18114235e..2d1be3d04 100644
+--- a/es-core/src/ThemeData.cpp
++++ b/es-core/src/ThemeData.cpp
+@@ -42,6 +42,7 @@ std::map<std::string, std::map<std::string, ThemeData::ElementPropertyType>> The
+ 		{ "scrollDirection", STRING },
+ 		{ "centerSelection", BOOLEAN },
+ 		{ "scrollLoop", BOOLEAN },
++		{ "animate", BOOLEAN },
+ 		{ "zIndex", FLOAT } } },
+ 	{ "gridtile", {
+ 		{ "size", NORMALIZED_PAIR },
+diff --git a/es-core/src/renderers/Renderer_GL21.cpp b/es-core/src/renderers/Renderer_GL21.cpp
+index a792bfab2..986fa94be 100644
+--- a/es-core/src/renderers/Renderer_GL21.cpp
++++ b/es-core/src/renderers/Renderer_GL21.cpp
+@@ -105,7 +105,7 @@ namespace Renderer
+ 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _repeat ? GL_REPEAT : GL_CLAMP_TO_EDGE);
+ 
+ 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _linear ? GL_LINEAR : GL_NEAREST);
+-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _linear ? GL_LINEAR : GL_NEAREST);
++		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+ 
+ 		glPixelStorei(GL_PACK_ALIGNMENT, 1);
+ 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+diff --git a/es-core/src/renderers/Renderer_GLES10.cpp b/es-core/src/renderers/Renderer_GLES10.cpp
+index bc37dd7fe..9019e79e9 100644
+--- a/es-core/src/renderers/Renderer_GLES10.cpp
++++ b/es-core/src/renderers/Renderer_GLES10.cpp
+@@ -105,7 +105,7 @@ namespace Renderer
+ 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _repeat ? GL_REPEAT : GL_CLAMP_TO_EDGE);
+ 
+ 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _linear ? GL_LINEAR : GL_NEAREST);
+-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _linear ? GL_LINEAR : GL_NEAREST);
++		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+ 
+ 		glPixelStorei(GL_PACK_ALIGNMENT, 1);
+ 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
