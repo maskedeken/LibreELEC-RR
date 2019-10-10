@@ -11,6 +11,12 @@ PKG_DEPENDS_TARGET="toolchain sqlite go:host"
 PKG_LONGDESC="Docker: an open source project to pack, ship and run any application as a lightweight container."
 PKG_TOOLCHAIN="manual"
 
+pre_configure_target() {
+  # Set Docker config path to Kodi addon storage
+  cd ${PKG_BUILD}
+  find -name *.go -exec sed -i "s#/etc/docker#/storage/.kodi/userdata/addon_data/service.system.docker/config#g" \{} \;
+}
+
 configure_target() {
   # Setup golang toolchain
   case ${TARGET_ARCH} in
