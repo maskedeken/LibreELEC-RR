@@ -75,7 +75,8 @@ configure_target() {
 
   PKG_CLI_GOPATH="${PKG_BUILD}/.gopath_cli"
   PKG_CLI_GOPATH_SRC="${PKG_CLI_GOPATH}/src"
-  PKG_ENGINE_GOPATH="${PKG_BUILD}/.gopath_engine/src"
+
+  PKG_ENGINE_GOPATH="${PKG_BUILD}/.gopath_engine"
   PKG_ENGINE_GOPATH_SRC="${PKG_ENGINE_GOPATH}/src"
   
   # Generate "version_autogen.go"
