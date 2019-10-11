@@ -18,10 +18,6 @@ PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Docker"
 PKG_ADDON_TYPE="xbmc.service"
 
-makeinstall_target() {
- :
-}
-
 addon() {
   mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/bin
     # containerd
