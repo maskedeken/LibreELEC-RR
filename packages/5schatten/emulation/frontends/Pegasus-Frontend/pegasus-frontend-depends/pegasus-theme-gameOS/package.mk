@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 
 PKG_NAME="pegasus-theme-gameOS"
-PKG_VERSION="78e834c4929ddf69e4a6143daa403338313758a6" # v0.5+
-PKG_SHA256="caa7a7e8319be1771d889b54bc8688d33d2a16420b4476cd6b6b69c3ff41f508"
+PKG_VERSION="e4cfdaece6991a908927d5bca760a6c67645022e" # v0.6.6
+PKG_SHA256="9a1e1cc2749cf6c7d0a3398a68368273c3dc607c2e55f2ee3441290d525613b5"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/PlayingKarrde/gameOS"
 PKG_URL="https://github.com/PlayingKarrde/gameOS/archive/${PKG_VERSION}.tar.gz"
