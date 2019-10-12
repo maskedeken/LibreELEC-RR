@@ -29,7 +29,8 @@ makeinstall_target() {
 
   # Add missing generic systems
   if [ "$PROJECT" = "Generic" ]; then
-    cp -a $PKG_DIR/files/n3ds $INSTALL/${ES_THEME_PATH}/
-    cp -a $PKG_DIR/files/ps3  $INSTALL/${ES_THEME_PATH}/
+    cp -a $PKG_DIR/files/n3ds    $INSTALL/${ES_THEME_PATH}/
+    cp -a $PKG_DIR/files/openbor $INSTALL/${ES_THEME_PATH}/
+    cp -a $PKG_DIR/files/ps3     $INSTALL/${ES_THEME_PATH}/
   fi
 }
