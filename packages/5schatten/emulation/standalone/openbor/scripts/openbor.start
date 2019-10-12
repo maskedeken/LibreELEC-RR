@@ -7,6 +7,7 @@
 
 # Set common variables
 RR_OPENBOR_CONFIG=/storage/.config/openbor
+RR_OPENBOR_LOG=/var/log/openbor.log
 
 # Create config files
 FULL_PAK_NAME=$(basename "$1")
@@ -21,6 +22,10 @@ if [ ! -f ${RR_OPENBOR_CONFIG}/Saves/${PAK_CONFIG_NAME} ]; then
   echo "created config file for" ${FULL_PAK_NAME}
 fi
 
+if [ ! -L ${RR_OPENBOR_LOG} ]; then
+  ln -sf ${RR_OPENBOR_CONFIG}/Logs/OpenBorLog.txt ${RR_OPENBOR_LOG}
+fi
+
 # Stop Kodi service / load audio backend config
 kodi-service.sh --stop
 
@@ -32,7 +37,8 @@ set_SDL_audiodriver
 
 # Run the emulator
 cd ${RR_OPENBOR_CONFIG}
-openbor "$@" > /var/log/openbor.log 2>&1
+openbor "$@"
+cd -
 
 # Switch back to frontends or start Kodi service / unload audio backend config
 pidof emulationstation > /dev/null 2>&1 || pidof pegasus-fe > /dev/null 2>&1 || kodi-service.sh --start
