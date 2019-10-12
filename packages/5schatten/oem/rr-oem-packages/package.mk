@@ -124,6 +124,7 @@ OEM_EMULATORS_GENERIC=" \
   dolphin \
   fs-uae \
   mupen64plus \
+  openbor \
   PCSX2 \
   RPCS3 \
   vice"
