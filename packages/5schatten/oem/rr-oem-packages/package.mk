@@ -21,7 +21,8 @@ OEM_EMULATORS_COMMON=" \
   emulationstation \
   dosbox-sdl2 \
   hatari \
-  ppsspp"
+  ppsspp \
+  openbor"
 
 # Extra frontends
 OEM_FRONTENDS_EXTRA_COMMON=" \
@@ -124,7 +125,6 @@ OEM_EMULATORS_GENERIC=" \
   dolphin \
   fs-uae \
   mupen64plus \
-  openbor \
   PCSX2 \
   RPCS3 \
   vice"
