@@ -23,14 +23,17 @@ pre_configure_target() {
 }
 
 pre_make_target() {
+  # Generate version.h
   cd ${PKG_BUILD}/engine
   ./version.sh
 }
 
 makeinstall_target() {
+  # Install binary & start script
   mkdir -p ${INSTALL}/usr/bin
     cp -fv ${PKG_BUILD}/engine/OpenBOR ${INSTALL}/usr/bin/openbor
-    cp -rfv $PKG_DIR/scripts/* $INSTALL/usr/bin
+    cp -rfv ${PKG_DIR}/scripts/* ${INSTALL}/usr/bin
+  # Install default config cfg
   mkdir -p ${INSTALL}/usr/config/openbor
-    cp -rfv $PKG_DIR/config/* $INSTALL/usr/config/openbor
+    cp -rfv ${PKG_DIR}/config/* ${INSTALL}/usr/config/openbor
 }
