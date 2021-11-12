@@ -40,7 +40,7 @@
   # additional Firmware to use (dvb-firmware, misc-firmware, wlan-firmware)
   # Space separated list is supported,
   # e.g. FIRMWARE="dvb-firmware misc-firmware wlan-firmware"
-    FIRMWARE="dvb-firmware brcmfmac_sdio-firmware meson-firmware"
+    FIRMWARE="dvb-firmware brcmfmac_sdio-firmware kernel-firmware meson-firmware"
 
   # build with installer (yes / no)
     INSTALLER_SUPPORT="no"
@@ -53,7 +53,7 @@
   # for a list of additional drivers see packages/linux-drivers
   # Space separated list is supported,
   # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
-    ADDITIONAL_DRIVERS=""
+    ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS"
 
   # build and install driver addons (yes / no)
     DRIVER_ADDONS_SUPPORT="no"
