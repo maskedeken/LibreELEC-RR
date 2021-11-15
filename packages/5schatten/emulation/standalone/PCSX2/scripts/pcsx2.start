@@ -117,7 +117,7 @@ if [ -x ${DOCKER_PATH} ]; then
   docker_image_run "$@"
 
   # Switch back to frontends or start Kodi service / unload audio backend config
-  pidof emulationstation > /dev/null 2>&1 || pidof pegasus-fe > /dev/null 2>&1 || kodi-service.sh --start
+  pidof emulationstation > /dev/null 2>&1 || kodi-service.sh --start
 else
   # Inform about the missing Docker addon
   echo "######################################################################################################" > ${PCSX2_LOG} 2>&1

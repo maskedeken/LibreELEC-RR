@@ -25,8 +25,7 @@ OEM_EMULATORS_COMMON=" \
   openbor"
 
 # Extra frontends
-OEM_FRONTENDS_EXTRA_COMMON=" \
-  pegasus-frontend"
+OEM_FRONTENDS_EXTRA_COMMON=""
 
 # Common libretro cores
 OEM_LIBRETRO_COMMON=" \
